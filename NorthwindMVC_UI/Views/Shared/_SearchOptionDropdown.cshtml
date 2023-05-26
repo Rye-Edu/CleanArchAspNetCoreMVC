@@ -1,0 +1,35 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Northwind_App.ViewModels.ProductVM.ProductViewModel
+
+<select aria-label="filter options" class="form-control-sm pe-lg-1" id="categorized-options" asp-for="ProductFilter.SelectedOption"
+        asp-items="@Model.ProductFilter.SearchFilters">
+        <option value="" id="default-val">Choose</option>     
+    </select>
+
+
+
+<select aria-label="selected options" class="form-control-sm selections" id="selected-option" asp-for="ProductFilter.SelectedText">
+        <option value="">Choose</option>
+        
+     
+    </select>
+     @*<input type="hidden" id="selected-text" asp-for="ProductFilter.SelectedText"/>*@
+    <input type="button" value="Reset" class="btn btn-secondary btn-sm selections" id="reset-btn" >
+
+
+
+
+@*<select aria-label="selected options" class="form-control-sm selections" id="selected-option" asp-for="ProductFilter.SearchFilters" asp-route-selectedValue="@Model.ProductFilter.SearchFilters"
+        onchange="location.href=' @Url.Action("Products","ProductCatalog", new { selectedValue = Model.ProductFilter.SearchFilters})'">
+    <option>Choose</option>
+</select>*@
+@*
+
+<select aria-label="selected options" class="form-control-sm selections" id="selected-option" asp-for="ProductFilter.SearchPhrase"
+        onchange="location.href=' @Url.Action("Products","ProductCatalog", new {SearchPhrase = @Model.ProductFilter.SearchPhrase })'">
+    <option>Choose</option>
+</select>*@

@@ -1,0 +1,137 @@
+﻿@*@model Product_CoreDomain.Products_Infrastructure.DataModels.Product*@
+@model Northwind_App.ViewModels.ProductVM.ProductViewModel
+@{
+    ViewData["Title"] = "Edit";
+    string? imageFileName = string.Empty;
+    string filePath = string.Empty;
+   // var x = ViewBag.CategoryName;
+
+    var bn = Model.Categories;
+
+}
+
+<h1>Product Information</h1>
+
+<h4>@ViewData["FormAction"]</h4>
+<hr />
+<div class="row">
+    <div class="row">
+        <nav class="nav-bar">
+
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="btn btn-sm btn-dark">Restock</a></li>
+            </ul>
+        </nav>
+       
+    </div>
+        <form class="container" asp-action="ProductsInfo" enctype="multipart/form-data" class="form-horizontal">
+            <div class="row">
+                <div class="col-md-6">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="ProductId" />
+                    <div class="form-group mt-2">
+                        <label asp-for="ProductName" class="control-label"></label>
+                        <input asp-for="ProductName" class="form-control" />
+                        <span asp-validation-for="ProductName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label asp-for="Supplier" class="control-label"></label>
+                        <select asp-for="SupplierId" class="form-control" asp-items="@Model.Suppliers">
+                            <option value="">Choose Supplier</option>
+                        </select>
+                        <span asp-validation-for="SupplierId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label asp-for="Category" class="control-label"></label>
+                        <select asp-for="CategoryId" class="form-control" asp-items="@Model.Categories">
+                            <option class="btn-dark" value="">Choose Category</option>
+                        </select>
+                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="QuantityPerUnit" class="control-label"></label>
+                        <input asp-for="QuantityPerUnit" class="form-control" />
+                        <span asp-validation-for="QuantityPerUnit" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label asp-for="UnitPrice" class="control-label"></label>
+                        <input asp-for="UnitPrice" class="form-control" />
+                        <span asp-validation-for="UnitPrice" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label asp-for="UnitsInStock" class="control-label"></label>
+                        <input asp-for="UnitsInStock" class="form-control" />
+                        <span asp-validation-for="UnitsInStock" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UnitsOnOrder" class="control-label"></label>
+                        <input asp-for="UnitsOnOrder" class="form-control" />
+                        <span asp-validation-for="UnitsOnOrder" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ReorderLevel" class="control-label"></label>
+                        <input asp-for="ReorderLevel" class="form-control" />
+                        <span asp-validation-for="ReorderLevel" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Discontinued" /> @Html.DisplayNameFor(model => model.Discontinued)
+                        </label>
+                    </div>
+
+                    <div class="form-group mt-2">
+                        <label asp-for="FileData" class="control-label"></label>
+                        <input asp-for="FileData" type="file" class="form-control" onchange="document.getElementById('imagePreview').src = window.URL.createObjectURL(this.files[0])">
+
+                        <span asp-validation-for="FileData" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mt-2">
+                        @*<label itemtype="hid" asp-for="ImageFile" class="control-label form-control form-text"></label>*@
+                        <input type="hidden" asp-for="ImageFile"/>
+                    @{
+            
+                        }
+                        @if (Model == null || string.IsNullOrEmpty(Model.ImageFile))
+                        {
+                            imageFileName = "~/UploadedFiles/Images/icons8-no-image-80.png";
+
+                        }
+                        else
+
+                        {
+                            imageFileName = $"~/UploadedFiles/Images/{Model?.ImageFile}";
+                        }
+                        <div>
+                        <img src="@imageFileName" id="imagePreview" alt="" asp-append-version="true" width="270" height="200" class="img-thumbnail mt-2">
+                        <span asp-validation-for="ImageFile" class="text-danger"></span>
+
+                        </div>
+                       
+                    </div>
+
+                 
+                </div>
+            </div>
+           
+            <div class="row">
+            <div class="form-group mt-2">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Delete" class="btn btn-primary" asp-route-id="@Model?.ProductId" asp-action="RemoveProduct">
+                <a type="button" class="btn btn-primary" asp-controller="ProductCatalog" asp-action="Products" />Cancel<a/>
+            </div>
+
+            </div>
+         
+        </form>
+    </div>
+<div>
+    <a asp-action="Products">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

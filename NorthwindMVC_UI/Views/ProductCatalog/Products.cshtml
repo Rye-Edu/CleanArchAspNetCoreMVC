@@ -1,0 +1,282 @@
+﻿@*@model IEnumerable<Product_CoreDomain.Products_Infrastructure.DataModels.Product>*@
+@*@model IEnumerable<Northwind_App.ViewModels.ProductVM.ProductViewModel>*@
+    @model Northwind_App.ViewModels.ProductVM.ProductViewModel
+@{
+    ViewData["Title"] = "Product List";
+
+}
+
+<h1>Products</h1>
+
+@*<p>
+    <a class="btn btn-dark" asp-action="ProductsInfo">Create New</a>
+</p>*@
+<div>
+
+</div>   
+   <div class="container">
+       <div class="row mb">
+        <form class="form-horizontal container-fluid" method="get" asp-action="Products">
+            <div class="row">
+                <nav class="navbar navbar-expand-sm">
+
+                    <div class="input-group nav-item">
+                        <input class="input-group-text btn btn-secondary btn-sm" type="submit" value="Search" />
+                        <input type="text" class="form-control" asp-for="@Model.ProductFilter.SearchPhrase" />
+                    </div>
+
+                    <div class="input-group ms-lg-1 nav-item" id="nav-filters">
+                     
+                           <label class="input-group-text" for="inputGroupSelect01" id="searchby">Search by:</label>
+
+                           <div class="selections" id="selection-elms">
+                            <partial name="_SearchOptionDropdown" />
+                            <input class="form-check-input ms-1 me-1 mt-2" type="checkbox" id="discontined" name="discontinued" />
+                            <label class="form-check-label mt-1" for="discontined">Discontinued</label>
+
+                           </div>
+                           
+        
+                    </div>
+
+
+                    <a class="nav-item btn btn-sm btn-outline-secondary text-primary" asp-action="ProductsInfo" id="create">Create</a>
+                </nav>
+
+           
+            </div>
+        </form>
+       </div>
+       <div class="row">
+        <table class="table mt-4 table-hover table-sm ">
+            <thead >
+                <tr>
+                    <th class="align-content-md-start">
+                        @Html.DisplayNameFor(model => model.ProductName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.QuantityPerUnit)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UnitPrice)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UnitsInStock)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UnitsOnOrder)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ReorderLevel)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Discontinued)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ImageFile)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Category.CategoryName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Supplier.CompanyName)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody align-content-around p-2>
+                @foreach (var item in Model.PagedItems)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.QuantityPerUnit)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UnitPrice)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UnitsInStock)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UnitsOnOrder)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReorderLevel)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Discontinued)
+                        </td>
+                        <td>
+                            @*@Html.DisplayFor(modelItem => item.ImageFile)*@
+                            <img src="@("~/UploadedFiles/Images/"+item.ImageFile)" asp-append-version="true" width="50px" height="30px" class="img-thumbnail mt-0" alt="">
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Supplier.CompanyName)
+                        </td>
+                        <td >
+
+                            <ul class="d-sm-inline-flex align-content-between">
+                                <li class="btn btn-light btn-sm">
+                                    <a class="text-decoration-none" asp-area="" asp-controller="ProductCatalog" asp-action="ProductsInfo" asp-route-id="@item.ProductId">Edit</a>
+                                    </li>
+                                <li class="btn btn-light btn-sm ml-3"> <a class="text-decoration-none" asp-action="Details" asp-route-id="@item.ProductId">Details</a></li>
+                               
+                                <li class="btn btn-light btn-sm ml-3"> <a class="text-decoration-none" asp-action="Details" asp-route-id="@item.ProductId">Restock</a></li>
+                                
+                            </ul>
+                
+                         @*   <div class="container">
+
+                                <div class="row gx-3">
+                                    <a class="col-md-5 btn btn-secondary btn-sm ml-2 text-wrap  p-0" asp-action="ProductsInfo" asp-route-id="@item.ProductId">Edit</a>
+                                    <a class="col-md-7 pe-2 btn btn-secondary btn-sm ml-3 pe-1" asp-action="Details" asp-route-id="@item.ProductId">Details</a>
+
+                                </div>
+                            </div>
+                          
+                           *@
+                            @*<a asp-action="RemoveProduct" asp-route-id="@item.ProductId">Delete</a>*@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+       </div>
+       <div>
+           <partial name="_ButtonPages"/>
+       </div>
+   </div>
+
+
+@*@await Html.PartialAsync("_ButtonPages")*@
+@section scripts{
+    <script type="text/javascript">
+
+        $(function(){
+
+            const addRemoveDisplayClass = (elems, currentValue, changedTo)=>{
+
+                let tempClass = changedTo;
+                if (elems.hasClass(currentValue)) {
+                    elems.addClass(changedTo).removeClass(currentValue);
+                }
+                else if (elems.hasClass(changedTo)) {
+                    elems.addClass(currentValue).removeClass(changedTo);
+
+                }
+
+            };
+
+            const searchByClicked = () => {
+
+                let filters = $('#selection-elms');
+                let searchBy = $('#searchby');
+
+
+                searchBy.css('cursor', 'pointer').on('click', (e)=>{
+                   e.preventDefault();
+                    addRemoveDisplayClass(filters,'selections', 'd-inline-flex');
+                    console.log("searched by clicked");
+                })
+                   
+            }
+             searchByClicked();
+
+            const showCurrentSelected = () => {
+
+                let categorizedOptions = $("#categorized-options");
+                let selectedOption = $('#selected-option');
+                categorizedOptions.on('change', () => {
+
+                    selectedOption.removeClass('selections').addClass('selected-options');
+                    $('#reset-btn').removeClass("selections").addClass("selected-options");
+                });
+
+            };
+
+            showCurrentSelected();
+
+            const resetSelection = () => {
+
+
+                const resetBtn = $('#reset-btn');
+                const selectedOption = $('#selected-option');
+                resetBtn.on('click', () => {
+
+                    resetBtn.removeClass("selected-selections").addClass("selections");
+                    selectedOption.removeClass("selected-selections").addClass("selections");
+         
+                    $('#default-val').prop('selected', true)
+                    console.log("Reset button clicked");
+                });
+
+            }
+            resetSelection();
+
+
+            /// TODO
+        const selectedFilter = $('#categorized-options');
+     
+        const selectedFilterValue =() =>{
+         
+            let urlValue = "";
+                selectedFilter.on('change', function () {
+                    let selectedText = selectedFilter.val();
+
+                    switch (selectedFilter.val()) {
+                            case "Category":
+                            getSelectedFilterValues(selectedText, '/Category/GetCategoryNames');
+                           
+                            console.log(urlValue);
+                            break;
+                            case "Supplier":
+                            getSelectedFilterValues(selectedText,'/Supplier/GetSupplierNames');
+                       
+                            break;
+                        }
+                    console.log(selectedFilter.val());
+                });
+              
+        }
+
+        //let selectedOptionVal = $('#selected-option option:selected').value();
+        const selectedOption = $('#selected-option');
+     
+
+        selectedFilterValue();
+       // selectedOptionCurrentValue();
+          
+
+        const getSelectedFilterValues = (selectedValue, urlValue)=>{
+        
+            $.ajax({
+                method: 'GET',
+                url: urlValue,
+                dataType: 'JSON'
+            }    
+            ).done(function(data){
+                let filteredData = $('#selected-option');
+               let selectedOptionValues = $('#selected-option option').remove();
+                    filteredData.append('<option>'+ "Choose" +' </option>')
+                $.map(data, function(dataValues, index){
+                 
+                    let valueNames = Object.values(dataValues);
+          
+                        filteredData.append('<option>' + valueNames[1] + '</option>');
+                });
+                  
+            });
+        };
+           
+        });
+      
+    </script>
+}

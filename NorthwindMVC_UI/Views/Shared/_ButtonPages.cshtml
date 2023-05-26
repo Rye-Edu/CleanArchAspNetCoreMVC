@@ -1,0 +1,45 @@
+﻿@*@using Product_CoreDomain.Products_Application.Interfaces.Common;*@
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@*@model Product_CoreDomain.Products_Application.ServicesHandler.CommonServices.Filters.Paging<ITEntity>*@
+<div>
+    <ul class="pagination" id="pagenumber">
+        @{
+            var x = ViewData["ButtonPages"] as List<int>;
+            
+
+            if (x != null)
+            {
+                foreach (var item in x)
+                {
+
+                    <li class="page-item">
+                        <a class="@(item == ViewBag.SelectedPage ? "btn btn-secondary btn-sm" : "btn btn-outline-light btn-sm text-primary")" asp-route-page="@item">@item</a>
+                    </li>
+                    
+                    //<li class="page-item"><a class="page-link" asp-route-page="@item">@item</a></li>
+                }
+
+                //<li class="page-item"><a class="page-link" asp-route-page="@x">@x</a></li>
+            }
+        }
+
+    </ul>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        function PagerClick(index) {
+           let pageNumber = document.getElementById("pagenumber");
+          
+         //  for(let i = 0; i<= pageNumber.childNodes.length; i++){
+                pageNumber.childNodes[index].style.backgroundColor = "green";
+          // }
+          
+        }
+    </script>
+}
