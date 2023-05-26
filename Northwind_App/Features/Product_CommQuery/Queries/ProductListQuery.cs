@@ -3,13 +3,13 @@ using Northwind_App.ViewModels.ProductVM;
 
 namespace Northwind_App.Product_Feature.Queries
 {
-    public class ProductListQuery:IRequest<ProductFilterVM>
+    public class ProductListQuery:IRequest<ProductViewModel>
     {
         public ProductFilterVM? ProductFilter { get; set; }
 
-        public ProductListQuery(ProductFilterVM productViewModel)
+        public ProductListQuery(ProductViewModel productViewModel)
         {
-            ProductFilter = productViewModel;
+            ProductFilter = productViewModel.ProductFilter;
         }
     }
 }

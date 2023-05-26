@@ -59,7 +59,7 @@ namespace Northwind_Infrastructure.Repositories
                     //    .Where(optionSelected => optionSelected?.Category == selectedOption).ToListAsync(); 
                 }
                 else if (!selectedOption.IsNullOrEmpty() && selectedOption == "Category")
-                {
+        {
 
                     productList = await _northwindContext.Products.Include(categories => categories.Category).Include(supplier => supplier.Supplier)
                         .Where(option => option.ProductName.Contains(searchPhrase) && option.Category.CategoryName == selectedText).ToListAsync();

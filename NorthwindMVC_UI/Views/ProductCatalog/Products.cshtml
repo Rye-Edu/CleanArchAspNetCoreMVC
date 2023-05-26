@@ -165,7 +165,7 @@
         }
     }
 
-</div>
+   </div>
 
 
 @*@await Html.PartialAsync("_ButtonPages")*@
@@ -259,9 +259,14 @@
               
         }
 
-          
+        //let selectedOptionVal = $('#selected-option option:selected').value();
+        const selectedOption = $('#selected-option');
+     
+
         selectedFilterValue();
-    
+       // selectedOptionCurrentValue();
+          
+
         const getSelectedFilterValues = (selectedValue, urlValue)=>{
         
             $.ajax({

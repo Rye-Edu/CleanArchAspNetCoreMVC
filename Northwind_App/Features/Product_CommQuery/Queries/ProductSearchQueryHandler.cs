@@ -39,17 +39,12 @@ namespace Northwind_App.Product_CommQuery.Queries
 
                 var product = await _productRepository.GetSearchProduct(request );
                 if (product.GetEnumerator().MoveNext())
-                {
+            {
 
                     return Task.FromResult(_mapper.Map<IEnumerable<ProductViewModel>>(product)).Result.ToList();
-                }
-            //else
-            //{
-            //return Task.FromResult();
-            //}
-            // }
-            return Task.FromResult(_mapper.Map<IEnumerable<ProductViewModel>>(product)).Result.ToList();
-            // throw new NotImplementedException();
+            }
+                //{
+                //}
         }
     }
 }

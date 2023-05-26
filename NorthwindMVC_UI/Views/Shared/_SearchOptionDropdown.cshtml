@@ -5,10 +5,10 @@
 }
 @model Northwind_App.ViewModels.ProductVM.ProductViewModel
 
-<select aria-label="filter options" class="form-control-sm pe-lg-1" id="categorized-options" asp-for="ProductFilter.SelectedOption" 
-        asp-items="@Model.ProductFilter.SearchFilters"> 
+<select aria-label="filter options" class="form-control-sm pe-lg-1" id="categorized-options" asp-for="ProductFilter.SelectedOption"
+        asp-items="@Model.ProductFilter.SearchFilters">
         <option value="" id="default-val">Choose</option>     
-</select>
+    </select>
 
 
 
@@ -17,14 +17,14 @@
     @{
         if (Model.ProductFilter.SelectedText == null || Model.ProductFilter.SelectedText == string.Empty)
         {
-            <option value="">Choose</option>
+        <option value="">Choose</option>
         }
         else
         {
             <option value="@Model.ProductFilter.SelectedText">@Model.ProductFilter.SelectedText</option>
         }
     }            
- </select>
+    </select>
      @*<input type="hidden" id="selected-text" asp-for="ProductFilter.SelectedText"/>*@
     <input type="button" value="Reset" class="btn btn-secondary btn-sm selections" id="reset-btn" >
 

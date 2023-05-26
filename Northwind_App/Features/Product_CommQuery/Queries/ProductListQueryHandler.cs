@@ -18,7 +18,12 @@ namespace Northwind_App.Product_Feature.Queries
         }
         public async Task<ProductFilterVM> Handle(ProductListQuery? request, CancellationToken cancellationToken)
         {
-           
+            if (request.ProductFilter == null) {
+                var x = "asdfa";
+                x.ToUpper();
+            }
+            GetPropertyValues(request?.ProductFilter);
+
             var productList = await _productRepository.GetProductDetails();
 
             ProductFilterVM productFilterVM = request.ProductFilter;
