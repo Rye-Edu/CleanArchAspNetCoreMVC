@@ -27,7 +27,7 @@
 
                     <div class="input-group ms-lg-1 nav-item" id="nav-filters">
                      
-                           <label class="input-group-text" for="inputGroupSelect01" id="searchby">Search by:</label>
+                           <label class="input-group-text" for="inputGroupSelect01" id="searchby">View by:</label>
 
                            <div class="selections" id="selection-elms">
                             <partial name="_SearchOptionDropdown" />
@@ -151,9 +151,21 @@
 
        </div>
        <div>
-           <partial name="_ButtonPages"/>
+       
        </div>
-   </div>
+    @{
+        if (Model.PagedItems.Count != 0)
+        {
+            <partial name="_ButtonPages" />
+        }
+        else
+        {
+            <a class="btn btn-primary btn-sm" asp-action="Products">Back To List</a>
+
+        }
+    }
+
+</div>
 
 
 @*@await Html.PartialAsync("_ButtonPages")*@
@@ -247,14 +259,9 @@
               
         }
 
-        //let selectedOptionVal = $('#selected-option option:selected').value();
-        const selectedOption = $('#selected-option');
-     
-
-        selectedFilterValue();
-       // selectedOptionCurrentValue();
           
-
+        selectedFilterValue();
+    
         const getSelectedFilterValues = (selectedValue, urlValue)=>{
         
             $.ajax({

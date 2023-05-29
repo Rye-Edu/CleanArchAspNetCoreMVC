@@ -3,6 +3,7 @@ using MediatR;
 //using Microsoft.IdentityModel.Tokens;
 using Northwind_App.ViewModels.ProductVM;
 using Northwind_App.Interfaces.IRepositories;
+using Northwind_App.Product_Feature.Queries;
 
 namespace Northwind_App.Product_CommQuery.Queries
 {
@@ -30,24 +31,25 @@ namespace Northwind_App.Product_CommQuery.Queries
         }
         public async Task<IEnumerable<ProductViewModel?>> Handle(ProductSearch? request, CancellationToken cancellationToken)
         {
-            if (string.IsNullOrEmpty(request?.ProductFilters.SearchPhrase))
-            {
-                return null;
-            }
-            else {
+            //if (!string.IsNullOrEmpty(request?.ProductFilters))
+            //{
+            //    return null;
+            //}
+            //else {
 
-                //var product = await _productRepository.GetSearchProduct(request.ProductFilters.SearchPhrase);
-                //if (product != null)
-                //{
+                var product = await _productRepository.GetSearchProduct(request );
+                if (product.GetEnumerator().MoveNext())
+                {
 
-                //    return  Task.FromResult(_mapper.Map<IEnumerable<ProductViewModel>>(product)).Result.ToList();
-                //}
-                //else {
-                //    throw new Exception("No Product found");
-                //}
-            }
-           // return Task.FromResult(null).Result;
-            throw new NotImplementedException();
+                    return Task.FromResult(_mapper.Map<IEnumerable<ProductViewModel>>(product)).Result.ToList();
+                }
+            //else
+            //{
+            //return Task.FromResult();
+            //}
+            // }
+            return Task.FromResult(_mapper.Map<IEnumerable<ProductViewModel>>(product)).Result.ToList();
+            // throw new NotImplementedException();
         }
     }
 }

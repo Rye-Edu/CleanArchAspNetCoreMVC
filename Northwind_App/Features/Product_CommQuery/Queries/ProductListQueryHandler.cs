@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Northwind_App.Product_Feature.Queries
 {
-    public class ProductListQueryHandler : IRequestHandler<ProductListQuery, ProductViewModel>
+    public class ProductListQueryHandler : IRequestHandler<ProductListQuery,ProductFilterVM>
     {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
@@ -16,21 +16,17 @@ namespace Northwind_App.Product_Feature.Queries
             _productRepository = productRepository;
             _mapper = mapper;
         }
-        public async Task<ProductViewModel> Handle(ProductListQuery? request, CancellationToken cancellationToken)
+        public async Task<ProductFilterVM> Handle(ProductListQuery? request, CancellationToken cancellationToken)
         {
-            if (request.ProductFilter == null) {
-                var x = "asdfa";
-                x.ToUpper();
-            }
-            GetPropertyValues(request?.ProductFilter);
-
+           
             var productList = await _productRepository.GetProductDetails();
 
-
-            var products = _mapper.Map<IEnumerable<ProductViewModel>>(productList );
-            ProductViewModel productViewModel = new();
-            productViewModel.ProductList = products;
-            return Task.FromResult(productViewModel).Result;
+            ProductFilterVM productFilterVM = request.ProductFilter;
+            var products = _mapper.Map<IEnumerable<ProductViewModel>>(productList);
+            request.ProductFilter.ProductSearchList = products;
+            //ProductViewModel productViewModel = new();
+            //productViewModel.ProductList = products;
+            return Task.FromResult(productFilterVM).Result;
         }
 
         private static bool GetPropertyValues(object obj) { 

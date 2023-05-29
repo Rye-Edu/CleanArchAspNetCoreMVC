@@ -14,7 +14,7 @@ namespace Northwind_App.ViewModels.ProductVM
         [DisplayName("search value")]
         public string? SearchPhrase { get; set; }
 
-        public bool DiscontinuedItem { get; set; }
+        public bool? DiscontinuedItem { get; set; }
 
 
         public string? SelectedOption { get; set; }

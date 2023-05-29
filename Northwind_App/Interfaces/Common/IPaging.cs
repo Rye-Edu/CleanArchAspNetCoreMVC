@@ -3,10 +3,10 @@ using Northwind_App.Interfaces.IRepositories;
 
 namespace Northwind_App.Interfaces.Common
 {
-    public interface IPaging<TEntity>
+    public interface IPaging<TEntity,T> where T: IEnumerable<T>
     {
         IList<int>? TotalPage();
-        IList<TEntity>? PaginatedItems(int page, List<TEntity> list);
+        IList<T>? PaginatedItems(int page, List<T> list);
 
 
     }
