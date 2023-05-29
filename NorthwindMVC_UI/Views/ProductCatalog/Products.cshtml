@@ -151,8 +151,30 @@
 
        </div>
        <div>
-           <partial name="_ButtonPages"/>
-       </div>
+        @{
+            if (Model.PagedItems.GetEnumerator().MoveNext())
+            {
+                <partial name="_ButtonPages" />
+
+            }
+            else
+            {
+
+                <span class="mb-5">No Data retrieved</span>
+            }
+
+        }
+
+    </div>
+
+    @{
+        if (!Model.PagedItems.GetEnumerator().MoveNext())       
+        {
+          
+            <a class="text-decoration-none btn btn-primary btn-sm mt-5" asp-action="Products">Back to list</a>
+        }
+        
+    }
    </div>
 
 

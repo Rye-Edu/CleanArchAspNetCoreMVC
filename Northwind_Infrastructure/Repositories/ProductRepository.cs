@@ -43,18 +43,36 @@ namespace Northwind_Infrastructure.Repositories
         public async Task<IEnumerable<Product>> GetSearchProduct(ProductListQuery search)
         {
 
-            //var product = await _northwindContext.Products
-            //.Include(p => p.Category)
-            //.Include(p => p.Supplier).Where(m=> m.ProductName == search).ToListAsync();
-            List<Product> found = new();
-            //if (!search.IsNullOrEmpty()) {
-            //    var product = await _northwindContext.Products.Include(categories => categories.Category).Include(suppliers => suppliers.Supplier)
-            //       .Where(searched => searched.ProductName.Contains(search)).ToListAsync();
-            //    if (product != null) {
-            //        found = product;
-            //    }
-            //    return Task.FromResult(found).Result;
-            throw new NotImplementedException();
+            string searchPhrase = search?.ProductFilter?.SearchPhrase?.ToString() ?? string.Empty;
+            string selectedOption = search?.ProductFilter?.SelectedOption?.ToString() ?? string.Empty;
+            string selectedText = search?.ProductFilter?.SelectedText?.ToString() ?? string.Empty;
+            var x = search?.ProductFilter?.ToString();
+            var productList = new List<Product>();
+
+            if (!searchPhrase.IsNullOrEmpty())
+            {
+                if (selectedOption.IsNullOrEmpty() || selectedText.IsNullOrEmpty()) {
+                    productList = await _northwindContext.Products.Include(categories => categories.Category).Include(suppliers => suppliers.Supplier)
+                        .Where(searchKeyword => searchKeyword.ProductName == searchPhrase).ToListAsync();
+                }
+               else if (!selectedOption.IsNullOrEmpty() && selectedOption == "Supplier")
+                {
+                    productList = await _northwindContext.Products.Include(categories => categories.Category).Include(supplier => supplier.Supplier)
+                        .Where(option => option.ProductName.Contains(searchPhrase) && option.Supplier.CompanyName == selectedText).ToListAsync();
+
+                    //    .Where(optionSelected => optionSelected?.Category == selectedOption).ToListAsync(); 
+                }
+                else if (!selectedOption.IsNullOrEmpty() && selectedOption == "Category")
+                {
+
+                    productList = await _northwindContext.Products.Include(categories => categories.Category).Include(supplier => supplier.Supplier)
+                        .Where(option => option.ProductName.Contains(searchPhrase) && option.Category.CategoryName == selectedText).ToListAsync();
+
+                }
+
+
+            }
+            return Task.FromResult(productList).Result;
         }
 
         // .Where(searched => search.All(p => searched.ProductName.Contains(p))).ToListAsync();

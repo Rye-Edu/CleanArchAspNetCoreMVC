@@ -48,22 +48,9 @@ namespace Product_CoreDomain.Controllers
         [ActionName("Products")]
         public async Task<ActionResult<ProductViewModel>> ProductsIndex(ProductViewModel productVM, int page)
         {
-            var prods = productVM;
 
-            if (prods == null) {
-                var x = "ssss";
-                x.ToUpper(); 
-            }
-            else if (prods.ProductFilter == null) {
-
-                var x = "sssss";
-                x.ToUpper();
-            }
             var productList = await _mediator.Send(new ProductListQuery(productVM));
-            if (productVM.ProductFilter.SearchPhrase != null)
-            {
-                return await SearchProduct(productVM, page);
-            }
+          
 
             ViewBag.SelectedPage = page;
             var pagedItems = _paging.PaginatedItems(page, productList.ProductList.ToList());
