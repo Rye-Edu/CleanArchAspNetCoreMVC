@@ -34,10 +34,6 @@ namespace Northwind_App.Product_Feature.Queries
                 prods = _mapper.Map<IEnumerable<ProductViewModel>>(productList).ToList();
             }
 
-         
-
-
-            //var products = _mapper.Map<IEnumerable<ProductViewModel>>(productList );
             ProductViewModel productViewModel = new();
             productViewModel.ProductList = prods;
             return Task.FromResult(productViewModel).Result;

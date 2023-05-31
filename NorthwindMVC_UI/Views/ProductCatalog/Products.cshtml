@@ -16,13 +16,13 @@
 </div>   
    <div class="container">
        <div class="row mb">
-        <form class="form-horizontal container-fluid" method="get" asp-action="Products">
+        <form class="form-horizontal container-fluid" method="get" asp-route="ProductSearch">
             <div class="row">
                 <nav class="navbar navbar-expand-sm">
 
                     <div class="input-group nav-item">
                         <input class="input-group-text btn btn-secondary btn-sm" type="submit" value="Search" />
-                        <input type="text" class="form-control" asp-for="@Model.ProductFilter.SearchPhrase" />
+                        <input type="text" class="form-control" asp-for="@Model.ProductFilter.SearchPhrase" placeholder="Product name"/>
                     </div>
 
                     <div class="input-group ms-lg-1 nav-item" id="nav-filters">
@@ -85,7 +85,7 @@
                 </tr>
             </thead>
             <tbody align-content-around p-2>
-                @foreach (var item in Model.PagedItems)
+                @foreach (var item in Model?.PagedItems)
                 {
                     <tr>
                         <td>
@@ -111,7 +111,7 @@
                         </td>
                         <td>
                             @*@Html.DisplayFor(modelItem => item.ImageFile)*@
-                            <img src="@("~/UploadedFiles/Images/"+item.ImageFile)" asp-append-version="true" width="50px" height="30px" class="img-thumbnail mt-0" alt="">
+                            <img src="@("~/UploadedFiles/Images/"+item.ImageFile)" asp-append-version="true" width="50px" height="30px" class="img-thumbnail mt-0" alt="@item.ProductName">
 
                         </td>
                         <td>
@@ -151,10 +151,10 @@
 
        </div>
        <div>
-        @{
+       @{
             if (Model.PagedItems.GetEnumerator().MoveNext())
             {
-                <partial name="_ButtonPages" />
+                <partial name="_ButtonPages" model="@ViewBag.SelectedPage"/>
 
             }
             else
@@ -171,7 +171,7 @@
         if (!Model.PagedItems.GetEnumerator().MoveNext())       
         {
           
-            <a class="text-decoration-none btn btn-primary btn-sm mt-5" asp-action="Products">Back to list</a>
+            <a class="text-decoration-none btn btn-primary btn-sm mt-5" asp-route="ProductList" asp-route-page="1">Back to list</a>
         }
         
     }

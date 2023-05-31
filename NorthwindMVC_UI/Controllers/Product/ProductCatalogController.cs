@@ -21,6 +21,7 @@ using Northwind_App.ServicesHandler.CommonServices.Filters;
 using Northwind_App.ServicesHandler.Upload_Services.Command;
 using Northwind_App.Features.Category_CommQuery.Queries;
 using Northwind_App.Features.Product_Feature.Commands;
+using Microsoft.IdentityModel.Tokens;
 //using Product_CoreDomain.Products_Infrastructure.Data;
 //using Product_CoreDomain.Products_Infrastructure.DataModels;
 
@@ -44,15 +45,21 @@ namespace Product_CoreDomain.Controllers
         }
 
         // GET: ProductCatalog
-       [HttpGet("[action]/list/page/{page:int?}")]
-        [ActionName("Products")]
-        public async Task<ActionResult<ProductViewModel>> ProductsIndex(ProductViewModel productVM, int page)
+         [HttpGet("[controller]/[action]")]
+        [HttpGet("[controller]/[action]/list/page/{page:int?}", Name ="ProductList")]
+        [HttpGet("[action]/list/product-filter/{productVM?}", Name ="ProductSearch")]
+
+       // [ActionName("Products")]
+        public async Task<ActionResult<ProductViewModel>> ProductsIndex(ProductViewModel productViewModel, int page =1)
         {
 
-            var productList = await _mediator.Send(new ProductListQuery(productVM));
+            var productList = await _mediator.Send(new ProductListQuery(productViewModel));
           
 
             ViewBag.SelectedPage = page;
+            //if (!productVM.ProductFilter.SearchPhrase.IsNullOrEmpty()) {
+            //    page = 0;
+            //}
             var pagedItems = _paging.PaginatedItems(page, productList.ProductList.ToList());
             productList.PagedItems = pagedItems;      
               
@@ -63,26 +70,7 @@ namespace Product_CoreDomain.Controllers
          
         }
 
-        [HttpGet("[action]/list/{productViewModel?}")]
-        [ActionName("Products")]
-
-        public async Task<ActionResult<ProductViewModel>> SearchProduct(ProductViewModel productViewModel, int page)
-        {
-
-          //if (productViewModel.ProductFilter.SearchPhrase.IsNullOrEmpty())
-          //  {
-          //      return await ProductsIndex(productViewModel,page);
-          //  }
-
-          //  var searched = await _mediator.Send(new ProductSearch(productViewModel.ProductFilter));
-            
-          //  productViewModel.PagedItems = searched.ToList();
-          //  ViewData["ButtonPages"] = _paging.TotalPage();
-
-            return View("Products",productViewModel);
-
-        }
-
+ 
         // GET: ProductCatalog/Details/5
         [HttpGet("detail/{id:int}")]
         [ActionName("Details")]
