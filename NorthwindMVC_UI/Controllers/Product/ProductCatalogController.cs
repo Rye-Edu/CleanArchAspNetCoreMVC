@@ -46,7 +46,7 @@ namespace Product_CoreDomain.Controllers
 
         // GET: ProductCatalog
          [HttpGet("[controller]/[action]")]
-        [HttpGet("[controller]/[action]/list/page/{page:int?}", Name ="ProductList")]
+        [HttpGet("[controller]/[action]/list/page/{page:int}", Name ="ProductList")]
         [HttpGet("[action]/list/product-filter/{productVM?}", Name ="ProductSearch")]
 
        // [ActionName("Products")]
