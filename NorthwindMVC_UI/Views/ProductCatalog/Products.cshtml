@@ -18,10 +18,58 @@
        <div class="row mb">
         <form class="form-horizontal container-fluid" method="get" asp-route="ProductSearch">
             <div class="row">
-                <nav class="navbar navbar-expand-sm">
+                <nav class="navbar navbar-expand-md">
+                   
 
                     <div class="input-group nav-item">
                         <input class="input-group-text btn btn-secondary btn-sm" type="submit" value="Search" />
+                        <input type="text" class="form-control" asp-for="@Model.ProductFilter.SearchPhrase" placeholder="Product name"/>
+                    </div>
+
+                    <div class="input-group ms-lg-1 nav-item" id="nav-filters">
+              
+                            <div class="btn-group dropright">
+                            <button type="button" id="btn-filter-dropdown" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Filter
+                            </button>
+                          
+                                <!-- Dropdown menu links -->
+                                <ul class="dropdown-menu" id="filter-options">
+                                    <li class="dropdown-item"><input type="checkbox" value="View By" name="ViewBy" >View by</li>
+                                <li class="dropdown-item"><input type="checkbox" value="SearchBy" name="searchBy" >Search by</li>
+                                <li class="dropdown-item"><input type="checkbox" value="Test By" name="TEst">Test by</li>
+                                <li class="dropdown-item"><input type="checkbox" value="Added By" name="seay">added by</li>
+                                </ul>
+                            
+                        </div>
+                        
+                           <label class="input-group-text" for="inputGroupSelect01" id="searchby">Search by:</label>
+
+                           <div class="selections" id="selection-elms">
+                            <partial name="_SearchOptionDropdown" />
+                            <input class="form-check-input ms-1 me-1 mt-2" type="checkbox" id="discontined" name="discontinued" />
+                            <label class="form-check-label mt-1" for="discontined">Discontinued</label>
+
+                           </div>
+                           
+        
+                    </div>
+
+
+                    <a class="nav-item btn btn-sm btn-outline-secondary text-primary" asp-action="ProductsInfo" id="create">Create</a>
+                </nav>
+
+           
+            </div>
+        </form>
+       </div>
+      @* <div class="row" id="list-filters">
+           <form class="form-horizontal container-fluid" method="get" asp-route="ProductSearch">
+            <div class="row">
+                <nav class="navbar navbar-expand-sm">
+
+                    <div class="input-group nav-item">
+                        <input class="input-group-text btn btn-secondary btn-sm" type="submit" value="View by" />
                         <input type="text" class="form-control" asp-for="@Model.ProductFilter.SearchPhrase" placeholder="Product name"/>
                     </div>
 
@@ -45,8 +93,8 @@
 
            
             </div>
-        </form>
-       </div>
+            </form>
+       </div>*@
        <div class="row">
         <table class="table mt-4 table-hover table-sm ">
             <thead >
@@ -297,8 +345,60 @@
                   
             });
         };
+
+        const filterOptions = $('#filter-options');
+        const filterDropDown = $('#btn-filter-dropdown');
+          //  let selected = filterOptions.children('li').children('input');
+        const uncheckedUnselectedFilter = () => {
+            
+            let selected = filterOptions.children('li').children('input');
+            console.log(selected);
+           // $.map(selected, function(current, index){
+
+        
+                    selected.on('change', function () {
+                                              
+                            if(this.checked){
+                            console.log("Current ", this.value);
+                            let current = this;
+                            console.log("value of C: ", current);
+                         selected.each(function(i, el){
+                           //el[i].checked = false;
+                        console.log(el);
+                        if(current.value !== this.value){
+                            el.checked = false;
+                          
+                            console.log("from c ",current.value);
+                            console.log("From this.value :", this.value);
+                        }
+                        else{
+                            el.checked = true;
+                            console.log("From else ", el.value);
+                        }
+                        console.log("Previous",el.checked);
+                         });
+                            }
+                            });
+                        
+
            
+               // console.log(filterOptions.children());
+        };
+      //  console.log(selected.val());
+            uncheckedUnselectedFilter();
+           
+           // console.log(selected);
         });
       
+    </script>
+    <script>
+        function getVal(){
+            
+           // let x = document.getElementById('filter-options').children().
+           //if(){
+           
+           //}
+        }
+        getVal();
     </script>
 }
