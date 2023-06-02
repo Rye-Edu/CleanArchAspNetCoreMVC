@@ -46,10 +46,10 @@ namespace Product_CoreDomain.Controllers
 
         // GET: ProductCatalog
         [HttpGet("[controller]/[action]")]
-        [HttpGet("[controller]/[action]/list/page/{page:int}", Name ="ProductList")]
+        [HttpGet("[controller]/[action]/list/page/{page:int?}", Name ="ProductList")]
         [HttpGet("[action]/list/product-filter/{productVM?}", Name ="ProductSearch")]
-
-       // [ActionName("Products")]
+       
+        [ActionName("Products")]
         public async Task<ActionResult<ProductViewModel>> ProductsIndex(ProductViewModel productViewModel, int page =1)
         {
 
@@ -83,7 +83,7 @@ namespace Product_CoreDomain.Controllers
         // GET: ProductCatalog/Create
         [HttpGet("[action]/new-product")]
         [ActionName("ProductsInfo")]
-        [Authorize]
+       // [Authorize]
         public async Task<IActionResult> Create()
         {
             ProductViewModel productViewModel = new ProductViewModel();
@@ -112,7 +112,7 @@ namespace Product_CoreDomain.Controllers
 
             await _mediator.Send(new CreateProduct(product));
          
-            return RedirectToAction("Products");
+            return RedirectToAction("Products", new { page=1});
         }
 
         // GET: ProductCatalog/Edit/5
@@ -147,7 +147,7 @@ namespace Product_CoreDomain.Controllers
 
 
             await _mediator.Send(new UpdateProduct(product?.ProductId.GetValueOrDefault(), product));
-            return RedirectToAction("Products");
+            return RedirectToAction("Products", new { page = 1});
        
         }
 
@@ -170,7 +170,7 @@ namespace Product_CoreDomain.Controllers
          
             await _mediator.Send(new RemoveProduct(productViewModel.ProductId.GetValueOrDefault(), productViewModel));
          
-            return RedirectToAction("ProductList");
+            return RedirectToAction("Products", new { page=1 });
         }
 
       

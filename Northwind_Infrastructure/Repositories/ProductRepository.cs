@@ -58,7 +58,7 @@ namespace Northwind_Infrastructure.Repositories
                else if (!selectedOption.IsNullOrEmpty() && selectedOption == "Supplier")
                 {
                         productList = await _northwindContext.Products.Include(categories => categories.Category).Include(supplier => supplier.Supplier)
-                            .Where(option => option.ProductName.Contains(searchPhrase.ToLower()) && option.Supplier.CompanyName == selectedText).ToListAsync();
+                            .Where(option => option.ProductName.Contains(searchPhrase.ToLower()) && option!.Supplier!.CompanyName == selectedText).ToListAsync();
                     //suppliers = await _northwindContext.Suppliers.Include(products => products.Products).Where(supplierName => supplierName.ContactName == searchPhrase).ToListAsync();
                     //    .Where(optionSelected => optionSelected?.Category == selectedOption).ToListAsync(); 
                 }
@@ -66,7 +66,7 @@ namespace Northwind_Infrastructure.Repositories
                 {
 
                     productList = await _northwindContext.Products.Include(categories => categories.Category).Include(supplier => supplier.Supplier)
-                        .Where(option => option.ProductName.Contains(searchPhrase.ToLower()) && option.Category.CategoryName == selectedText).ToListAsync();
+                        .Where(option => option.ProductName.Contains(searchPhrase.ToLower()) && option!.Category!.CategoryName == selectedText).ToListAsync();
 
                 }
 
