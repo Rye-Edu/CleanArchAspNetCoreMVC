@@ -18,6 +18,7 @@ namespace Northwind_App.ViewModels.ProductVM
 
 
         public string? SelectedOption { get; set; }
+        public string? SelectedFilter { get; set; }
         public SelectList SearchFilters
         {
             get

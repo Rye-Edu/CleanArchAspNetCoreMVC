@@ -46,6 +46,7 @@ namespace Northwind_Infrastructure.Repositories
             string searchPhrase = search?.ProductFilter?.SearchPhrase?.ToString() ?? string.Empty;
             string selectedOption = search?.ProductFilter?.SelectedOption?.ToString() ?? string.Empty;
             string selectedText = search?.ProductFilter?.SelectedText?.ToString() ?? string.Empty;
+            string selectedFilter = search?.ProductFilter?.SelectedFilter?.ToString() ?? string.Empty;
             var x = search?.ProductFilter?.ToString();
             var productList = new List<Product>();
             var suppliers = new List<Supplier>();
@@ -55,10 +56,10 @@ namespace Northwind_Infrastructure.Repositories
                     productList = await _northwindContext.Products.Include(categories => categories.Category).Include(suppliers => suppliers.Supplier)
                         .Where(searchKeyword => searchKeyword.ProductName.Contains(searchPhrase.ToLower())).ToListAsync();
                 }
-               else if (!selectedOption.IsNullOrEmpty() && selectedOption == "Supplier")
+               else if (!selectedOption.IsNullOrEmpty() && selectedFilter.Contains("Supplier"))
                 {
                         productList = await _northwindContext.Products.Include(categories => categories.Category).Include(supplier => supplier.Supplier)
-                            .Where(option => option.ProductName.Contains(searchPhrase.ToLower()) && option!.Supplier!.CompanyName == selectedText).ToListAsync();
+                            .Where(option => option!.Supplier!.CompanyName.Contains(selectedFilter.ToLower())).ToListAsync();
                     //suppliers = await _northwindContext.Suppliers.Include(products => products.Products).Where(supplierName => supplierName.ContactName == searchPhrase).ToListAsync();
                     //    .Where(optionSelected => optionSelected?.Category == selectedOption).ToListAsync(); 
                 }

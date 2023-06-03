@@ -23,26 +23,12 @@
 
                     <div class="input-group nav-item">
                         <input class="input-group-text btn btn-secondary btn-sm" type="submit" value="Search" />
-                        <input type="text" class="form-control" asp-for="@Model.ProductFilter.SearchPhrase" placeholder="Product name"/>
+                        <input type="text" id="search-input" class="form-control" asp-for="@Model.ProductFilter.SearchPhrase" placeholder="Product name"/>
                     </div>
 
                     <div class="input-group ms-lg-1 nav-item" id="nav-filters">
               
-                            <div class="btn-group dropright">
-                            <button type="button" id="btn-filter-dropdown" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Filter
-                            </button>
-                          
-                                <!-- Dropdown menu links -->
-                                <ul class="dropdown-menu" id="filter-options">
-                                    <li class="dropdown-item"><input type="checkbox" value="View By" name="ViewBy" >View by</li>
-                                <li class="dropdown-item"><input type="checkbox" value="SearchBy" name="searchBy" >Search by</li>
-                                <li class="dropdown-item"><input type="checkbox" value="Test By" name="TEst">Test by</li>
-                                <li class="dropdown-item"><input type="checkbox" value="Added By" name="seay">added by</li>
-                                </ul>
-                            
-                        </div>
-                        
+                           
                            <label class="input-group-text" for="inputGroupSelect01" id="searchby">Search by:</label>
 
                            <div class="selections" id="selection-elms">
@@ -58,8 +44,50 @@
 
                     <a class="nav-item btn btn-sm btn-outline-secondary text-primary" asp-action="ProductsInfo" id="create">Create</a>
                 </nav>
+                <div class="row">
+                    @*<button type="button" id="btn-filter-dropdown" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Filter
+                    </button>
+*@ 
+                   <div class="input-group input-group-sm" id="filter-options">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Filter</span>
+                        <div class="input-group-text">
+                            <input class="form-check-input mt-0" type="radio" value="Product" name="ProductFilter.SelectedFilter" asp-for="ProductFilter.SelectedFilter" />
+                            <label class="form-check-label ms-1">Product</label>
+                        </div>
 
-           
+                        <div class="input-group-text">
+                            <input class="form-check-input mt-0" type="radio" value="Supplier" name="ProductFilter.SelectedFilter" asp-for="ProductFilter.SelectedFilter" />
+                            <label class="form-check-label ms-1">Supplier</label>
+                        </div>
+
+                        <div class="input-group-text">
+                            <input class="form-check-input mt-0" type="radio" value="Category" name="ProductFilter.SelectedFilter" asp-for="ProductFilter.SelectedFilter" />
+                            <label class="form-check-label ms-1">Category</label>
+                        </div>
+                      
+                    </div>
+                    <!-- Dropdown menu links -->
+                   @* <ul class="list-group list-group-horizontal-sm list-gr" id="filter-options">
+                        <li class="list-group-item">
+                                <input class="form-check-input mt-0" type="radio" value="Product" name="ProductFilter.SelectedFilter" />
+                                <label class="form-check-label" for="flexCheckDefault">Product</label>
+                            </li>
+
+                             <li class="list-group-item">
+                                <input type="radio" value="Supplier" name="ProductFilter.SelectedFilter" />
+                                <label class="form-check-label" for="flexCheckDefault">Supplier</label>
+                            </li>
+                            <li class="list-group-item">
+                                <input type="radio" value="Category" name="ProductFilter.SelectedFilter" />
+                                <label class="form-check-label" for="flexCheckDefault">Category</label>
+                            </li>
+                       
+                    </ul>*@
+                    @*</div>*@
+                </div>
+
+
             </div>
         </form>
        </div>
@@ -349,43 +377,42 @@
         const filterOptions = $('#filter-options');
         const filterDropDown = $('#btn-filter-dropdown');
           //  let selected = filterOptions.children('li').children('input');
-        const uncheckedUnselectedFilter = () => {
-            
-            let selected = filterOptions.children('li').children('input');
-            console.log(selected);
-           // $.map(selected, function(current, index){
 
-        
-                    selected.on('change', function () {
-                                              
-                            if(this.checked){
-                            console.log("Current ", this.value);
-                            let current = this;
-                            console.log("value of C: ", current);
-                         selected.each(function(i, el){
-                           //el[i].checked = false;
-                        console.log(el);
-                        if(current.value !== this.value){
-                            el.checked = false;
-                          
-                            console.log("from c ",current.value);
-                            console.log("From this.value :", this.value);
-                        }
-                        else{
-                            el.checked = true;
-                            console.log("From else ", el.value);
-                        }
-                        console.log("Previous",el.checked);
-                         });
+            const uncheckedUnselectedFilter = () => {
+                let selected = filterOptions.children('div').children('input');
+                let searchInput = $('#search-input');
+                console.log(selected);
+                // $.map(selected, function(current, index){
+
+
+                selected.on('change', function () {
+                    console.log(this.checked);
+                    if (this.checked) {
+                        let current = this;
+                        selected.each(function (i, selectedTextValue) {
+
+                            if (current.value !== selectedTextValue.value) {
+                                selectedTextValue.checked = false;
                             }
-                            });
-                        
+                            else {
+                                selectedTextValue.checked = true;
+                                searchInput.attr('PlaceHolder', `type ${selectedTextValue.value.toLowerCase()} name`);
+                                console.log(selectedTextValue.value);
+                            }
 
-           
-               // console.log(filterOptions.children());
-        };
-      //  console.log(selected.val());
+                        });
+                    }
+                });
+
+
+
+                // console.log(filterOptions.children());
+            };
+            //  console.log(selected.val());
             uncheckedUnselectedFilter();
+            const replacePlaceHolderValue = (currentVal) => {
+                    
+            };
            
            // console.log(selected);
         });

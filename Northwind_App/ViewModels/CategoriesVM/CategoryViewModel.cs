@@ -8,7 +8,7 @@ namespace Northwind_App.ViewModels.CategoriesVM
     {
         public int CategoryId { get; set; }
 
-        [DisplayName("Catgory")]
+        [DisplayName("Category")]
         public string? CategoryName { get; set; } = null!;
 
         public string? Description { get; set; }
