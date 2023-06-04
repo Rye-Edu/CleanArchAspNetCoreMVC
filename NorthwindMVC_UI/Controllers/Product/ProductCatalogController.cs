@@ -39,31 +39,67 @@ namespace Product_CoreDomain.Controllers
 
         public ProductCatalogController(IMediator mediator, IPaging<ProductViewModel> paging)
         {
-           
+
             _mediator = mediator;
             _paging = paging;
         }
 
         // GET: ProductCatalog
-        [HttpGet("[controller]/[action]")]
-        [HttpGet("[controller]/[action]/list/page/{page:int?}", Name ="ProductList")]
-        [HttpGet("[action]/list/product-filter/{productVM?}/{filterValue?}", Name ="ProductSearch")]
-       
+        // [HttpGet("[controller]/[action]")]
+        [HttpGet("[controller]/[action]/list/page/{page:int?}", Name = "ProductList")]
+        //[HttpGet("[action]/list/product-filter/{page}/{productVM}", Name ="ProductSearch")]
+        // [HttpGet("[controller]/[action]/list/page/{page:int?}")]
         [ActionName("Products")]
-        public async Task<ActionResult<ProductViewModel>> ProductsIndex(ProductViewModel productViewModel, string filterValue, int page =1)
+        public async Task<ActionResult<ProductViewModel>> ProductsIndex(string? filter, string? search, int? page = 1)
         {
-            var x = productViewModel.ProductFilter.SelectedFilter;
-            TempData["SelectedFilter"] = productViewModel.ProductFilter.SelectedFilter;
-            var productList = await _mediator.Send(new ProductListQuery(productViewModel));
-          
 
-            ViewBag.SelectedPage = page;
-          
-            var pagedItems = _paging.PaginatedItems(page, productList.ProductList.ToList());
-            productList.PagedItems = pagedItems;      
-              
-            ViewData["ButtonPages"] = _paging.TotalPage();
-          
+
+            ViewData["Filter"] = filter;
+            ViewData["Search"] = search;
+            
+            int currentPage = 1;
+
+
+            var productList = await _mediator.Send(new ProductListQuery(new ProductViewModel
+            {
+
+                ProductFilter = new ProductFilterVM
+                {
+
+                    SelectedFilter = filter,
+                    SearchPhrase = search
+                }
+            }));
+            if (!filter.IsNullOrEmpty() || !search.IsNullOrEmpty())
+            {
+                //page = 1;
+               // ViewBag.SelectedPage = page.GetValueOrDefault();
+                page = ViewBag.SelectedPage;
+                ViewBag.PageNumber = currentPage;
+                var pagedItems = _paging.PaginatedItems(page.GetValueOrDefault(), productList.ProductList.ToList());
+                productList.PagedItems = pagedItems;
+
+                ViewData["ButtonPages"] = _paging.TotalPage();
+
+                //  ViewBag.SelectedPage = 1;
+
+            }
+            else
+            {
+  
+                ViewBag.SelectedPage = page.GetValueOrDefault();
+                ViewBag.PageNumber = currentPage;
+                var pagedItems = _paging.PaginatedItems(page.GetValueOrDefault(), productList.ProductList.ToList());
+                productList.PagedItems = pagedItems;
+
+                ViewData["ButtonPages"] = _paging.TotalPage();
+            }
+            //// ViewBag.SelectedPage = page;
+           
+
+            //ViewBag.CurrentFilter = productViewModel.ProductFilter.SelectedFilter;
+            //ViewBag.SearchPhrase = productViewModel.ProductFilter.SearchPhrase;
+     
 
             return View("Products",productList);
          

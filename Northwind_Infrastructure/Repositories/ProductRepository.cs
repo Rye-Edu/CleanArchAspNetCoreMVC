@@ -52,14 +52,28 @@ namespace Northwind_Infrastructure.Repositories
             var suppliers = new List<Supplier>();
             if (!searchPhrase.IsNullOrEmpty())
             {
-                if (selectedOption.IsNullOrEmpty() || selectedText.IsNullOrEmpty()) {
-                    productList = await _northwindContext.Products.Include(categories => categories.Category).Include(suppliers => suppliers.Supplier)
-                        .Where(searchKeyword => searchKeyword.ProductName.Contains(searchPhrase.ToLower())).ToListAsync();
+                if (selectedFilter == "Supplier") {
+                    productList = await _northwindContext.Products.Include(categories => categories.Category).Include(supplier => supplier.Supplier)
+                                .Where(supplierName => supplierName!.Supplier!.CompanyName.Contains(searchPhrase.ToLower())).ToListAsync();
                 }
-               else if (!selectedOption.IsNullOrEmpty() && selectedFilter.Contains("Supplier"))
+                else if (selectedFilter == "Product") {
+                    productList = await _northwindContext.Products.Include(categories => categories.Category).Include(supplier => supplier.Supplier).
+                        Where(productName => productName.ProductName.Contains(searchPhrase)).ToListAsync();
+                }
+
+                else if (selectedFilter == "Category")
                 {
-                        productList = await _northwindContext.Products.Include(categories => categories.Category).Include(supplier => supplier.Supplier)
-                            .Where(option => option!.Supplier!.CompanyName.Contains(selectedFilter.ToLower())).ToListAsync();
+                    productList = await _northwindContext.Products.Include(categories => categories.Category).Include(supplier => supplier.Supplier).
+                        Where(categoryName => categoryName!.Category!.CategoryName.Contains(searchPhrase)).ToListAsync();
+                }
+                //if (selectedOption.IsNullOrEmpty() || selectedText.IsNullOrEmpty()) {
+                //    productList = await _northwindContext.Products.Include(categories => categories.Category).Include(suppliers => suppliers.Supplier)
+                //        .Where(searchKeyword => searchKeyword.ProductName.Contains(searchPhrase.ToLower())).ToListAsync();
+                //}
+                else if (!selectedOption.IsNullOrEmpty() && selectedFilter.Contains("Supplier"))
+                {
+                    productList = await _northwindContext.Products.Include(categories => categories.Category).Include(supplier => supplier.Supplier)
+                        .Where(option => option!.Supplier!.CompanyName.Contains(selectedFilter.ToLower())).ToListAsync();
                     //suppliers = await _northwindContext.Suppliers.Include(products => products.Products).Where(supplierName => supplierName.ContactName == searchPhrase).ToListAsync();
                     //    .Where(optionSelected => optionSelected?.Category == selectedOption).ToListAsync(); 
                 }

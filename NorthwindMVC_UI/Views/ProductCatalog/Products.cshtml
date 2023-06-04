@@ -10,20 +10,27 @@
 
 @*<p>
     <a class="btn btn-dark" asp-action="ProductsInfo">Create New</a>
+
+
 </p>*@
+
+@{
+    Model.ProductFilter.SelectedFilter = (ViewData["Filter"] != null)  ? ViewData["Filter"]!.ToString() : string.Empty;
+  
+}
 <div>
 
 </div>   
    <div class="container">
        <div class="row mb">
-        <form class="form-horizontal container-fluid" method="get" asp-route="ProductSearch">
+        <form class="form-horizontal container-fluid" method="get" asp-route="ProductList">
             <div class="row">
                 <nav class="navbar navbar-expand-md">
                    
 
                     <div class="input-group nav-item">
                         <input class="input-group-text btn btn-secondary btn-sm" type="submit" value="Search" />
-                        <input type="text" id="search-input" class="form-control" asp-for="@Model.ProductFilter.SearchPhrase" placeholder="Product name"/>
+                        <input type="text" id="search-input" class="form-control" name="search" value="@ViewData["Search"]" placeholder="Product name"/>
                     </div>
 
                     <div class="input-group ms-lg-1 nav-item" id="nav-filters">
@@ -52,18 +59,18 @@
                    <div class="input-group input-group-sm" id="filter-options">
                         <span class="input-group-text" id="inputGroup-sizing-sm">Filter</span>
                         <div class="input-group-text">
-                            <input class="form-check-input mt-0" type="radio" value="Product" name="ProductFilter.SelectedFilter" asp-for="ProductFilter.SelectedFilter" />
-                            <label class="form-check-label ms-1">Product</label>
+                            <input class="form-check-input mt-0" type="radio" value="Product" name="filter" asp-for="ProductFilter.SelectedFilter"/>
+                            <label class="form-check-label ms-1" name="filter">Product</label>
                         </div>
 
                         <div class="input-group-text">
-                            <input class="form-check-input mt-0" type="radio" value="Supplier" name="ProductFilter.SelectedFilter" asp-for="ProductFilter.SelectedFilter" />
-                            <label class="form-check-label ms-1">Supplier</label>
+                            <input class="form-check-input mt-0" type="radio" value="Supplier" name="filter" asp-for="ProductFilter.SelectedFilter" />
+                            <label class="form-check-label ms-1" name="filter">Supplier</label>
                         </div>
 
                         <div class="input-group-text">
-                            <input class="form-check-input mt-0" type="radio" value="Category" name="ProductFilter.SelectedFilter" asp-for="ProductFilter.SelectedFilter" />
-                            <label class="form-check-label ms-1">Category</label>
+                            <input class="form-check-input mt-0" type="radio" value="Category" name="filter" asp-for="ProductFilter.SelectedFilter"/>
+                            <label class="form-check-label ms-1" name="filter">Category</label>
                         </div>
                       
                     </div>
@@ -230,7 +237,7 @@
        @{
             if (Model.PagedItems.GetEnumerator().MoveNext())
             {
-                <partial name="_ButtonPages" model="@ViewBag.SelectedPage"/>
+                <partial name="_ButtonPages"/>
 
             }
             else

@@ -6,19 +6,28 @@
 @{
 }
 @*@model Product_CoreDomain.Products_Application.ServicesHandler.CommonServices.Filters.Paging<ITEntity>*@
+@model Northwind_App.ViewModels.ProductVM.ProductViewModel
+
+
+
 <div>
     <ul class="pagination" id="pagenumber">
+        @*<li class="page-item"><a class="btn btn-outline-light btn-sm text-primary">First Page</a></li>*@
         @{
-            var x = ViewData["ButtonPages"] as List<int>;
-            
+            var buttonPages = ViewData["ButtonPages"] as List<int>;
+        
+        var a = ViewBag.SelectedPage;
+          var x = "sdfasdf";
 
-            if (x != null)
+            if (buttonPages != null)
             {
-                foreach (var item in x)
+              
+             
+                foreach (var pages in buttonPages)
                 {
 
                     <li class="page-item">
-                        <a class="@(item == ViewBag.SelectedPage ? "btn btn-secondary btn-sm" : "btn btn-outline-light btn-sm text-primary")" asp-route-page="@item">@item</a>
+                           <a class="@(pages == ViewBag.SelectedPage ? "btn btn-secondary btn-sm" : "btn btn-outline-light btn-sm text-primary")" asp-route="ProductList" asp-route-page="@pages" asp-route-search="@ViewData["Search"]" asp-route-filter="@ViewData["Filter"]">@pages</a>
                     </li>
                     
                     //<li class="page-item"><a class="page-link" asp-route-page="@item">@item</a></li>
