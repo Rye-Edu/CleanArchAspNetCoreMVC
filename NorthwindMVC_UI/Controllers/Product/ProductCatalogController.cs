@@ -46,60 +46,70 @@ namespace Product_CoreDomain.Controllers
 
         // GET: ProductCatalog
         // [HttpGet("[controller]/[action]")]
-        [HttpGet("[controller]/[action]/list/page/{page:int?}", Name = "ProductList")]
-        //[HttpGet("[action]/list/product-filter/{page}/{productVM}", Name ="ProductSearch")]
+        [HttpGet("[controller]/[action]/list/current-page/{productPage:int?}/{filter?}/{search?}", Name = "ProductList")]
+       // [HttpGet("[action]/list/product-filter/{page:int?}/{filter?}/{search?}", Name ="ProductSearch")]
+
         // [HttpGet("[controller]/[action]/list/page/{page:int?}")]
         [ActionName("Products")]
-        public async Task<ActionResult<ProductViewModel>> ProductsIndex(string? filter, string? search, int? page = 1)
+        public async Task<ActionResult<ProductViewModel>> ProductsIndex(string? filter, string? search, int? productPage = 1)
         {
 
 
             ViewData["Filter"] = filter;
             ViewData["Search"] = search;
-            
-            int currentPage = 1;
+            ViewData["PageNumber"] = productPage;
+            //.  int currentPage = page;
 
+            //if (!filter.IsNullOrEmpty() || !search.IsNullOrEmpty())
+            //{
+            //    productPage = 1;
+            //}
+            var filterList = new List<string>();
+            if (!(filter.IsNullOrEmpty() || search.IsNullOrEmpty())) {
+                filterList = new List<string> {
+                    filter!,
+                    search!
+            };
+               // page = 1;
+            }
 
-            var productList = await _mediator.Send(new ProductListQuery(new ProductViewModel
-            {
-
-                ProductFilter = new ProductFilterVM
-                {
-
+      
+           ViewBag.SelectedPage = productPage;
+            //if (_paging.IsFilteredPage(ref page, filterList))
+            //{
+            //    ViewBag.SelectedPage = page;
+            //}
+            //else
+            //{
+            //    ViewBag.SelectedPage = page;
+            //}
+          //  var x = ViewBag.SelectedPage;
+            var productList = await _mediator.Send(new ProductListQuery(new ProductViewModel { 
+                
+               ProductFilter = new ProductFilterVM { 
+                    
                     SelectedFilter = filter,
                     SearchPhrase = search
                 }
             }));
-            if (!filter.IsNullOrEmpty() || !search.IsNullOrEmpty())
-            {
-                //page = 1;
-               // ViewBag.SelectedPage = page.GetValueOrDefault();
-                page = ViewBag.SelectedPage;
-                ViewBag.PageNumber = currentPage;
-                var pagedItems = _paging.PaginatedItems(page.GetValueOrDefault(), productList.ProductList.ToList());
-                productList.PagedItems = pagedItems;
-
-                ViewData["ButtonPages"] = _paging.TotalPage();
-
-                //  ViewBag.SelectedPage = 1;
-
-            }
-            else
-            {
-  
-                ViewBag.SelectedPage = page.GetValueOrDefault();
-                ViewBag.PageNumber = currentPage;
-                var pagedItems = _paging.PaginatedItems(page.GetValueOrDefault(), productList.ProductList.ToList());
-                productList.PagedItems = pagedItems;
-
-                ViewData["ButtonPages"] = _paging.TotalPage();
-            }
-            //// ViewBag.SelectedPage = page;
-           
-
+            //if (_paging!.TotalPage()!.Count < page)
+            //{
+            //    page = 1;
+            //    ViewBag.SelectedPage = page;
+            //}
             //ViewBag.CurrentFilter = productViewModel.ProductFilter.SelectedFilter;
             //ViewBag.SearchPhrase = productViewModel.ProductFilter.SearchPhrase;
-     
+
+            var pagedItems = _paging.PaginatedItems(productPage.GetValueOrDefault(), productList.ProductList.ToList());
+            //if (ViewBag.SelectedPage != page) {
+          //  ViewBag.SelectedPage = page;
+            //    ViewBag.SelectedPage = page;
+            //}
+
+            productList.PagedItems = pagedItems;      
+              
+            ViewData["ButtonPages"] = _paging.TotalPage();
+          
 
             return View("Products",productList);
          

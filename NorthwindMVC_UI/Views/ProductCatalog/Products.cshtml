@@ -23,17 +23,17 @@
 </div>   
    <div class="container">
        <div class="row mb">
-        <form class="form-horizontal container-fluid" method="get" asp-route="ProductList">
+        <form class="form-horizontal container-fluid" method="get" >
             <div class="row">
                 <nav class="navbar navbar-expand-md">
                    
 
                     <div class="input-group nav-item">
-                        <input class="input-group-text btn btn-secondary btn-sm" type="submit" value="Search" />
-                        <input type="text" id="search-input" class="form-control" name="search" value="@ViewData["Search"]" placeholder="Product name"/>
+                        <input class="input-group-text btn btn-secondary btn-sm" type="submit" value="Search" asp-route-productPage="1" asp-route-search="@ViewData["Search"]" asp-route-filter="@ViewData["Filter"]" />
+                        <input type="text" id="search-input" class="form-control" name="search" value="@ViewData["Search"]" placeholder="Product name" />
                     </div>
 
-                    <div class="input-group ms-lg-1 nav-item" id="nav-filters">
+                  @*  <div class="input-group ms-lg-1 nav-item" id="nav-filters">
               
                            
                            <label class="input-group-text" for="inputGroupSelect01" id="searchby">Search by:</label>
@@ -47,7 +47,7 @@
                            
         
                     </div>
-
+*@
 
                     <a class="nav-item btn btn-sm btn-outline-secondary text-primary" asp-action="ProductsInfo" id="create">Create</a>
                 </nav>
@@ -251,11 +251,16 @@
     </div>
 
     @{
-        if (!Model.PagedItems.GetEnumerator().MoveNext())       
+        if (!string.IsNullOrEmpty(ViewData["Search"] as string) || !string.IsNullOrEmpty(ViewData["Filter"] as string))       
         {
-          
-            <a class="text-decoration-none btn btn-primary btn-sm mt-5" asp-route="ProductList" asp-route-page="1">Back to list</a>
+
+
+            <a class="text-decoration-none btn btn-primary btn-sm mt-5" asp-route="ProductList" asp-route-productPage="1">Back to list</a>
         }
+        //else       
+        //{
+        //    <a class="text-decoration-none btn btn-primary btn-sm mt-5" asp-route="ProductList" asp-route-page="1">Back to list</a>
+        //}
         
     }
    </div>

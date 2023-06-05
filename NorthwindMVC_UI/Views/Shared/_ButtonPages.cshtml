@@ -15,19 +15,28 @@
         @*<li class="page-item"><a class="btn btn-outline-light btn-sm text-primary">First Page</a></li>*@
         @{
             var buttonPages = ViewData["ButtonPages"] as List<int>;
-        
-        var a = ViewBag.SelectedPage;
-          var x = "sdfasdf";
 
+            var a = ViewData["PageNumber"]!.ToString();
+
+            //if (ViewBag.SelectedPage == null)
+            //{
+            //    ViewBag.SelectedPage = 1;
+            
+            //}
+            var x = "sdfasdf";
+
+ 
             if (buttonPages != null)
             {
               
              
                 foreach (var pages in buttonPages)
                 {
-
+                    var btP = pages;
+                    var s = a;
+                    var c = "sdfas";
                     <li class="page-item">
-                           <a class="@(pages == ViewBag.SelectedPage ? "btn btn-secondary btn-sm" : "btn btn-outline-light btn-sm text-primary")" asp-route="ProductList" asp-route-page="@pages" asp-route-search="@ViewData["Search"]" asp-route-filter="@ViewData["Filter"]">@pages</a>
+                        <a class="@(pages ==  int.Parse(a)? "btn btn-secondary btn-sm" : "btn btn-outline-light btn-sm text-primary")" asp-route="ProductList" asp-route-productPage="@pages" asp-route-filter="@ViewData["Filter"]" asp-route-search="@ViewData["Search"]">@pages</a>
                     </li>
                     
                     //<li class="page-item"><a class="page-link" asp-route-page="@item">@item</a></li>

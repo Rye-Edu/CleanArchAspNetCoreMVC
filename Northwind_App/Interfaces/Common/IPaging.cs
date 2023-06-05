@@ -8,6 +8,9 @@ namespace Northwind_App.Interfaces.Common
         IList<int>? TotalPage();
         IList<TEntity>? PaginatedItems(int page, List<TEntity> list);
 
+        bool IsFilteredPage(ref int page, List<string> filters);
+        
+        
 
     }
 }
