@@ -46,8 +46,9 @@ namespace Product_CoreDomain.Controllers
 
         // GET: ProductCatalog
         // [HttpGet("[controller]/[action]")]
-        [HttpGet("[controller]/[action]/list/current-page/{productPage:int?}/{filter?}/{search?}", Name = "ProductList")]
-       // [HttpGet("[action]/list/product-filter/{page:int?}/{filter?}/{search?}", Name ="ProductSearch")]
+        //[HttpGet("[controller]/[action]/list/current-page/{productPage:int?}/{filter?}/{search?}", Name = "ProductList")]
+        [HttpGet("[controller]/[action]/list/current-page/{productPage:int?}", Name = "ProductList")]
+        // [HttpGet("[action]/list/product-filter/{page:int?}/{filter?}/{search?}", Name ="ProductSearch")]
 
         // [HttpGet("[controller]/[action]/list/page/{page:int?}")]
         [ActionName("Products")]
@@ -64,15 +65,6 @@ namespace Product_CoreDomain.Controllers
             //{
             //    productPage = 1;
             //}
-            var filterList = new List<string>();
-            if (!(filter.IsNullOrEmpty() || search.IsNullOrEmpty())) {
-                filterList = new List<string> {
-                    filter!,
-                    search!
-            };
-               // page = 1;
-            }
-
       
            ViewBag.SelectedPage = productPage;
             //if (_paging.IsFilteredPage(ref page, filterList))
