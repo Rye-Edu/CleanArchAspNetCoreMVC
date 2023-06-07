@@ -47,9 +47,8 @@ namespace Northwind_Infrastructure.Repositories
             string selectedOption = search?.ProductFilter?.SelectedOption?.ToString() ?? string.Empty;
             string selectedText = search?.ProductFilter?.SelectedText?.ToString() ?? string.Empty;
             string selectedFilter = search?.ProductFilter?.SelectedFilter?.ToString() ?? string.Empty;
-            var x = search?.ProductFilter?.ToString();
             var productList = new List<Product>();
-            var suppliers = new List<Supplier>();
+            
             if (!searchPhrase.IsNullOrEmpty())
             {
                 if (selectedFilter == "Supplier") {
@@ -66,13 +65,19 @@ namespace Northwind_Infrastructure.Repositories
                     productList = await _northwindContext.Products.Include(categories => categories.Category).Include(supplier => supplier.Supplier).
                         Where(categoryName => categoryName!.Category!.CategoryName.Contains(searchPhrase)).ToListAsync();
                 }
-                else if (selectedFilter.IsNullOrEmpty()) {
+                else if (selectedFilter== "All") {
+                    //productList = await _northwindContext.Products.Include(categories => categories.Category).Include(supplier => supplier.Supplier).
+                    //   Where(productName => productName.ProductName.Contains(searchPhrase))
+                    //   .Where(supplierName => supplierName!.Supplier!.CompanyName.Contains(searchPhrase)).ToListAsync();
+
                     productList = await _northwindContext.Products.Include(categories => categories.Category).Include(supplier => supplier.Supplier).
-                       Where(productName => productName.ProductName.Contains(searchPhrase) ||
-                       productName!.Supplier!.ContactName!.Contains(searchPhrase) ||
-                       productName!.Category!.CategoryName.Contains(searchPhrase)).ToListAsync();
+                      Where(productName => productName.ProductName.Contains(searchPhrase) 
+                      || productName!.Supplier!.CompanyName.Contains(searchPhrase)
+                      || productName!.Category!.CategoryName.Contains(searchPhrase)).ToListAsync();
+                     // .Where(supplierName => supplierName!.Supplier!.CompanyName.Contains(searchPhrase)).ToListAsync();
+
                 }
-             
+
 
 
             }

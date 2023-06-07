@@ -28,108 +28,29 @@
                 <nav class="navbar navbar-expand-md">
                    
 
-                    <div class="input-group nav-item">
+                    <div class="input-group input-group-sm nav-item">
                         <input class="input-group-text btn btn-secondary btn-sm" type="submit" value="Search" asp-route-productPage="1" asp-route-search="@ViewData["Search"]" asp-route-filter="@ViewData["Filter"]" />
                         <input type="text" id="search-input" class="form-control" name="search" value="@ViewData["Search"]" placeholder="Product name" />
-                    </div>
+                        <button class="btn btn-secondary btn-sm btn-group dropright" type="button" id="btn-filter" aria-haspopup="true" aria-expanded="false"> Filter </button>
+                                                   
+                        <div class="form-control" id="filter-options">
+                            <input class="form-check-input" type="radio" checked value="All" name="filter" asp-for="ProductFilter.SelectedFilter" />
+                            <label class="form-check-label ms-1 text-sm-end" name="filter">Default</label>
+                            <input class="form-check-input" type="radio" value="Product" name="filter" asp-for="ProductFilter.SelectedFilter" />
+                            <label class="form-check-label ms-1" name="filter">Product</label>
+                            <input class="form-check-input" type="radio" value="Supplier" name="filter" asp-for="ProductFilter.SelectedFilter" />
+                            <label class="form-check-label ms-1" name="filter">Supplier</label>
+                            <input class="form-check-input" type="radio" value="Category" name="filter" asp-for="ProductFilter.SelectedFilter" />
+                            <label class="form-check-label ms-1" name="filter">Category</label>
 
-                  @*  <div class="input-group ms-lg-1 nav-item" id="nav-filters">
-              
-                           
-                           <label class="input-group-text" for="inputGroupSelect01" id="searchby">Search by:</label>
-
-                           <div class="selections" id="selection-elms">
-                            <partial name="_SearchOptionDropdown" />
-                            <input class="form-check-input ms-1 me-1 mt-2" type="checkbox" id="discontined" name="discontinued" />
-                            <label class="form-check-label mt-1" for="discontined">Discontinued</label>
-
-                           </div>
-                           
-        
-                    </div>
-*@
-
+                        </div>
+                    </div>                                 
                     <a class="nav-item btn btn-sm btn-outline-secondary text-primary" asp-action="ProductsInfo" id="create">Create</a>
                 </nav>
-                <div class="row">
-                    @*<button type="button" id="btn-filter-dropdown" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Filter
-                    </button>
-*@ 
-                   <div class="input-group input-group-sm" id="filter-options">
-                        <span class="input-group-text" id="inputGroup-sizing-sm">Filter</span>
-                        <div class="input-group-text">
-                            <input class="form-check-input mt-0" type="radio" value="Product" name="filter" asp-for="ProductFilter.SelectedFilter"/>
-                            <label class="form-check-label ms-1" name="filter">Product</label>
-                        </div>
-
-                        <div class="input-group-text">
-                            <input class="form-check-input mt-0" type="radio" value="Supplier" name="filter" asp-for="ProductFilter.SelectedFilter" />
-                            <label class="form-check-label ms-1" name="filter">Supplier</label>
-                        </div>
-
-                        <div class="input-group-text">
-                            <input class="form-check-input mt-0" type="radio" value="Category" name="filter" asp-for="ProductFilter.SelectedFilter"/>
-                            <label class="form-check-label ms-1" name="filter">Category</label>
-                        </div>
-                      
-                    </div>
-                    <!-- Dropdown menu links -->
-                   @* <ul class="list-group list-group-horizontal-sm list-gr" id="filter-options">
-                        <li class="list-group-item">
-                                <input class="form-check-input mt-0" type="radio" value="Product" name="ProductFilter.SelectedFilter" />
-                                <label class="form-check-label" for="flexCheckDefault">Product</label>
-                            </li>
-
-                             <li class="list-group-item">
-                                <input type="radio" value="Supplier" name="ProductFilter.SelectedFilter" />
-                                <label class="form-check-label" for="flexCheckDefault">Supplier</label>
-                            </li>
-                            <li class="list-group-item">
-                                <input type="radio" value="Category" name="ProductFilter.SelectedFilter" />
-                                <label class="form-check-label" for="flexCheckDefault">Category</label>
-                            </li>
-                       
-                    </ul>*@
-                    @*</div>*@
-                </div>
-
-
             </div>
         </form>
        </div>
-      @* <div class="row" id="list-filters">
-           <form class="form-horizontal container-fluid" method="get" asp-route="ProductSearch">
-            <div class="row">
-                <nav class="navbar navbar-expand-sm">
-
-                    <div class="input-group nav-item">
-                        <input class="input-group-text btn btn-secondary btn-sm" type="submit" value="View by" />
-                        <input type="text" class="form-control" asp-for="@Model.ProductFilter.SearchPhrase" placeholder="Product name"/>
-                    </div>
-
-                    <div class="input-group ms-lg-1 nav-item" id="nav-filters">
-                     
-                           <label class="input-group-text" for="inputGroupSelect01" id="searchby">Search by:</label>
-
-                           <div class="selections" id="selection-elms">
-                            <partial name="_SearchOptionDropdown" />
-                            <input class="form-check-input ms-1 me-1 mt-2" type="checkbox" id="discontined" name="discontinued" />
-                            <label class="form-check-label mt-1" for="discontined">Discontinued</label>
-
-                           </div>
-                           
-        
-                    </div>
-
-
-                    <a class="nav-item btn btn-sm btn-outline-secondary text-primary" asp-action="ProductsInfo" id="create">Create</a>
-                </nav>
-
-           
-            </div>
-            </form>
-       </div>*@
+     
        <div class="row">
         <table class="table mt-4 table-hover table-sm ">
             <thead >
@@ -388,56 +309,37 @@
 
         const filterOptions = $('#filter-options');
         const filterDropDown = $('#btn-filter-dropdown');
-          //  let selected = filterOptions.children('li').children('input');
+          /// let selected = filterOptions.children('li').children('input');
 
+          console.log(filterOptions);
             const uncheckedUnselectedFilter = () => {
-                let selected = filterOptions.children('div').children('input');
+                let selected = filterOptions.children('input');
                 let searchInput = $('#search-input');
-                console.log(selected);
-                // $.map(selected, function(current, index){
 
+                selected.on('click', function () {
+                               
+                        if (this.checked) {
 
-                selected.on('change', function () {
-                    console.log(this.checked);
-                    if (this.checked) {
-                        let current = this;
-                        selected.each(function (i, selectedTextValue) {
-
-                            if (current.value !== selectedTextValue.value) {
-                                selectedTextValue.checked = false;
+                            if(this.value === 'All'){
+                              //  this.value = 'Product'
+                            console.log("fron if all ", this.value)
+                            searchInput.attr('PlaceHolder', `type company name or category name`);
+                            this.value = 'All';
+                            
                             }
-                            else {
-                                selectedTextValue.checked = true;
-                                searchInput.attr('PlaceHolder', `type ${selectedTextValue.value.toLowerCase()} name`);
-                                console.log(selectedTextValue.value);
+                            else{
+                            searchInput.attr('PlaceHolder', `type ${this.value.toLowerCase()} name`);
+                            console.log("From else ", this.value);
                             }
-
-                        });
-                    }
+                            
+                        }
                 });
-
-
-
-                // console.log(filterOptions.children());
             };
-            //  console.log(selected.val());
+         
             uncheckedUnselectedFilter();
-            const replacePlaceHolderValue = (currentVal) => {
-                    
-            };
-           
+   
            // console.log(selected);
         });
       
     </script>
-    <script>
-        function getVal(){
-            
-           // let x = document.getElementById('filter-options').children().
-           //if(){
-           
-           //}
-        }
-        getVal();
-    </script>
-}
+    }

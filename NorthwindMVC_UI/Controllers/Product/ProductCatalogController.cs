@@ -55,27 +55,10 @@ namespace Product_CoreDomain.Controllers
         public async Task<ActionResult<ProductViewModel>> ProductsIndex(string? filter, string? search, int? productPage = 1)
         {
 
-
             ViewData["Filter"] = filter;
             ViewData["Search"] = search;
             ViewData["PageNumber"] = productPage;
-            //.  int currentPage = page;
-
-            //if (!filter.IsNullOrEmpty() || !search.IsNullOrEmpty())
-            //{
-            //    productPage = 1;
-            //}
-      
-           ViewBag.SelectedPage = productPage;
-            //if (_paging.IsFilteredPage(ref page, filterList))
-            //{
-            //    ViewBag.SelectedPage = page;
-            //}
-            //else
-            //{
-            //    ViewBag.SelectedPage = page;
-            //}
-          //  var x = ViewBag.SelectedPage;
+          
             var productList = await _mediator.Send(new ProductListQuery(new ProductViewModel { 
                 
                ProductFilter = new ProductFilterVM { 
@@ -84,24 +67,10 @@ namespace Product_CoreDomain.Controllers
                     SearchPhrase = search
                 }
             }));
-            //if (_paging!.TotalPage()!.Count < page)
-            //{
-            //    page = 1;
-            //    ViewBag.SelectedPage = page;
-            //}
-            //ViewBag.CurrentFilter = productViewModel.ProductFilter.SelectedFilter;
-            //ViewBag.SearchPhrase = productViewModel.ProductFilter.SearchPhrase;
 
             var pagedItems = _paging.PaginatedItems(productPage.GetValueOrDefault(), productList.ProductList.ToList());
-            //if (ViewBag.SelectedPage != page) {
-          //  ViewBag.SelectedPage = page;
-            //    ViewBag.SelectedPage = page;
-            //}
-
-            productList.PagedItems = pagedItems;      
-              
-            ViewData["ButtonPages"] = _paging.TotalPage();
-          
+                productList.PagedItems = pagedItems;               
+                ViewData["ButtonPages"] = _paging.TotalPage();         
 
             return View("Products",productList);
          
