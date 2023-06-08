@@ -66,16 +66,12 @@ namespace Northwind_Infrastructure.Repositories
                         Where(categoryName => categoryName!.Category!.CategoryName.Contains(searchPhrase)).ToListAsync();
                 }
                 else if (selectedFilter== "All") {
-                    //productList = await _northwindContext.Products.Include(categories => categories.Category).Include(supplier => supplier.Supplier).
-                    //   Where(productName => productName.ProductName.Contains(searchPhrase))
-                    //   .Where(supplierName => supplierName!.Supplier!.CompanyName.Contains(searchPhrase)).ToListAsync();
-
+               
                     productList = await _northwindContext.Products.Include(categories => categories.Category).Include(supplier => supplier.Supplier).
                       Where(productName => productName.ProductName.Contains(searchPhrase) 
                       || productName!.Supplier!.CompanyName.Contains(searchPhrase)
                       || productName!.Category!.CategoryName.Contains(searchPhrase)).ToListAsync();
-                     // .Where(supplierName => supplierName!.Supplier!.CompanyName.Contains(searchPhrase)).ToListAsync();
-
+                    
                 }
 
 
@@ -84,20 +80,5 @@ namespace Northwind_Infrastructure.Repositories
             return Task.FromResult(productList).Result;
         }
 
-        // .Where(searched => search.All(p => searched.ProductName.Contains(p))).ToListAsync();
-        //   throw new Exception("No data");
-
-        //.Where(searchPhrase => EF.Functions.FreeText(searchPhrase.ProductName),"asdfaf");
-
-        //.FirstOrDefaultAsync(m => m.ProductName == search);
-
-
-
-        //if (product != null)
-        //{
-
-        /// }
-    
-      //  }
     }
 }
