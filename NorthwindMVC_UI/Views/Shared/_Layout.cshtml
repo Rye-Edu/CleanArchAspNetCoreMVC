@@ -48,14 +48,22 @@
             </header>
         </div>
         <div class="row min-vh-100">
-            <div class="col-2">
+            <div class="col-2 me-2">
                 <div className='side-container'>
 
                     <ul class="nav nav-pills flex-column mb-auto">
-                        <li class="nav-item">
-                            <a class="nav-link text-blue" asp-route="ProductList" asp-route-productPage="1"><img class="img-responsive" src="@("~/UploadedFiles/UI_Imgs/icons8-new-product-96.png")" asp-append-version="true" width='16' height='16' alt="product">
-                                <span class="navbar-toggler-icon">Product</span>
+
+                        <li class="dropdown nav-item justify-content-evenly">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="true" asp-route="ProductList" asp-route-productPage="1">
+                                <img class="img-responsive" src="@("~/UploadedFiles/UI_Imgs/icons8-new-product-96.png")" asp-append-version="true" width='16' height='16' alt="product">
+                          Product
                             </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item nav-link-sm text-dark" asp-area="" asp-route="ProductList" asp-route-productPage="1">Product</a></li>
+                                <li><a class="dropdown-item nav-link-sm text-dark" asp-area="" asp-controller="Authorization" asp-action="CreateUser">Supplier</a></li>
+                                <li><a class="dropdown-item nav-link-sm text-dark" asp-area="" asp-controller="User" asp-action="Users">Categories</a></li>
+                            </ul>
+
                         </li>
                         <li class="nav-item">
                             <a class="nav-link"><img src="@("~/UploadedFiles/UI_Imgs/icons8-supplier-100.png")" asp-append-version="true" width='16' height='16'>
@@ -89,25 +97,12 @@
                             </a>
                         
                         </li>
-                        @*    <li class="nav-item align d-inline-flex">
-
-
-                        <a class="nav-link me-4 d-flex"><img class="me-2" src="@("~/UploadedFiles/UI_Imgs/icons8-supplier-100.png")" asp-append-version="true" width='16' height='16'>
-                        <p class="text-dark">Supplier</p></a>
-
-                        *@
-
-
-                        @*      </li>
-                        <li class="nav-item">Purchases<a class="nav-link"><img src="@("~/UploadedFiles/UI_Imgs/icons8-purchase-order-100.png")" asp-append-version="true" width='16' height='16'></a></li>
-                        <li class="nav-item">Orders<a class="nav-link"><img src="@("~/UploadedFiles/UI_Imgs/icons8-new-product-96.png")" asp-append-version="true" width='16' height='16'></a></li>
-                        <li class="nav-item">Shipping<a class="nav-link"><img src="@("~/UploadedFiles/UI_Imgs/icons8-in-transit-64.png")" asp-append-version="true" width='16' height='16'></a></li>
-                        *@
+                       
                     </ul>
 
                 </div>
             </div>
-            <div class="col-9" id="content-container">
+            <div class="col-9 ms-3" id="content-container">
                 @RenderBody()
             </div>
 
