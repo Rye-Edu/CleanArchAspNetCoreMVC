@@ -18,18 +18,24 @@ namespace Northwind_App.Product_Feature.Queries
         }
         public async Task<ProductViewModel> Handle(ProductListQuery? request, CancellationToken cancellationToken)
         {
-            if (request.ProductFilter == null) {
-                var x = "asdfa";
-                x.ToUpper();
+            List<ProductViewModel> prods = new List<ProductViewModel>();
+            if (GetPropertyValues(request!.ProductFilter))
+            {
+
+                var searched = await _productRepository.GetSearchProduct(request);
+                if (searched.GetEnumerator().MoveNext())
+                {
+                    prods = _mapper.Map<IEnumerable<ProductViewModel>>(searched).ToList();
+                }
+
             }
-            GetPropertyValues(request?.ProductFilter);
+            else {
+                var productList = await _productRepository.GetProductDetails();
+                prods = _mapper.Map<IEnumerable<ProductViewModel>>(productList).ToList();
+            }
 
-            var productList = await _productRepository.GetProductDetails();
-
-
-            var products = _mapper.Map<IEnumerable<ProductViewModel>>(productList );
             ProductViewModel productViewModel = new();
-            productViewModel.ProductList = products;
+            productViewModel.ProductList = prods;
             return Task.FromResult(productViewModel).Result;
         }
 
@@ -39,11 +45,12 @@ namespace Northwind_App.Product_Feature.Queries
             PropertyInfo[] properties = type.GetProperties();
 
             foreach (PropertyInfo property in properties) {
-              //  if (property.GetValue(obj) == null || (string)property?.GetValue(obj) == string.Empty) {
-                    var x = property.Name;
-                    var y = property.GetValue(obj);
-                   // return true;
-                //}
+
+
+                if (property.Name != "SearchFilters" && property.GetValue(obj) != null)
+                {
+                 return true;
+                }
             }
             return false;
         }

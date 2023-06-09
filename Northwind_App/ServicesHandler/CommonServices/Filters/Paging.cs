@@ -34,15 +34,34 @@ namespace Northwind_App.ServicesHandler.CommonServices.Filters
         public IList<TEntity>? PaginatedItems(int page, List<TEntity> list) {
 
             TotalItems = list.Count();
+
+
             //  TEntity? result = null;
+   
             Paging<TEntity> pageList = new();
+
             //pageList.PaginatedList = new List<TEntity>();
             pageList.PaginatedList = list;
+            var x = pageList.PaginatedList.ToList().Count.ToString();
+            var a = pageList.PaginatedList.Skip(page);
+            var b = pageList.PaginatedList.Take(page);
             var itemsPerPage = pageList.PaginatedList?.Skip((page - 1) * pageList.PageItems).Take(pageList.PageItems);
             
             return itemsPerPage?.ToList();
         
         }
-      
+        public bool IsFilteredPage(ref int page, List<string> filters)
+        {
+            foreach (var item in filters)
+            {
+                if (!string.IsNullOrEmpty(item))
+                {
+
+                    page = 1;
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

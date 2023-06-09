@@ -41,6 +41,17 @@ namespace NorthwindMVC_UI
 
             app.UseAuthorization();
 
+            //app.MapControllerRoute(
+            //   name: "ProductList",
+            //   pattern: "{controller=ProductCatalog}/{action=Products}/list/current-page/{page:int?}");
+
+            //app.MapControllerRoute(
+            //    name: "ProductSearch",
+            //    pattern: "{controller=ProductCatalog}/{action=Products}/product-search/{productViewModel?}"
+            //    );
+            //defaults: new { controller = "ProductCatalog", action = "Products" });
+
+
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");

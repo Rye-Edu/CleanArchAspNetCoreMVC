@@ -5,14 +5,14 @@
 }
 @model Northwind_App.ViewModels.ProductVM.ProductViewModel
 
-<select aria-label="filter options" class="form-control-sm pe-lg-1" id="categorized-options" asp-for="ProductFilter.SelectedOption"
+<select aria-label="filter options" class="btn btn-secondary form-control-sm p-1 text-sm-start me-1" id="categorized-options" asp-for="ProductFilter.SelectedOption"
         asp-items="@Model.ProductFilter.SearchFilters">
         <option value="" id="default-val">Choose</option>     
     </select>
 
 
 
-<select aria-label="selected options" class="form-control-sm selections" id="selected-option" asp-for="ProductFilter.SelectedText">
+<select aria-label="selected options" class="form-control-sm selections" size="1"id="selected-option" asp-for="ProductFilter.SelectedText">
         <option value="">Choose</option>
         
      

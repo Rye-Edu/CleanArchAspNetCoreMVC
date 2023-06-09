@@ -43,34 +43,42 @@ namespace Northwind_Infrastructure.Repositories
         public async Task<IEnumerable<Product>> GetSearchProduct(ProductListQuery search)
         {
 
-            //var product = await _northwindContext.Products
-            //.Include(p => p.Category)
-            //.Include(p => p.Supplier).Where(m=> m.ProductName == search).ToListAsync();
-            List<Product> found = new();
-            //if (!search.IsNullOrEmpty()) {
-            //    var product = await _northwindContext.Products.Include(categories => categories.Category).Include(suppliers => suppliers.Supplier)
-            //       .Where(searched => searched.ProductName.Contains(search)).ToListAsync();
-            //    if (product != null) {
-            //        found = product;
-            //    }
-            //    return Task.FromResult(found).Result;
-            throw new NotImplementedException();
+            string searchPhrase = search?.ProductFilter?.SearchPhrase?.ToString() ?? string.Empty;
+            string selectedOption = search?.ProductFilter?.SelectedOption?.ToString() ?? string.Empty;
+            string selectedText = search?.ProductFilter?.SelectedText?.ToString() ?? string.Empty;
+            string selectedFilter = search?.ProductFilter?.SelectedFilter?.ToString() ?? string.Empty;
+            var productList = new List<Product>();
+            
+            if (!searchPhrase.IsNullOrEmpty())
+            {
+                if (selectedFilter == "Supplier") {
+                    productList = await _northwindContext.Products.Include(categories => categories.Category).Include(supplier => supplier.Supplier)
+                                .Where(supplierName => supplierName!.Supplier!.CompanyName.Contains(searchPhrase.ToLower())).ToListAsync();
+                }
+                else if (selectedFilter == "Product") {
+                    productList = await _northwindContext.Products.Include(categories => categories.Category).Include(supplier => supplier.Supplier).
+                        Where(productName => productName.ProductName.Contains(searchPhrase)).ToListAsync();
+                }
+
+                else if (selectedFilter == "Category")
+                {
+                    productList = await _northwindContext.Products.Include(categories => categories.Category).Include(supplier => supplier.Supplier).
+                        Where(categoryName => categoryName!.Category!.CategoryName.Contains(searchPhrase)).ToListAsync();
+                }
+                else if (selectedFilter== "All") {
+               
+                    productList = await _northwindContext.Products.Include(categories => categories.Category).Include(supplier => supplier.Supplier).
+                      Where(productName => productName.ProductName.Contains(searchPhrase) 
+                      || productName!.Supplier!.CompanyName.Contains(searchPhrase)
+                      || productName!.Category!.CategoryName.Contains(searchPhrase)).ToListAsync();
+                    
+                }
+
+
+
+            }
+            return Task.FromResult(productList).Result;
         }
 
-        // .Where(searched => search.All(p => searched.ProductName.Contains(p))).ToListAsync();
-        //   throw new Exception("No data");
-
-        //.Where(searchPhrase => EF.Functions.FreeText(searchPhrase.ProductName),"asdfaf");
-
-        //.FirstOrDefaultAsync(m => m.ProductName == search);
-
-
-
-        //if (product != null)
-        //{
-
-        /// }
-    
-      //  }
     }
 }

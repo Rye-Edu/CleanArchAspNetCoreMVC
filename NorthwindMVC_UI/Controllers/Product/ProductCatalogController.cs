@@ -21,6 +21,7 @@ using Northwind_App.ServicesHandler.CommonServices.Filters;
 using Northwind_App.ServicesHandler.Upload_Services.Command;
 using Northwind_App.Features.Category_CommQuery.Queries;
 using Northwind_App.Features.Product_Feature.Commands;
+using Microsoft.IdentityModel.Tokens;
 //using Product_CoreDomain.Products_Infrastructure.Data;
 //using Product_CoreDomain.Products_Infrastructure.DataModels;
 
@@ -38,64 +39,44 @@ namespace Product_CoreDomain.Controllers
 
         public ProductCatalogController(IMediator mediator, IPaging<ProductViewModel> paging)
         {
-           
+
             _mediator = mediator;
             _paging = paging;
         }
 
         // GET: ProductCatalog
-       [HttpGet("[action]/list/page/{page:int?}")]
+        // [HttpGet("[controller]/[action]")]
+        //[HttpGet("[controller]/[action]/list/current-page/{productPage:int?}/{filter?}/{search?}", Name = "ProductList")]
+        [HttpGet("[controller]/list/current-page/{productPage:int?}", Name = "ProductList")]
+        // [HttpGet("[action]/list/product-filter/{page:int?}/{filter?}/{search?}", Name ="ProductSearch")]
+
+        // [HttpGet("[controller]/[action]/list/page/{page:int?}")]
         [ActionName("Products")]
-        public async Task<ActionResult<ProductViewModel>> ProductsIndex(ProductViewModel productVM, int page)
+        public async Task<ActionResult<ProductViewModel>> ProductsIndex(string? filter, string? search, int? productPage = 1)
         {
-            var prods = productVM;
 
-            if (prods == null) {
-                var x = "ssss";
-                x.ToUpper(); 
-            }
-            else if (prods.ProductFilter == null) {
-
-                var x = "sssss";
-                x.ToUpper();
-            }
-            var productList = await _mediator.Send(new ProductListQuery(productVM));
-            if (productVM.ProductFilter.SearchPhrase != null)
-            {
-                return await SearchProduct(productVM, page);
-            }
-
-            ViewBag.SelectedPage = page;
-            var pagedItems = _paging.PaginatedItems(page, productList.ProductList.ToList());
-            productList.PagedItems = pagedItems;      
-              
-            ViewData["ButtonPages"] = _paging.TotalPage();
+            ViewData["Filter"] = filter;
+            ViewData["Search"] = search;
+            ViewData["PageNumber"] = productPage;
           
+            var productList = await _mediator.Send(new ProductListQuery(new ProductViewModel { 
+                
+               ProductFilter = new ProductFilterVM { 
+                    
+                    SelectedFilter = filter,
+                    SearchPhrase = search
+                }
+            }));
+
+            var pagedItems = _paging.PaginatedItems(productPage.GetValueOrDefault(), productList.ProductList.ToList());
+                productList.PagedItems = pagedItems;               
+                ViewData["ButtonPages"] = _paging.TotalPage();         
 
             return View("Products",productList);
          
         }
 
-        [HttpGet("[action]/list/{productViewModel?}")]
-        [ActionName("Products")]
-
-        public async Task<ActionResult<ProductViewModel>> SearchProduct(ProductViewModel productViewModel, int page)
-        {
-
-          //if (productViewModel.ProductFilter.SearchPhrase.IsNullOrEmpty())
-          //  {
-          //      return await ProductsIndex(productViewModel,page);
-          //  }
-
-          //  var searched = await _mediator.Send(new ProductSearch(productViewModel.ProductFilter));
-            
-          //  productViewModel.PagedItems = searched.ToList();
-          //  ViewData["ButtonPages"] = _paging.TotalPage();
-
-            return View("Products",productViewModel);
-
-        }
-
+ 
         // GET: ProductCatalog/Details/5
         [HttpGet("detail/{id:int}")]
         [ActionName("Details")]
@@ -110,7 +91,7 @@ namespace Product_CoreDomain.Controllers
         // GET: ProductCatalog/Create
         [HttpGet("[action]/new-product")]
         [ActionName("ProductsInfo")]
-        [Authorize]
+       // [Authorize]
         public async Task<IActionResult> Create()
         {
             ProductViewModel productViewModel = new ProductViewModel();
@@ -139,7 +120,7 @@ namespace Product_CoreDomain.Controllers
 
             await _mediator.Send(new CreateProduct(product));
          
-            return RedirectToAction("Products");
+            return RedirectToAction("Products", new { page=1});
         }
 
         // GET: ProductCatalog/Edit/5
@@ -174,7 +155,7 @@ namespace Product_CoreDomain.Controllers
 
 
             await _mediator.Send(new UpdateProduct(product?.ProductId.GetValueOrDefault(), product));
-            return RedirectToAction("Products");
+            return RedirectToAction("Products", new { page = 1});
        
         }
 
@@ -197,7 +178,7 @@ namespace Product_CoreDomain.Controllers
          
             await _mediator.Send(new RemoveProduct(productViewModel.ProductId.GetValueOrDefault(), productViewModel));
          
-            return RedirectToAction("ProductList");
+            return RedirectToAction("Products", new { page=1 });
         }
 
       

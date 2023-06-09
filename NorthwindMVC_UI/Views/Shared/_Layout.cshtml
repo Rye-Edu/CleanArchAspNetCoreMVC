@@ -10,54 +10,111 @@
     @*<script src="~/lib/jquery/dist/jquery.js"></script>*@
 </head>
 <body>
-    <header>
-        <div>
-            @*<img src="~/UploadedFiles/Images/Northwind-header.png"/>*@
+    <div class="container-fluid min-vh-100 flex-grow-1" id="main-container">
+        <div class="row">
+            <header>
+                <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                    <div class="container-fluid ">
+
+                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">NorthwindTraders</a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                </li>
+                                <li class="dropdown nav-item">
+                                    <a class="nav-link text-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Product Catalog</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item nav-link-sm text-dark" asp-area="" asp-route="ProductList" asp-route-productPage="1">Product</a></li>
+                                        <li><a class="dropdown-item nav-link-sm text-dark" asp-area="" asp-controller="Authorization" asp-action="CreateUser">Supplier</a></li>
+                                        <li><a class="dropdown-item nav-link-sm text-dark" asp-area="" asp-controller="User" asp-action="Users">Categories</a></li>
+                                    </ul>
+
+
+                                </li>
+
+                            </ul>
+                        </div>
+                        @*<partial name="_loginPartial"></partial>*@
+                    </div>
+                </nav>
+            </header>
         </div>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-             
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">NorthwindTraders</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="dropdown nav-item">
-                            <a class="nav-link text-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Product Catalog</a>
+        <div class="row min-vh-100">
+            <div class="col-2 me-2">
+                <div className='side-container'>
+
+                    <ul class="nav nav-pills flex-column mb-auto">
+
+                        <li class="dropdown nav-item justify-content-evenly">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="true" asp-route="ProductList" asp-route-productPage="1">
+                                <img class="img-responsive" src="@("~/UploadedFiles/UI_Imgs/icons8-new-product-96.png")" asp-append-version="true" width='16' height='16' alt="product">
+                          Product
+                            </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item nav-link-sm text-dark" asp-area="" asp-controller="ProductCatalog" asp-action="Products">Product</a></li>
+                                <li><a class="dropdown-item nav-link-sm text-dark" asp-area="" asp-route="ProductList" asp-route-productPage="1">Product</a></li>
                                 <li><a class="dropdown-item nav-link-sm text-dark" asp-area="" asp-controller="Authorization" asp-action="CreateUser">Supplier</a></li>
                                 <li><a class="dropdown-item nav-link-sm text-dark" asp-area="" asp-controller="User" asp-action="Users">Categories</a></li>
                             </ul>
 
-
                         </li>
-                      
+                        <li class="nav-item">
+                            <a class="nav-link"><img src="@("~/UploadedFiles/UI_Imgs/icons8-supplier-100.png")" asp-append-version="true" width='16' height='16'>
+                                <span class="navbar-toggler-icon">Supplier</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-blue"><img src="@("~/UploadedFiles/UI_Imgs/icons8-new-product-96.png")" asp-append-version="true" width='16' height='16'>
+                                <span class="navbar-toggler-icon">Orders</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-blue"><img src="@("~/UploadedFiles/UI_Imgs/icons8-purchase-order-100.png")" asp-append-version="true" width='16' height='16'>
+                                <span class="navbar-toggler-icon">
+                                    Purchases
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-blue"><img src="@("~/UploadedFiles/UI_Imgs/icons8-in-transit-64.png")" asp-append-version="true" width='16' height='16'>
+                                <span class="navbar-toggler-icon">
+                                    Shipping
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-blue"><img class="img-responsive" src="@("~/UploadedFiles/UI_Imgs/icons8-new-product-96.png")" asp-append-version="true" width='16' height='16' alt="product">
+                                <span class="navbar-toggler-icon">
+                                    Product
+                                </span>
+                            </a>
+                        
+                        </li>
+                       
                     </ul>
+
                 </div>
-                @*<partial name="_loginPartial"></partial>*@
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+            <div class="col-9 ms-3" id="content-container">
+                @RenderBody()
+            </div>
+
+        </div>
+        <footer class="border-top footer text-muted row ">
+            <div class="col align-content-md-end">
+                &copy; 2023 - Product_CoreDomain - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - Product_CoreDomain - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

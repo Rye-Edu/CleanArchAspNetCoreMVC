@@ -10,43 +10,60 @@
 
 @*<p>
     <a class="btn btn-dark" asp-action="ProductsInfo">Create New</a>
+
+
 </p>*@
+
+@{
+    Model.ProductFilter.SelectedFilter = (ViewData["Filter"] != null)  ? ViewData["Filter"]!.ToString() : string.Empty;
+  
+}
 <div>
 
-</div>   
-   <div class="container">
+</div>
+<div class="container container-fluid">
        <div class="row mb">
-        <form class="form-horizontal container-fluid" method="get" asp-action="Products">
+        <form class="form-horizontal" method="get" >
             <div class="row">
-                <nav class="navbar navbar-expand-sm">
+                <nav class="navbar navbar-expand-md">
+                   
 
-                    <div class="input-group nav-item">
-                        <input class="input-group-text btn btn-secondary btn-sm" type="submit" value="Search" />
-                        <input type="text" class="form-control" asp-for="@Model.ProductFilter.SearchPhrase" />
+                    <div class="input-group input-group-sm nav-item">
+                        <input class="input-group-text btn btn-secondary btn-sm" type="submit" value="Search" asp-route-productPage="1" asp-route-search="@ViewData["Search"]" asp-route-filter="@ViewData["Filter"]" />
+                        <input type="text" id="search-input" class="form-control" name="search" value="@ViewData["Search"]" placeholder="type company name or category name" />
+                       
+                                                   
+                       
                     </div>
+                    <div class="dropdown">
+                        <a class="btn btn-secondary btn-sm dropdown-toggle" id="btn-filter" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Filter </a>
 
-                    <div class="input-group ms-lg-1 nav-item" id="nav-filters">
-                     
-                           <label class="input-group-text" for="inputGroupSelect01" id="searchby">Search by:</label>
+                        <ul class="dropdown-menu" id="filter-options">
+                            <li class="dropdown-item">
+                                <input class="form-check-input" type="radio" checked value="All" name="filter" asp-for="ProductFilter.SelectedFilter" />
+                                <label class="form-check-label ms-1 text-sm-end" name="filter">Default</label>
+                            </li>
+                            <li class="dropdown-item">
+                                <input class="form-check-input" type="radio" value="Product" name="filter" asp-for="ProductFilter.SelectedFilter" />
+                                <label class="form-check-label ms-1" name="filter">Product</label>
+                            </li>
+                            <li class="dropdown-item">
+                                <input class="form-check-input" type="radio" value="Supplier" name="filter" asp-for="ProductFilter.SelectedFilter" />
+                                <label class="form-check-label ms-1" name="filter">Supplier</label>
+                            </li>
+                            <li class="dropdown-item">
+                                <input class="form-check-input" type="radio" value="Category" name="filter" asp-for="ProductFilter.SelectedFilter" />
+                                <label class="form-check-label ms-1" name="filter">Category</label>
 
-                           <div class="selections" id="selection-elms">
-                            <partial name="_SearchOptionDropdown" />
-                            <input class="form-check-input ms-1 me-1 mt-2" type="checkbox" id="discontined" name="discontinued" />
-                            <label class="form-check-label mt-1" for="discontined">Discontinued</label>
-
-                           </div>
-                           
-        
+                            </li>
+                        </ul>
                     </div>
-
-
                     <a class="nav-item btn btn-sm btn-outline-secondary text-primary" asp-action="ProductsInfo" id="create">Create</a>
                 </nav>
-
-           
             </div>
         </form>
        </div>
+     
        <div class="row">
         <table class="table mt-4 table-hover table-sm ">
             <thead >
@@ -85,7 +102,7 @@
                 </tr>
             </thead>
             <tbody align-content-around p-2>
-                @foreach (var item in Model.PagedItems)
+                @foreach (var item in Model?.PagedItems)
                 {
                     <tr>
                         <td>
@@ -111,7 +128,7 @@
                         </td>
                         <td>
                             @*@Html.DisplayFor(modelItem => item.ImageFile)*@
-                            <img src="@("~/UploadedFiles/Images/"+item.ImageFile)" asp-append-version="true" width="50px" height="30px" class="img-thumbnail mt-0" alt="">
+                            <img src="@("~/UploadedFiles/Images/"+item.ImageFile)" asp-append-version="true" width="50px" height="30px" class="img-thumbnail mt-0" alt="@item.ProductName">
 
                         </td>
                         <td>
@@ -151,8 +168,35 @@
 
        </div>
        <div>
-           <partial name="_ButtonPages"/>
-       </div>
+       @{
+            if (Model.PagedItems.GetEnumerator().MoveNext())
+            {
+                <partial name="_ButtonPages"/>
+
+            }
+            else
+            {
+
+                <span class="mb-5">No Data retrieved</span>
+            }
+
+        }
+
+    </div>
+
+    @{
+        if (!string.IsNullOrEmpty(ViewData["Search"] as string) || !string.IsNullOrEmpty(ViewData["Filter"] as string))       
+        {
+
+
+            <a class="text-decoration-none btn btn-primary btn-sm mt-5" asp-route="ProductList" asp-route-productPage="1" asp-route-search="" asp-route-filter="">Back to list</a>
+        }
+        //else       
+        //{
+        //    <a class="text-decoration-none btn btn-primary btn-sm mt-5" asp-route="ProductList" asp-route-page="1">Back to list</a>
+        //}
+        
+    }
    </div>
 
 
@@ -275,8 +319,40 @@
                   
             });
         };
-           
+
+        const filterOptions = $('#filter-options');
+        const filterDropDown = $('#btn-filter-dropdown');
+          /// let selected = filterOptions.children('li').children('input');
+
+          console.log(filterOptions);
+            const uncheckedUnselectedFilter = () => {
+                let selected = filterOptions.children('ul li').children('input');
+                let searchInput = $('#search-input');
+
+                selected.on('click', function () {
+                               
+                        if (this.checked) {
+
+                            if(this.value === 'All'){
+                              //  this.value = 'Product'
+                            console.log("fron if all ", this.value)
+                            searchInput.attr('PlaceHolder', `type company name or category name`);
+                            this.value = 'All';
+                            
+                            }
+                            else{
+                            searchInput.attr('PlaceHolder', `type ${this.value.toLowerCase()} name`);
+                            console.log("From else ", this.value);
+                            }
+                            
+                        }
+                });
+            };
+         
+            uncheckedUnselectedFilter();
+   
+           // console.log(selected);
         });
       
     </script>
-}
+    }
