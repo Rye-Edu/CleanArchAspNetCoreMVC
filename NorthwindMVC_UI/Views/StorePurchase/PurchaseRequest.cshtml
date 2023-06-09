@@ -1,0 +1,135 @@
+﻿@model Northwind_App.ViewModels.PurchaseVM.PurchaseRequestVM
+
+@{
+    ViewData["Title"] = "PurchaseRequest";
+}
+
+
+<h4 class="mb-md-5">Purchase Request</h4>
+
+<div class="row">
+   
+    <div class="col-md-4">
+            <div class="mb-4">
+                <h4 >Product Detail</h4>
+            </div>
+        <dl>
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model!.ProductDetail!.ProductName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model!.ProductDetail!.ProductName)
+            </dd>
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model!.ProductDetail!.QuantityPerUnit)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model!.ProductDetail!.QuantityPerUnit)
+            </dd>
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model!.ProductDetail!.UnitPrice)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model!.ProductDetail!.UnitPrice)
+            </dd>
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model!.ProductDetail!.UnitsInStock)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model!.ProductDetail!.UnitsInStock)
+            </dd>
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model!.ProductDetail!.ReorderLevel)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model!.ProductDetail!.ReorderLevel)
+            </dd>
+         @*   <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.UnitsOnOrder)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.UnitsOnOrder)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ReorderLevel)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ReorderLevel)
+            </dd>*@
+            @* <dt class="col-sm-2 ml-3">
+            @Html.DisplayNameFor(model => model.Discontinued)
+            </dt>
+            <dd class="col-sm-10 ml-3">
+            @Html.DisplayFor(model => model.Discontinued)
+            </dd>*@
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model!.ProductDetail!.Category!.CategoryName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model!.ProductDetail!.Category!.CategoryName)
+            </dd>
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model!.ProductDetail!.Supplier!.CompanyName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model!.ProductDetail!.Supplier!.CompanyName)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-4">
+        <h5>Request for restock</h5>
+        <form asp-action="PurchaseRequest">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RequestID" class="control-label" hidden></label>
+                <input asp-for="RequestID" class="form-control" hidden />
+                <span asp-validation-for="RequestID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserID" class="control-label" hidden></label>
+                <input asp-for="UserID" class="form-control" hidden />
+                <span asp-validation-for="UserID" class="text-danger"></span>
+            </div>
+           
+            <div class="form-group">
+                <dl>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.UnitsinStock)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.UnitsinStock)
+                    </dd>
+                </dl>
+                
+            </div>
+            <div class="form-group">
+                <label asp-for="QuantityRequested" class="control-label"></label>
+                <input asp-for="QuantityRequested" class="form-control" placeholder="enter units" />
+                <span asp-validation-for="QuantityRequested" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RequestDate" class="control-label" hidden></label>
+                <input asp-for="RequestDate" class="form-control" hidden/>
+                <span asp-validation-for="RequestDate" class="text-danger"></span>
+            </div>
+            <div class="form-group d-inline-block">
+                <label name="supplier">Order from new Supplier</label>
+                <select>
+                    <option selected disabled>Choose Supplier</option>
+                </select>
+            </div>
+            <div class="form-group mt-5">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    </div>
+
+
+<div class="mt-3">
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

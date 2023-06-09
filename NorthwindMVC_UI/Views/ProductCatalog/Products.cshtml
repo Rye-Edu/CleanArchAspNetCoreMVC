@@ -144,8 +144,8 @@
                                     <a class="text-decoration-none" asp-area="" asp-controller="ProductCatalog" asp-action="ProductsInfo" asp-route-id="@item.ProductId">Edit</a>
                                     </li>
                                 <li class="btn btn-light btn-sm ml-3"> <a class="text-decoration-none" asp-action="Details" asp-route-id="@item.ProductId">Details</a></li>
-                               
-                                <li class="btn btn-light btn-sm ml-3"> <a class="text-decoration-none" asp-action="Details" asp-route-id="@item.ProductId">Restock</a></li>
+
+                                <li class="btn btn-light btn-sm ml-3"> <a class="text-decoration-none" asp-controller="StorePurchase" asp-action="PurchaseRequest" asp-route-productID="@item.ProductId">Restock</a></li>
                                 
                             </ul>
                 
