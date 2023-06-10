@@ -14,6 +14,7 @@ namespace Northwind_App.Features.PurchaseRequest_CommQuery.Commands
     public class CreatePurchaseRequest:IRequest<PurchaseRequestDetailVM>
     {
         public PurchaseRequestDetailVM PurchaseRequestDetail { get; set; } = new();
+
         public CreatePurchaseRequest(PurchaseRequestDetailVM purchaseRequestDetailVM)
         {
             PurchaseRequestDetail = purchaseRequestDetailVM;
@@ -33,9 +34,18 @@ namespace Northwind_App.Features.PurchaseRequest_CommQuery.Commands
         public async Task<PurchaseRequestDetailVM> Handle(CreatePurchaseRequest request, CancellationToken cancellationToken)
         {
             var purchaseDetail = new PurchaseRequestDetailVM();
-            var purchaseRequest = _mapper.Map<PurchaseRequest>(request);
+            var requestDetail = new PurchaseRequestDetailVM
+            {
+
+                DateRequested = DateTime.Now,
+                UserId = 1,
+                ProductId = request.PurchaseRequestDetail.ProductId,
+                QuantityRequested = request.PurchaseRequestDetail.QuantityRequested,
+                Status = RequestStatus.Requested.ToString(),
+            };
+            var purchaseRequest = _mapper.Map<PurchaseRequest>(requestDetail);
        
-                var created = await _purchaseRequestRepository.AddEntityAsync(_mapper.Map<PurchaseRequest>(request.PurchaseRequestDetail));
+                var created = await _purchaseRequestRepository.AddEntityAsync(purchaseRequest);
 
             purchaseDetail = _mapper.Map<PurchaseRequestDetailVM>(created);
             return Task.FromResult(purchaseDetail).Result;

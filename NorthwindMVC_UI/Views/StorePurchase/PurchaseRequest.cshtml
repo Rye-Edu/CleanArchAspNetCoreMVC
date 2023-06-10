@@ -1,4 +1,4 @@
-﻿@model Northwind_App.ViewModels.PurchaseVM.PurchaseRequestVM
+﻿@model Northwind_App.ViewModels.PurchaseVM.PurchaseRequestDetailVM
 
 @{
     ViewData["Title"] = "PurchaseRequest";
@@ -15,34 +15,34 @@
             </div>
         <dl>
             <dt class="col-sm-5">
-                @Html.DisplayNameFor(model => model!.ProductDetail!.ProductName)
+                @Html.DisplayNameFor(model => model!.Product!.ProductName)
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model!.ProductDetail!.ProductName)
+                @Html.DisplayFor(model => model!.Product!.ProductName)
+                </ddProduct
+            <dt class="col-sm-5">
+                    @Html.DisplayNameFor(model => model!.Product!.QuantityPerUnit)
+            </dt>
+            <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model!.Product!.QuantityPerUnit)
             </dd>
             <dt class="col-sm-5">
-                @Html.DisplayNameFor(model => model!.ProductDetail!.QuantityPerUnit)
+                    @Html.DisplayNameFor(model => model!.Product!.UnitPrice)
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model!.ProductDetail!.QuantityPerUnit)
+                    @Html.DisplayFor(model => model!.Product!.UnitPrice)
             </dd>
             <dt class="col-sm-5">
-                @Html.DisplayNameFor(model => model!.ProductDetail!.UnitPrice)
+                    @Html.DisplayNameFor(model => model!.Product!.UnitsInStock)
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model!.ProductDetail!.UnitPrice)
+                    @Html.DisplayFor(model => model!.Product!.UnitsInStock)
             </dd>
             <dt class="col-sm-5">
-                @Html.DisplayNameFor(model => model!.ProductDetail!.UnitsInStock)
+                    @Html.DisplayNameFor(model => model!.Product!.ReorderLevel)
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model!.ProductDetail!.UnitsInStock)
-            </dd>
-            <dt class="col-sm-5">
-                @Html.DisplayNameFor(model => model!.ProductDetail!.ReorderLevel)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model!.ProductDetail!.ReorderLevel)
+                    @Html.DisplayFor(model => model!.Product!.ReorderLevel)
             </dd>
          @*   <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.UnitsOnOrder)
@@ -63,16 +63,16 @@
             @Html.DisplayFor(model => model.Discontinued)
             </dd>*@
             <dt class="col-sm-5">
-                @Html.DisplayNameFor(model => model!.ProductDetail!.Category!.CategoryName)
+                    @Html.DisplayNameFor(model => model!.Product!.Category!.CategoryName)
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model!.ProductDetail!.Category!.CategoryName)
+                @Html.DisplayFor(model => model!.Product!.Category!.CategoryName)
             </dd>
             <dt class="col-sm-5">
-                @Html.DisplayNameFor(model => model!.ProductDetail!.Supplier!.CompanyName)
+                    @Html.DisplayNameFor(model => model!.Product!.Supplier!.CompanyName)
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model!.ProductDetail!.Supplier!.CompanyName)
+                    @Html.DisplayFor(model => model!.Product!.Supplier!.CompanyName)
             </dd>
         </dl>
     </div>
@@ -81,36 +81,36 @@
         <form asp-action="PurchaseRequest">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="RequestID" class="control-label" hidden></label>
-                <input asp-for="RequestID" class="form-control" hidden />
-                <span asp-validation-for="RequestID" class="text-danger"></span>
+                <label asp-for="RequestId" class="control-label" hidden></label>
+                <input asp-for="RequestId" class="form-control" hidden />
+                <span asp-validation-for="RequestId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UserID" class="control-label" hidden></label>
-                <input asp-for="UserID" class="form-control" hidden />
-                <span asp-validation-for="UserID" class="text-danger"></span>
+                <label asp-for="UserId" class="control-label" hidden></label>
+                <input asp-for="UserId" class="form-control" hidden />
+                <span asp-validation-for="UserId" class="text-danger"></span>
             </div>
            
             <div class="form-group">
                 <dl>
                     <dt>
-                        @Html.DisplayNameFor(model => model.UnitsInStock)
+                        @Html.DisplayNameFor(model => model.Product.UnitsInStock)
                     </dt>
                     <dd>
-                        @Html.DisplayFor(model => model.UnitsInStock)
+                        @Html.DisplayFor(model => model.Product.UnitsInStock)
                     </dd>
                 </dl>
                 
             </div>
             <div class="form-group">
-                <label asp-for="UnitsInStockRequest" class="control-label"></label>
-                <input asp-for="UnitsInStockRequest" class="form-control" placeholder="enter units" />
-                <span asp-validation-for="UnitsInStockRequest" class="text-danger"></span>
+                <label asp-for="QuantityRequested" class="control-label"></label>
+                <input asp-for="QuantityRequested" class="form-control" />
+                <span asp-validation-for="QuantityRequested" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="RequestDate" class="control-label" hidden></label>
-                <input asp-for="RequestDate" class="form-control" hidden/>
-                <span asp-validation-for="RequestDate" class="text-danger"></span>
+                <label asp-for="DateRequested" class="control-label" hidden></label>
+                <input asp-for="DateRequested" class="form-control" hidden />
+                <span asp-validation-for="DateRequested" class="text-danger"></span>
             </div>
             <div class="form-group d-inline-block">
                 <label name="supplier">Order from new Supplier</label>
@@ -119,7 +119,7 @@
                 </select>
             </div>
             <div class="form-group mt-5">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" asp-route="PurchaseRequest"/>
             </div>
         </form>
     </div>

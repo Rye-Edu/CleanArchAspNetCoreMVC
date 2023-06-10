@@ -102,7 +102,7 @@
                 </tr>
             </thead>
             <tbody align-content-around p-2>
-                @foreach (var item in Model?.PagedItems)
+                @foreach (var item in Model!.PagedItems)
                 {
                     <tr>
                         <td>
@@ -132,10 +132,10 @@
 
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                            @Html.DisplayFor(modelItem => item!.Category!.CategoryName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Supplier.CompanyName)
+                            @Html.DisplayFor(modelItem => item!.Supplier!.CompanyName)
                         </td>
                         <td >
 
@@ -145,7 +145,7 @@
                                     </li>
                                 <li class="btn btn-light btn-sm ml-3"> <a class="text-decoration-none" asp-action="Details" asp-route-id="@item.ProductId">Details</a></li>
 
-                                <li class="btn btn-light btn-sm ml-3"> <a class="text-decoration-none" asp-route="PurchaseRequest" asp-route-productID="@item.ProductId">Restock</a></li>
+                                <li class="btn btn-light btn-sm ml-3"> <a class="text-decoration-none" asp-route="GetPurchaseRequest" asp-route-productID="@item.ProductId">Restock</a></li>
                                 
                             </ul>
                 

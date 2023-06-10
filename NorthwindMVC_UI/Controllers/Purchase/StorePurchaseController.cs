@@ -5,6 +5,7 @@ using Northwind_App.Features.PurchaseRequest_CommQuery.Queries;
 using Northwind_App.Interfaces.IRepositories;
 using Northwind_App.ViewModels.ProductVM;
 using Northwind_App.ViewModels.PurchaseVM;
+using Northwind_Core.Domain.Entities;
 
 namespace NorthwindMVC_UI.Controllers.Purchase
 {
@@ -20,15 +21,20 @@ namespace NorthwindMVC_UI.Controllers.Purchase
         {
             return View();
         }
-        [HttpGet("[controller]/purchase-request/create/{productID}", Name ="PurchaseRequest")]
-        public async Task <IActionResult> PurchaseRequest(PurchaseRequestVM product, int productID) {
+        [HttpGet("[controller]/purchase-request/create/{productID?}", Name ="GetPurchaseRequest")]
+        public async Task <IActionResult> GetPurchaseRequest(int productID) {
           
-            var productDetail =await _mediator.Send(new ProductDetailQuery(productID, product));
+            var productDetail =await _mediator.Send(new ProductDetailQuery(productID, new PurchaseRequestDetailVM()));
 
-            //var p = await _mediator.Send(new CreatePurchaseRequest())
-            productDetail.UnitsInStock = productDetail?.ProductDetail?.UnitsInStock ?? 0;
+            return View("PurchaseRequest", productDetail);
+        }
 
-            return View(productDetail);
+        [HttpPost("[controller]/purchase-request/create/{productID}", Name = "PurchaseRequest")]
+        public async Task<IActionResult> CreatePurchaseRequest(PurchaseRequestDetailVM? productDetail, int productID)
+        {
+            var createPurchaseRequest = await _mediator.Send(new CreatePurchaseRequest(productDetail));
+
+            return RedirectToAction("Products", "ProductCatalog", new { page = 1 });
         }
     }
 }

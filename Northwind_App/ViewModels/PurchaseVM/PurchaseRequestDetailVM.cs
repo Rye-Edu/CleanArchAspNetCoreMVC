@@ -1,4 +1,5 @@
-﻿using Northwind_Core.Domain.Entities;
+﻿using Northwind_App.ViewModels.ProductVM;
+using Northwind_Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace Northwind_App.ViewModels.PurchaseVM
 
         public string? Status { get; set; }
 
-        public virtual Product Product { get; set; } = null!;
+        public virtual ProductViewModel Product { get; set; } = null!;
 
         public virtual ICollection<StorePurchase> StorePurchases { get; set; } = new List<StorePurchase>();
 

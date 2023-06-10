@@ -11,18 +11,18 @@ using System.Threading.Tasks;
 
 namespace Northwind_App.Features.PurchaseRequest_CommQuery.Queries
 {
-    public class ProductDetailQuery : IRequest<PurchaseRequestVM> {
+    public class ProductDetailQuery : IRequest<PurchaseRequestDetailVM> {
 
         public int? ProductID { get; set; }
-        public PurchaseRequestVM ProductDetail { get; set; }
-        public ProductDetailQuery(int productID, PurchaseRequestVM productDetail)
+        public PurchaseRequestDetailVM ProductDetail { get; set; }
+        public ProductDetailQuery(int productID, PurchaseRequestDetailVM productDetail)
         {
             ProductID = productID;
             ProductDetail = productDetail;
 
         }
     }
-    public class ProductDetailQueryHandler : IRequestHandler<ProductDetailQuery, PurchaseRequestVM>
+    public class ProductDetailQueryHandler : IRequestHandler<ProductDetailQuery, PurchaseRequestDetailVM>
     {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
@@ -32,15 +32,15 @@ namespace Northwind_App.Features.PurchaseRequest_CommQuery.Queries
             _productRepository = productRepository;
             _mapper = mapper;
         }
-        public async Task<PurchaseRequestVM> Handle(ProductDetailQuery? request, CancellationToken cancellationToken)
+        public async Task<PurchaseRequestDetailVM> Handle(ProductDetailQuery? request, CancellationToken cancellationToken)
         {
-            var purchaseRequest = new PurchaseRequestVM();
+            var purchaseRequest = new PurchaseRequestDetailVM();
             if (request!.ProductID != null) {
 
                 var detail = await _productRepository.GetSingleProduct(request!.ProductID.GetValueOrDefault());
                 if (detail != null) {
                    var product = _mapper.Map<ProductViewModel>(detail);
-                    purchaseRequest.ProductDetail = product;    
+                    purchaseRequest.Product = product;    
                 }
             }
             return Task.FromResult(purchaseRequest).Result;
