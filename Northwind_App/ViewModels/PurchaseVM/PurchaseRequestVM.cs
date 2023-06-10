@@ -13,18 +13,12 @@ namespace Northwind_App.ViewModels.PurchaseVM
     {
         public int RequestID { get; set; }
         public int UserID { get; set; }
-        public int ProductID { get; set; }
-        public string? ProductName { get; set; }
-
+      
         [DisplayName("Current Quantity (unit in stock)")]
-        public int UnitsinStock { get; set; } 
-
-        [DisplayName("Quantity per unit")]
-        public int QuantityPerUnit { get; set; }
+        public int UnitsInStock { get; set; } 
 
         [DisplayName("Request Quantity")]
-
-        public int QuantityRequested { get; set; }
+        public int UnitsInStockRequest { get; set; }
         public DateTime RequestDate { get; set; } = DateTime.Now;
 
         public ProductViewModel? ProductDetail { get; set; }

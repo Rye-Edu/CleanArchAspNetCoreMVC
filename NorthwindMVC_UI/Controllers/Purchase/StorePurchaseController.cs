@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Northwind_App.Features.PurchaseRequest_CommQuery.Commands;
 using Northwind_App.Features.PurchaseRequest_CommQuery.Queries;
 using Northwind_App.Interfaces.IRepositories;
 using Northwind_App.ViewModels.ProductVM;
@@ -19,14 +20,14 @@ namespace NorthwindMVC_UI.Controllers.Purchase
         {
             return View();
         }
-        [HttpGet("[action]/product-name/{productID}")]
+        [HttpGet("[controller]/purchase-request/create/{productID}", Name ="PurchaseRequest")]
         public async Task <IActionResult> PurchaseRequest(PurchaseRequestVM product, int productID) {
-            //ViewData["ProductID"] = productName;
+          
             var productDetail =await _mediator.Send(new ProductDetailQuery(productID, product));
 
-            productDetail.UnitsinStock = productDetail?.ProductDetail?.UnitsInStock ?? 0;
-         
-            //product.ProductID = productName;
+            //var p = await _mediator.Send(new CreatePurchaseRequest())
+            productDetail.UnitsInStock = productDetail?.ProductDetail?.UnitsInStock ?? 0;
+
             return View(productDetail);
         }
     }

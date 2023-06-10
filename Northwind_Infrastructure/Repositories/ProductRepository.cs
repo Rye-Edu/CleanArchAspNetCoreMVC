@@ -51,11 +51,13 @@ namespace Northwind_Infrastructure.Repositories
             
             if (!searchPhrase.IsNullOrEmpty())
             {
-                if (selectedFilter == "Supplier") {
+                if (selectedFilter == "Supplier")
+                {
                     productList = await _northwindContext.Products.Include(categories => categories.Category).Include(supplier => supplier.Supplier)
                                 .Where(supplierName => supplierName!.Supplier!.CompanyName.Contains(searchPhrase.ToLower())).ToListAsync();
                 }
-                else if (selectedFilter == "Product") {
+                else if (selectedFilter == "Product")
+                {
                     productList = await _northwindContext.Products.Include(categories => categories.Category).Include(supplier => supplier.Supplier).
                         Where(productName => productName.ProductName.Contains(searchPhrase)).ToListAsync();
                 }
@@ -65,17 +67,18 @@ namespace Northwind_Infrastructure.Repositories
                     productList = await _northwindContext.Products.Include(categories => categories.Category).Include(supplier => supplier.Supplier).
                         Where(categoryName => categoryName!.Category!.CategoryName.Contains(searchPhrase)).ToListAsync();
                 }
-                else if (selectedFilter== "All") {
-               
+                else if (selectedFilter == "All")
+                {
+
                     productList = await _northwindContext.Products.Include(categories => categories.Category).Include(supplier => supplier.Supplier).
-                      Where(productName => productName.ProductName.Contains(searchPhrase) 
+                      Where(productName => productName.ProductName.Contains(searchPhrase)
                       || productName!.Supplier!.CompanyName.Contains(searchPhrase)
                       || productName!.Category!.CategoryName.Contains(searchPhrase)).ToListAsync();
-                    
-                }
-
-
-
+                }             
+            }
+            else
+            {
+                productList = await _northwindContext.Products.Include(categories => categories.Category).Include(supplier => supplier.Supplier).ToListAsync();
             }
             return Task.FromResult(productList).Result;
         }

@@ -1,10 +1,9 @@
-﻿using Northwind_App.Interfaces.IRepositories;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace Product_CoreDomain.Products_Infrastructure.DataModels;
+namespace Northwind_Infrastructure.DataModels;
 
-public partial class Category:IEntity
+public partial class Category
 {
     public int CategoryId { get; set; }
 
@@ -14,5 +13,5 @@ public partial class Category:IEntity
 
     public byte[]? Picture { get; set; }
 
-    public virtual ICollection<Product> Products { get; } = new List<Product>();
+    public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 }
