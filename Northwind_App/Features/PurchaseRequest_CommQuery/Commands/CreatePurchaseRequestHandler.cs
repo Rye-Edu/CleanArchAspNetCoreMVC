@@ -33,7 +33,7 @@ namespace Northwind_App.Features.PurchaseRequest_CommQuery.Commands
         }
         public async Task<PurchaseRequestDetailVM> Handle(CreatePurchaseRequest request, CancellationToken cancellationToken)
         {
-            var purchaseDetail = new PurchaseRequestDetailVM();
+           
             var requestDetail = new PurchaseRequestDetailVM
             {
 
@@ -47,8 +47,8 @@ namespace Northwind_App.Features.PurchaseRequest_CommQuery.Commands
        
                 var created = await _purchaseRequestRepository.AddEntityAsync(purchaseRequest);
 
-            purchaseDetail = _mapper.Map<PurchaseRequestDetailVM>(created);
-            return Task.FromResult(purchaseDetail).Result;
+           
+            return Task.FromResult(_mapper.Map<PurchaseRequestDetailVM>(created)).Result;
         }
     }
 }

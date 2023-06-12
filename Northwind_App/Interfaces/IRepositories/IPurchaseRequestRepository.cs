@@ -9,5 +9,6 @@ namespace Northwind_App.Interfaces.IRepositories
 {
     public interface IPurchaseRequestRepository: IAsyncBaseRepository<PurchaseRequest>
     {
+        public Task<IEnumerable<PurchaseRequest>> GetPurchaseRequestList();
     }
 }

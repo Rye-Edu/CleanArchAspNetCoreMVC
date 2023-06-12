@@ -1,0 +1,70 @@
+﻿@model Northwind_App.ViewModels.PurchaseVM.PurchaseRequestDetailVM
+
+@{
+    ViewData["Title"] = "ProcessPurchaseRequest";
+    //var x = TempData["RequestDetail"];
+    //var a = "asaews";
+}
+
+<h1>ProcessPurchaseRequest</h1>
+
+<h4>PurchaseRequestDetailVM</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ProcessPurchaseRequest">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RequestId" class="control-label"></label>
+                <input asp-for="RequestId" class="form-control" />
+                <span asp-validation-for="RequestId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <input asp-for="UserId" class="form-control" />
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductId" class="control-label"></label>
+                <input asp-for="ProductId" class="form-control" />
+                <span asp-validation-for="ProductId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QuantityRequested" class="control-label"></label>
+                <input asp-for="QuantityRequested" name="QuantityRequested"  class="form-control" />
+                <span asp-validation-for="QuantityRequested" class="text-danger"></span>
+            </div>
+           @* <div class="form-group">
+                <label asp-for="DateRequested" class="control-label"></label>
+                <input asp-for="DateRequested" class="form-control" />
+                <span asp-validation-for="DateRequested" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductName" name="ProductName" class="control-label"></label>
+                <input asp-for="ProductName" name="ProductName" value="@Model.ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FullName" class="control-label"></label>
+                <input asp-for="FullName" Name="FullName"class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,100 @@
+﻿@model IEnumerable<Northwind_App.ViewModels.PurchaseVM.PurchaseRequestDetailVM>
+
+@{
+    ViewData["Title"] = "Purchase Requests";
+
+}
+
+@{
+    //TempData["RequestDetail"] = Model;
+    //TempData.Keep("RequestDetail");
+    //var x = TempData["RequestDetail"];
+}
+<h5>Purchase Requests</h5>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+           @*<th>
+                @Html.DisplayNameFor(model => model.RequestId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductId)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.QuantityRequested)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateRequested)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+           @* <td>
+                @Html.DisplayFor(modelItem => item.RequestId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductId)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.QuantityRequested)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateRequested)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                    @{
+                        var requestDetail = new Dictionary<string, string>
+                        {
+                              { "RequestId", item.RequestId.ToString()},
+                              { "FullName", item?.FullName ?? string.Empty},
+                              { "ProductName", item?.ProductName ?? string.Empty}
+
+                        };
+                       // ((Microsoft.AspNetCore.Html.HtmlString)Json.Serialize(Model)).Value);
+                    }
+
+                   @{
+                   
+                   }
+                    <a class="btn btn-primary btn-sm" asp-route="RequestDetail" asp-route-requestID="@item.RequestId">Approve</a>
+                  @*  @Html.ActionLink("Approve", "ProcessPurchaseRequest", new { requestID = item.RequestId, 
+                        product = new { Status = item.Status, QuantityRequested = item.QuantityRequested} }) 
+                    *@
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) 
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

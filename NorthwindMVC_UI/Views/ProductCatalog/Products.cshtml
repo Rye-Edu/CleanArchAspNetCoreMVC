@@ -93,10 +93,10 @@
                         @Html.DisplayNameFor(model => model.ImageFile)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Category.CategoryName)
+                        @Html.DisplayNameFor(model => model!.Category!.CategoryName)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Supplier.CompanyName)
+                        @Html.DisplayNameFor(model => model!.Supplier!.CompanyName)
                     </th>
                     <th></th>
                 </tr>

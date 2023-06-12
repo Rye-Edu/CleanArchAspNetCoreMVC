@@ -47,18 +47,19 @@ namespace Product_CoreDomain.Controllers
         // GET: ProductCatalog
         // [HttpGet("[controller]/[action]")]
         //[HttpGet("[controller]/[action]/list/current-page/{productPage:int?}/{filter?}/{search?}", Name = "ProductList")]
-        [HttpGet("[controller]/list/current-page/{productPage:int?}", Name = "ProductList")]
+        [HttpGet("[controller]/{list?}/current-page/{productPage:int?}", Name = "ProductList")]
+       // [HttpGet("[controller]/{catalog}/current-page/{productPage:int?}", Name = "ProductList")]
         // [HttpGet("[action]/list/product-filter/{page:int?}/{filter?}/{search?}", Name ="ProductSearch")]
 
         // [HttpGet("[controller]/[action]/list/page/{page:int?}")]
         [ActionName("Products")]
-        public async Task<ActionResult<ProductViewModel>> ProductsIndex(string? filter, string? search, int? productPage = 1)
+        public async Task<ActionResult<ProductViewModel>> ProductsIndex(string? list,string? filter, string? search, int? productPage = 1)
         {
 
             ViewData["Filter"] = filter;
             ViewData["Search"] = search;
             ViewData["PageNumber"] = productPage;
-          
+            ViewData["SelectedNav"] = list;
             var productList = await _mediator.Send(new ProductListQuery(new ProductViewModel { 
                 
                ProductFilter = new ProductFilterVM { 
