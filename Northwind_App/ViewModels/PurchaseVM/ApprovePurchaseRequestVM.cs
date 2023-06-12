@@ -14,5 +14,7 @@ namespace Northwind_App.ViewModels.PurchaseVM
         public int ApprovedQuantity { get; set; }
         public DateTime DateApproved { get; set; } = DateTime.Now;
         public decimal TotalAmount { get; set; }
+
+        public PurchaseRequestDetailVM? RequestDetail { get; set; }
     }
 }

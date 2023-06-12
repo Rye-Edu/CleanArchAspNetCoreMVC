@@ -513,12 +513,12 @@ namespace Northwind_Infrastructure.Data {
 
                 entity.Property(e => e.RequestId).HasColumnName("RequestID");
                 entity.Property(e => e.DateRequested).HasColumnType("datetime");
-                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+                entity.Property(e => e.ProductID).HasColumnName("ProductID");
                 entity.Property(e => e.Status).HasMaxLength(50);
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
                 entity.HasOne(d => d.Product).WithMany(p => p.PurchaseRequests)
-                    .HasForeignKey(d => d.ProductId)
+                    .HasForeignKey(d => d.ProductID)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_PurchaseRequest_Products");
 

@@ -73,22 +73,10 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                    @{
-                        var requestDetail = new Dictionary<string, string>
-                        {
-                              { "RequestId", item.RequestId.ToString()},
-                              { "FullName", item?.FullName ?? string.Empty},
-                              { "ProductName", item?.ProductName ?? string.Empty}
 
-                        };
-                       // ((Microsoft.AspNetCore.Html.HtmlString)Json.Serialize(Model)).Value);
-                    }
-
-                   @{
-                   
-                   }
-                    <a class="btn btn-primary btn-sm" asp-route="RequestDetail" asp-route-requestID="@item.RequestId">Approve</a>
-                  @*  @Html.ActionLink("Approve", "ProcessPurchaseRequest", new { requestID = item.RequestId, 
+                    <a class="btn btn-primary btn-sm" asp-route="SelectedPurchaseRequest" asp-route-requestAction="request-detail" asp-route-requestID="@item!.RequestId">Approve</a>
+                    @*asp-route-requestAction="request-detail"*@
+                    @*  @Html.ActionLink("Approve", "ProcessPurchaseRequest", new { requestID = item.RequestId, 
                         product = new { Status = item.Status, QuantityRequested = item.QuantityRequested} }) 
                     *@
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) 

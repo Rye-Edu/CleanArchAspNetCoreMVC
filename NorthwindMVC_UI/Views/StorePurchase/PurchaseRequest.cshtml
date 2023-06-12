@@ -19,7 +19,7 @@
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model!.Product!.ProductName)
-                </ddProduct
+                </dd>
             <dt class="col-sm-5">
                     @Html.DisplayNameFor(model => model!.Product!.QuantityPerUnit)
             </dt>
@@ -113,13 +113,14 @@
                 <span asp-validation-for="DateRequested" class="text-danger"></span>
             </div>
             <div class="form-group d-inline-block">
-                <label name="supplier">Order from new Supplier</label>
-                <select>
+                <label name="supplier" class="control-label">Order from new Supplier</label>
+                <select class="form-control">
                     <option selected disabled>Choose Supplier</option>
                 </select>
             </div>
             <div class="form-group mt-5">
-                <input type="submit" value="Create" class="btn btn-primary" asp-route="PurchaseRequest"/>
+                <input type="submit" value="Create" class="btn btn-primary" asp-route="PuchaseRequest"/>
+                @*<input type="submit" value="Create" class="btn btn-primary" asp-route="PuchaseRequest" asp-route-requestAction="new-request" asp-route-productID="@Model.ProductId"/>*@
             </div>
         </form>
     </div>

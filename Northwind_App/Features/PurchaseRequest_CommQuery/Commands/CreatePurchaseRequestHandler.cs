@@ -33,22 +33,34 @@ namespace Northwind_App.Features.PurchaseRequest_CommQuery.Commands
         }
         public async Task<PurchaseRequestDetailVM> Handle(CreatePurchaseRequest request, CancellationToken cancellationToken)
         {
-           
+            var purchaseDetail = new PurchaseRequestDetailVM();
             var requestDetail = new PurchaseRequestDetailVM
             {
 
                 DateRequested = DateTime.Now,
                 UserId = 1,
-                ProductId = request.PurchaseRequestDetail.ProductId,
+                ProductID = request.PurchaseRequestDetail.ProductID,
                 QuantityRequested = request.PurchaseRequestDetail.QuantityRequested,
                 Status = RequestStatus.Requested.ToString(),
             };
+
+
             var purchaseRequest = _mapper.Map<PurchaseRequest>(requestDetail);
+
+            var created = await _purchaseRequestRepository.AddEntityAsync(purchaseRequest);
+
+            purchaseDetail = _mapper.Map<PurchaseRequestDetailVM>(created);
+            return Task.FromResult(purchaseDetail).Result;
+
+            //var created = await _purchaseRequestRepository.AddEntityAsync(purchaseRequest);
+
+            //purchaseDetail = _mapper.Map<PurchaseRequestDetailVM>(created);
+            //var purchaseRequest = _mapper.Map<PurchaseRequest>(requestDetail);
        
-                var created = await _purchaseRequestRepository.AddEntityAsync(purchaseRequest);
+            //    var created = await _purchaseRequestRepository.AddEntityAsync(purchaseRequest);
 
            
-            return Task.FromResult(_mapper.Map<PurchaseRequestDetailVM>(created)).Result;
+            //return Task.FromResult(_mapper.Map<PurchaseRequestDetailVM>(created)).Result;
         }
     }
 }
