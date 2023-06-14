@@ -1,10 +1,9 @@
-﻿using Northwind_App.Interfaces.IRepositories;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace Product_CoreDomain.Products_Infrastructure.DataModels;
+namespace Northwind_Infrastructure.DataModels;
 
-public partial class Product:IEntity
+public partial class Product
 {
     public int ProductId { get; set; }
 
@@ -30,7 +29,9 @@ public partial class Product:IEntity
 
     public virtual Category? Category { get; set; }
 
-    public virtual ICollection<OrderDetail> OrderDetails { get; } = new List<OrderDetail>();
+    public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
+
+    public virtual ICollection<PurchaseRequest> PurchaseRequests { get; set; } = new List<PurchaseRequest>();
 
     public virtual Supplier? Supplier { get; set; }
 }

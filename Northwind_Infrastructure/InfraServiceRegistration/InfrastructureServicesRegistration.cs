@@ -30,6 +30,7 @@ namespace Northwind_Infrastructure.InfraServiceRegistration
                 services.AddScoped<ICategoryRepository, CategoryRepository>();
                 services.AddScoped<ISupplierRepository, SupplierRepository>();
                 services.AddScoped<IUploaderService, Uploader_Service>();
+                services.AddTransient<IPurchaseRequestRepository, PurchaseRequestRepository>();
              //   services.AddScoped<ISupplierRepository, SupplierRepository>();
 
                 return services;

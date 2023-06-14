@@ -21,7 +21,7 @@
                                 aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        @*<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                             <ul class="navbar-nav flex-grow-1">
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -29,77 +29,114 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                                 </li>
-                                <li class="dropdown nav-item">
-                                    <a class="nav-link text-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Product Catalog</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item nav-link-sm text-dark" asp-area="" asp-route="ProductList" asp-route-productPage="1">Product</a></li>
-                                        <li><a class="dropdown-item nav-link-sm text-dark" asp-area="" asp-controller="Authorization" asp-action="CreateUser">Supplier</a></li>
-                                        <li><a class="dropdown-item nav-link-sm text-dark" asp-area="" asp-controller="User" asp-action="Users">Categories</a></li>
-                                    </ul>
 
-
-                                </li>
 
                             </ul>
-                        </div>
+                        </div>*@
                         @*<partial name="_loginPartial"></partial>*@
                     </div>
                 </nav>
             </header>
         </div>
         <div class="row min-vh-100">
+            @{
+                var selectedNav = ViewData["SelectedNav"] as string;
+            }
             <div class="col-2 me-2">
                 <div className='side-container'>
-
-                    <ul class="nav nav-pills flex-column mb-auto">
-
-                        <li class="dropdown nav-item justify-content-evenly">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="true" asp-route="ProductList" asp-route-productPage="1">
-                                <img class="img-responsive" src="@("~/UploadedFiles/UI_Imgs/icons8-new-product-96.png")" asp-append-version="true" width='16' height='16' alt="product">
-                          Product
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item nav-link-sm text-dark" asp-area="" asp-route="ProductList" asp-route-productPage="1">Product</a></li>
-                                <li><a class="dropdown-item nav-link-sm text-dark" asp-area="" asp-controller="Authorization" asp-action="CreateUser">Supplier</a></li>
-                                <li><a class="dropdown-item nav-link-sm text-dark" asp-area="" asp-controller="User" asp-action="Users">Categories</a></li>
-                            </ul>
-
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link"><img src="@("~/UploadedFiles/UI_Imgs/icons8-supplier-100.png")" asp-append-version="true" width='16' height='16'>
-                                <span class="navbar-toggler-icon">Supplier</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-blue"><img src="@("~/UploadedFiles/UI_Imgs/icons8-new-product-96.png")" asp-append-version="true" width='16' height='16'>
-                                <span class="navbar-toggler-icon">Orders</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-blue"><img src="@("~/UploadedFiles/UI_Imgs/icons8-purchase-order-100.png")" asp-append-version="true" width='16' height='16'>
-                                <span class="navbar-toggler-icon">
-                                    Purchases
-                                </span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-blue"><img src="@("~/UploadedFiles/UI_Imgs/icons8-in-transit-64.png")" asp-append-version="true" width='16' height='16'>
-                                <span class="navbar-toggler-icon">
-                                    Shipping
-                                </span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-blue"><img class="img-responsive" src="@("~/UploadedFiles/UI_Imgs/icons8-new-product-96.png")" asp-append-version="true" width='16' height='16' alt="product">
-                                <span class="navbar-toggler-icon">
+                    <div class="accordion d-block" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#product-collapse" aria-expanded="false" aria-controls="collapseOne">
+                                    <img class="img-responsive" src="@("~/UploadedFiles/UI_Imgs/icons8-new-product-96.png")" asp-append-version="true" width='16' height='16' alt="product">
                                     Product
-                                </span>
-                            </a>
-                        
-                        </li>
-                       
-                    </ul>
+                                </button>
+                            </h2>
+                            <div id="product-collapse" class="@(selectedNav == "list" ? "accordion-collapse collapse show" : "accordion-collapse collapse")" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <ul class="nav nav-pills flex-column mb-auto">
+                                        <li class="nav-item"><a class="@(selectedNav== "list" ? "dropdown-item nav-link-sm text-dark bg-secondary text-white" : "dropdown-item nav-link-sm text-decoration-none")" asp-area="" asp-route-list="list" asp-route="ProductList" asp-route-productPage="1">Catalog</a></li>
+                                        <li><a class="dropdown-item nav-link-sm text-dark" asp-area="" asp-controller="Authorization" asp-action="CreateUser">Supplier</a></li>
+                                        <li><a class="dropdown-item nav-link-sm text-dark" asp-area="" asp-controller="User" asp-action="Users">Categories</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#supplier-collapse" aria-expanded="false" aria-controls="collapseTwo">
+                                    <img src="@("~/UploadedFiles/UI_Imgs/icons8-supplier-100.png")" asp-append-version="true" width='16' height='16'>Supplier
+                                </button>
+                            </h2>
+                            <div id="supplier-collapse" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#purchase-collapse" aria-expanded="false" aria-controls="collapseThree">
+                                    <img class="img-responsive" src="@("~/UploadedFiles/UI_Imgs/icons8-purchase-order-100.png")" asp-append-version="true" width='16' height='16' alt="product">
+                                    Purchases
+                                </button>
+                            </h2>
+                            <div id="purchase-collapse" class="@(selectedNav == "purchase" ? "accordion-collapse collapse show" : "accordion-collapse collapse")" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <ul class="nav nav-pills flex-column mb-auto">
+                                        <li><a class="@(selectedNav== "purchase" ? "dropdown-item nav-link-sm text-dark bg-secondary text-white" : "dropdown-item nav-link-sm text-decoration-none ")" asp-area="" asp-route-purchase="purchase" asp-route="PurchaseRequestList">Request</a></li>
+                                        <li><a class="dropdown-item nav-link-sm text-dark" asp-area="" asp-controller="Authorization" asp-action="CreateUser">Approved</a></li>
+                                        <li><a class="dropdown-item nav-link-sm text-dark" asp-area="" asp-controller="User" asp-action="Users">Declined</a></li>
+                                    </ul>
+                                </div>
 
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#shippingcollapse" aria-expanded="false" aria-controls="collapseFour">
+                                    <img src="@("~/UploadedFiles/UI_Imgs/icons8-in-transit-64.png")" asp-append-version="true" width='16' height='16'>
+                                    Shipping
+                                </button>
+                            </h2>
+                            <div id="shippingcollapse" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <ul class="nav nav-pills flex-column mb-auto">
+                                        <li><a class="dropdown-item nav-link-sm text-dark" asp-area="" asp-route="PurchaseRequestList">Request</a></li>
+                                        <li><a class="dropdown-item nav-link-sm text-dark" asp-area="" asp-controller="Authorization" asp-action="CreateUser">Approved</a></li>
+                                        <li><a class="dropdown-item nav-link-sm text-dark" asp-area="" asp-controller="User" asp-action="Users">Declined</a></li>
+                                    </ul>
+                               </div>
+                                  
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFive">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false" aria-controls="collapseFive">
+                                    <img class="img-responsive" src="@("~/UploadedFiles/UI_Imgs/icons8-purchase-order-100.png")" asp-append-version="true" width='16' height='16' alt="product">
+                                    Orders
+                                </button>
+                            </h2>
+                            <div id="orders-collapse" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingSix">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#customer-collapse" aria-expanded="false" aria-controls="collapseSix">
+                                    <img class="img-responsive" src="@("~/UploadedFiles/UI_Imgs/icons8-purchase-order-100.png")" asp-append-version="true" width='16' height='16' alt="product">
+                                    Customers
+                                </button>
+                            </h2>
+                            <div id="customer-collapse" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-9 ms-3" id="content-container">

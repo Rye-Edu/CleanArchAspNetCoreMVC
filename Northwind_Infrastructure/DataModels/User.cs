@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Product_CoreDomain.Products_Infrastructure.DataModels;
+namespace Northwind_Infrastructure.DataModels;
 
 public partial class User
 {
-    public Guid UserId { get; set; }
+    public int UserId { get; set; }
 
-    public int? EmployeeId { get; set; }
+    public int EmployeeId { get; set; }
 
-    public string Email { get; set; } = null!;
+    public string UserName { get; set; } = null!;
 
-    public string Password { get; set; } = null!;
+    public virtual Employee Employee { get; set; } = null!;
 
-    public virtual Employee? Employee { get; set; }
+    public virtual ICollection<PurchaseRequest> PurchaseRequests { get; set; } = new List<PurchaseRequest>();
+
+    public virtual ICollection<StorePurchase> StorePurchases { get; set; } = new List<StorePurchase>();
 }

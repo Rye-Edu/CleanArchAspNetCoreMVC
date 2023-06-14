@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Product_CoreDomain.Products_Infrastructure.DataModels;
+namespace Northwind_Infrastructure.DataModels;
 
 public partial class CustomerAndSuppliersByCity
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Product_CoreDomain.Products_Infrastructure.DataModels;
+namespace Northwind_Infrastructure.DataModels;
 
 public partial class Customer
 {
@@ -27,7 +27,7 @@ public partial class Customer
 
     public string? Fax { get; set; }
 
-    public virtual ICollection<Order> Orders { get; } = new List<Order>();
+    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
-    public virtual ICollection<CustomerDemographic> CustomerTypes { get; } = new List<CustomerDemographic>();
+    public virtual ICollection<CustomerDemographic> CustomerTypes { get; set; } = new List<CustomerDemographic>();
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Product_CoreDomain.Products_Infrastructure.DataModels;
+namespace Northwind_Infrastructure.DataModels;
 
 public partial class Region
 {
@@ -9,5 +9,5 @@ public partial class Region
 
     public string RegionDescription { get; set; } = null!;
 
-    public virtual ICollection<Territory> Territories { get; } = new List<Territory>();
+    public virtual ICollection<Territory> Territories { get; set; } = new List<Territory>();
 }

@@ -19,7 +19,7 @@ namespace Northwind_App.Product_Feature.Queries
         public async Task<ProductViewModel> Handle(ProductListQuery? request, CancellationToken cancellationToken)
         {
             List<ProductViewModel> prods = new List<ProductViewModel>();
-            if (GetPropertyValues(request!.ProductFilter))
+            if (GetPropertyValues(request!.ProductFilter!.GetType()))
             {
 
                 var searched = await _productRepository.GetSearchProduct(request);

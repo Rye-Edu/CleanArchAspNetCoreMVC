@@ -93,16 +93,16 @@
                         @Html.DisplayNameFor(model => model.ImageFile)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Category.CategoryName)
+                        @Html.DisplayNameFor(model => model!.Category!.CategoryName)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Supplier.CompanyName)
+                        @Html.DisplayNameFor(model => model!.Supplier!.CompanyName)
                     </th>
                     <th></th>
                 </tr>
             </thead>
             <tbody align-content-around p-2>
-                @foreach (var item in Model?.PagedItems)
+                @foreach (var item in Model!.PagedItems)
                 {
                     <tr>
                         <td>
@@ -132,10 +132,10 @@
 
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                            @Html.DisplayFor(modelItem => item!.Category!.CategoryName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Supplier.CompanyName)
+                            @Html.DisplayFor(modelItem => item!.Supplier!.CompanyName)
                         </td>
                         <td >
 
@@ -144,9 +144,11 @@
                                     <a class="text-decoration-none" asp-area="" asp-controller="ProductCatalog" asp-action="ProductsInfo" asp-route-id="@item.ProductId">Edit</a>
                                     </li>
                                 <li class="btn btn-light btn-sm ml-3"> <a class="text-decoration-none" asp-action="Details" asp-route-id="@item.ProductId">Details</a></li>
-                               
-                                <li class="btn btn-light btn-sm ml-3"> <a class="text-decoration-none" asp-action="Details" asp-route-id="@item.ProductId">Restock</a></li>
-                                
+
+                                @*<li class="btn btn-light btn-sm ml-3"> <a class="text-decoration-none" asp-controller="StorePurchase" asp-action="RequestRestock" asp-route-productName="@item!.ProductName">Restock</a></li>*@
+
+                                <li class="btn btn-light btn-sm ml-3"> <a class="text-decoration-none" asp-route="GetPurchaseRequest" asp-route-requestAction="create-purchase-request" asp-route-id="@item.ProductId">Restock</a></li>
+
                             </ul>
                 
                          @*   <div class="container">

@@ -41,13 +41,13 @@ public partial class Employee
 
     public string? PhotoPath { get; set; }
 
-    public virtual ICollection<Employee> InverseReportsToNavigation { get; } = new List<Employee>();
+    public virtual ICollection<Employee> InverseReportsToNavigation { get; set; } = new List<Employee>();
 
-    public virtual ICollection<Order> Orders { get; } = new List<Order>();
+    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
     public virtual Employee? ReportsToNavigation { get; set; }
 
-    public virtual ICollection<User> Users { get; } = new List<User>();
+    public virtual ICollection<User> Users { get; set; } = new List<User>();
 
-    public virtual ICollection<Territory> Territories { get; } = new List<Territory>();
+    public virtual ICollection<Territory> Territories { get; set; } = new List<Territory>();
 }
