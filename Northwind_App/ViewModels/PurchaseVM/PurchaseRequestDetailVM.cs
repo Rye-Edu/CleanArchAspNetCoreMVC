@@ -13,7 +13,7 @@ namespace Northwind_App.ViewModels.PurchaseVM
 {
     public class PurchaseRequestDetailVM
     {
-        public int RequestId { get; set; }
+        public int? RequestId { get; set; }
 
         public int UserId { get; set; }
 

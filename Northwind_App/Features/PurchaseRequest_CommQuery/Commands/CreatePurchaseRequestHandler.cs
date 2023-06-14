@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Northwind_App.Features.PurchaseRequest_CommQuery.Commands
 {
-    public class CreatePurchaseRequest:IRequest<PurchaseRequestDetailVM>
+    public class CreatePurchaseRequest : IRequest<PurchaseRequestDetailVM>
     {
         public PurchaseRequestDetailVM PurchaseRequestDetail { get; set; } = new();
 
@@ -34,22 +34,34 @@ namespace Northwind_App.Features.PurchaseRequest_CommQuery.Commands
         public async Task<PurchaseRequestDetailVM> Handle(CreatePurchaseRequest request, CancellationToken cancellationToken)
         {
             var purchaseDetail = new PurchaseRequestDetailVM();
-            var requestDetail = new PurchaseRequestDetailVM
+
+            if (request.PurchaseRequestDetail.RequestId != null) { 
+            
+            }
+            else
             {
 
-                DateRequested = DateTime.Now,
-                UserId = 1,
-                ProductID = request.PurchaseRequestDetail.ProductID,
-                QuantityRequested = request.PurchaseRequestDetail.QuantityRequested,
-                Status = RequestStatus.Requested.ToString(),
-            };
+             
+                var requestDetail = new PurchaseRequestDetailVM
+                {
+
+                    DateRequested = DateTime.Now,
+                    UserId = 1,
+                    ProductID = request!.PurchaseRequestDetail!.Product!.ProductId.GetValueOrDefault(),
+                    QuantityRequested = request.PurchaseRequestDetail.QuantityRequested,
+                    Status = RequestStatus.Requested.ToString(),
+                };
 
 
-            var purchaseRequest = _mapper.Map<PurchaseRequest>(requestDetail);
+                var purchaseRequest = _mapper.Map<PurchaseRequest>(requestDetail);
 
-            var created = await _purchaseRequestRepository.AddEntityAsync(purchaseRequest);
+                var created = await _purchaseRequestRepository.AddEntityAsync(purchaseRequest);
 
-            purchaseDetail = _mapper.Map<PurchaseRequestDetailVM>(created);
+                purchaseDetail = _mapper.Map<PurchaseRequestDetailVM>(created);
+
+            }
+
+          
             return Task.FromResult(purchaseDetail).Result;
 
             //var created = await _purchaseRequestRepository.AddEntityAsync(purchaseRequest);

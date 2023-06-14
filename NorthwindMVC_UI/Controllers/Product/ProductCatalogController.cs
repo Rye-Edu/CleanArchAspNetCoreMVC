@@ -121,7 +121,7 @@ namespace Product_CoreDomain.Controllers
 
             await _mediator.Send(new CreateProduct(product));
          
-            return RedirectToAction("Products", new { page=1});
+            return RedirectToAction("Products", "ProductCatalog", new { list = "list", productPage = 1 });
         }
 
         // GET: ProductCatalog/Edit/5
@@ -156,7 +156,7 @@ namespace Product_CoreDomain.Controllers
 
 
             await _mediator.Send(new UpdateProduct(product?.ProductId.GetValueOrDefault(), product));
-            return RedirectToAction("Products", new { page = 1});
+            return RedirectToAction("Products", "ProductCatalog", new { list = "list", productPage = 1 }); ;
        
         }
 
@@ -179,7 +179,7 @@ namespace Product_CoreDomain.Controllers
          
             await _mediator.Send(new RemoveProduct(productViewModel.ProductId.GetValueOrDefault(), productViewModel));
          
-            return RedirectToAction("Products", new { page=1 });
+            return RedirectToAction("Products", "ProductCatalog", new { list = "list", productPage = 1 });
         }
 
       

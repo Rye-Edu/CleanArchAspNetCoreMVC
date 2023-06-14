@@ -74,7 +74,7 @@
             </td>
             <td>
 
-                    <a class="btn btn-primary btn-sm" asp-route="SelectedPurchaseRequest" asp-route-requestAction="request-detail" asp-route-requestID="@item!.RequestId">Approve</a>
+                    <a class="btn btn-primary btn-sm" asp-route="SelectedPurchaseRequest" asp-route-requestAction="requestdetail" asp-route-id="@item!.RequestId">Approve</a>
                     @*asp-route-requestAction="request-detail"*@
                     @*  @Html.ActionLink("Approve", "ProcessPurchaseRequest", new { requestID = item.RequestId, 
                         product = new { Status = item.Status, QuantityRequested = item.QuantityRequested} }) 

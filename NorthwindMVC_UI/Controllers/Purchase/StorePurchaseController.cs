@@ -27,37 +27,48 @@ namespace NorthwindMVC_UI.Controllers.Purchase
        
 
         //Get product detail for purchase creation
-       [HttpGet("[controller]/purchase-request/{requestAction?}/{productID:int?}", Name = "GetPurchaseRequest")]
+       [HttpGet("[controller]/purchase-request/{requestAction?}/{id:int?}", Name = "GetPurchaseRequest")]
         [ActionName("RestockProduct")]
-        public async Task <IActionResult> GetPurchaseRequest(string requestAction,int productID) {
+        public async Task <IActionResult> GetPurchaseRequest(string requestAction,int id) {
 
             
             ViewData["RequestAction"] = requestAction;
          
-            var productDetail =await _mediator.Send(new ProductDetailQuery(productID, new PurchaseRequestDetailVM()));
+            var productDetail =await _mediator.Send(new ProductDetailQuery(id, new PurchaseRequestDetailVM()));
 
             return View("PurchaseRequest", productDetail);
         }
-        [HttpPost("[controller]/purchase-request/{requestAction}/{productID}", Name = "PurchaseRequest")]
+        [HttpPost("[controller]/purchase-request/{requestAction}/{id:int}", Name = "PurchaseRequest")]
         [ActionName("RestockProduct")]
-        public async Task<IActionResult> CreatePurchaseRequest(PurchaseRequestDetailVM? productDetail, int productID)
+        public async Task<IActionResult> CreatePurchaseRequest( int id, PurchaseRequestDetailVM? productDetail)
         {
-            var createPurchaseRequest = await _mediator.Send(new CreatePurchaseRequest(productDetail));
+            var createPurchaseRequest = await _mediator.Send(new CreatePurchaseRequest(productDetail!));
    
             return RedirectToAction("Products","ProductCatalog", new {list="list", productPage= 1});
         }
 
 
         //edit approve, decline purchase request
-        [HttpGet("[controller]/{requestAction}/{requestID:int?}", Name = "SelectedPurchaseRequest")]
-        [ActionName("SelectedPurschase")]
-        public async Task<IActionResult> GetSelectedPurchaseRequest(int requestID, PurchaseRequestDetailVM requestDetailVM) {
+        [HttpGet("[controller]/{requestAction}/{id:int?}", Name = "SelectedPurchaseRequest")]
+        [ActionName("RestockProduct")]
+        public async Task<IActionResult> GetSelectedPurchaseRequest(int id, PurchaseRequestDetailVM requestDetailVM) {
 
-            var requestDetail = await _mediator.Send(new SelectedPurchasRequestCommand(requestID));
+            var requestDetail = await _mediator.Send(new SelectedPurchasRequestCommand(id));
 
 
             var s = "s";
             return View("PurchaseRequest", requestDetail);
+        }
+        [HttpGet("[controller]/{requestAction}/{id:int}/{requestDetailVM?}", Name = "ApproveSelectedPurchaseRequest")]
+        [ActionName("RestockProduct")]
+        public async Task<IActionResult> ApproveSelectedPurchaseRequest(int id, PurchaseRequestDetailVM requestDetailVM)
+        {
+
+            var requestDetail = await _mediator.Send(new SelectedPurchasRequestCommand(id));
+
+
+            var s = "s";
+            return RedirectToAction("Products", "ProductCatalog", new { list = "list", productPage = 1 });
         }
 
 
