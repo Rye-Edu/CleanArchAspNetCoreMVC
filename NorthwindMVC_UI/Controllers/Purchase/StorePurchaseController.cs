@@ -48,26 +48,7 @@ namespace NorthwindMVC_UI.Controllers.Purchase
         }
 
 
-        //edit approve, decline purchase request
-        [HttpGet("[controller]/{requestAction}/{id:int?}", Name = "SelectedPurchaseRequest")]
-        [ActionName("RestockProduct")]
-        public async Task<IActionResult> GetSelectedPurchaseRequest(int id, PurchaseRequestDetailVM requestDetailVM) {
-
-            var requestDetail = await _mediator.Send(new SelectedPurchasRequestCommand(id));
-
-
-            var s = "s";
-            return View("PurchaseRequest", requestDetail);
-        }
-        [HttpGet("[controller]/{requestAction}/{id:int}/{requestDetailVM?}", Name = "ApproveSelectedPurchaseRequest")]
-        [ActionName("RestockProduct")]
-        public async Task<IActionResult> ApproveSelectedPurchaseRequest(int id, PurchaseRequestDetailVM requestDetailVM)
-        {
-            //To implement in NorthWind_App
-            var requestDetail = await _mediator.Send(new SelectedPurchasRequestCommand(id));
-            return RedirectToAction("Products", "ProductCatalog", new { list = "list", productPage = 1 });
-        }
-
+      
 
         [HttpGet("[controller]/{purchase?}/request/list", Name = "PurchaseRequestList")]
         public async Task<IActionResult> PurchaseRequestList(string purchase = "purchase")
@@ -81,19 +62,25 @@ namespace NorthwindMVC_UI.Controllers.Purchase
         }
 
         #region Process Purchase request
-        // [HttpPost]
-        // [HttpGet("[controller]/puchase-request/{requestID?}", Name ="RequestDetail")]
-        //// [HttpGet]
-        // public async Task<IActionResult> ProcessPurchaseRequest(int? requestID)
-        // {
-        //    // var purchaseRequest = await _mediator.Send(new ApprovePurchaseRequestCommand(requestID.GetValueOrDefault()));
-        //     //var requestDetail = await _mediator.Send();
-        //     //var x = "asdfasdf";
-        //     var productDetail = await _mediator.Send(new ApprovePurchaseRequestCommand(requestID.GetValueOrDefault(), new PurchaseRequestDetailVM()));
 
-        //     return View("PurchaseRequest", new PurchaseRequestDetailVM());
-        //     //return View();
-        // }
+        //edit approve, decline purchase request
+        [HttpGet("[controller]/{requestAction}/{id:int?}", Name = "SelectedPurchaseRequest")]
+        [ActionName("RestockProduct")]
+        public async Task<IActionResult> GetSelectedPurchaseRequest(int id, PurchaseRequestDetailVM requestDetailVM)
+        {
+
+            var requestDetail = await _mediator.Send(new SelectedPurchasRequestCommand(id));
+
+            return View("PurchaseRequest", requestDetail);
+        }
+        [HttpGet("[controller]/{requestAction}/{id:int}/{requestDetailVM?}", Name = "ApproveSelectedPurchaseRequest")]
+        [ActionName("RestockProduct")]
+        public async Task<IActionResult> ApproveSelectedPurchaseRequest(int id, PurchaseRequestDetailVM requestDetailVM)
+        {
+            //To implement in NorthWind_App
+            var requestDetail = await _mediator.Send(new SelectedPurchasRequestCommand(id));
+            return RedirectToAction("Products", "ProductCatalog", new { list = "list", productPage = 1 });
+        }
 
         #endregion
     }
