@@ -90,11 +90,9 @@
                 </div>
 
                 <div class="form-group mt-2">
-                    @*<label itemtype="hid" asp-for="ImageFile" class="control-label form-control form-text"></label>*@
+                    
                     <input type="hidden" asp-for="ImageFile" />
-                    @{
 
-                    }
                     @if (Model == null || string.IsNullOrEmpty(Model.ImageFile))
                     {
                         imageFileName = "~/UploadedFiles/Images/icons8-no-image-80.png";

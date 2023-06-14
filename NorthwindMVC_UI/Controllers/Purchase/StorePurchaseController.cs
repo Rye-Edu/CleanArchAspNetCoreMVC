@@ -63,11 +63,8 @@ namespace NorthwindMVC_UI.Controllers.Purchase
         [ActionName("RestockProduct")]
         public async Task<IActionResult> ApproveSelectedPurchaseRequest(int id, PurchaseRequestDetailVM requestDetailVM)
         {
-
+            //To implement in NorthWind_App
             var requestDetail = await _mediator.Send(new SelectedPurchasRequestCommand(id));
-
-
-            var s = "s";
             return RedirectToAction("Products", "ProductCatalog", new { list = "list", productPage = 1 });
         }
 

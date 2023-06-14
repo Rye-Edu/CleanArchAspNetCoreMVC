@@ -8,12 +8,6 @@
 
 <h1>Products</h1>
 
-@*<p>
-    <a class="btn btn-dark" asp-action="ProductsInfo">Create New</a>
-
-
-</p>*@
-
 @{
     Model.ProductFilter.SelectedFilter = (ViewData["Filter"] != null)  ? ViewData["Filter"]!.ToString() : string.Empty;
   
@@ -102,7 +96,7 @@
                 </tr>
             </thead>
             <tbody align-content-around p-2>
-                @foreach (var item in Model!.PagedItems)
+                @foreach (var item in Model?.PagedItems)
                 {
                     <tr>
                         <td>
@@ -150,18 +144,7 @@
                                 <li class="btn btn-light btn-sm ml-3"> <a class="text-decoration-none" asp-route="GetPurchaseRequest" asp-route-requestAction="create-purchase-request" asp-route-id="@item.ProductId">Restock</a></li>
 
                             </ul>
-                
-                         @*   <div class="container">
-
-                                <div class="row gx-3">
-                                    <a class="col-md-5 btn btn-secondary btn-sm ml-2 text-wrap  p-0" asp-action="ProductsInfo" asp-route-id="@item.ProductId">Edit</a>
-                                    <a class="col-md-7 pe-2 btn btn-secondary btn-sm ml-3 pe-1" asp-action="Details" asp-route-id="@item.ProductId">Details</a>
-
-                                </div>
-                            </div>
-                          
-                           *@
-                            @*<a asp-action="RemoveProduct" asp-route-id="@item.ProductId">Delete</a>*@
+               
                         </td>
                     </tr>
                 }
@@ -193,11 +176,7 @@
 
             <a class="text-decoration-none btn btn-primary btn-sm mt-5" asp-route="ProductList" asp-route-productPage="1" asp-route-search="" asp-route-filter="">Back to list</a>
         }
-        //else       
-        //{
-        //    <a class="text-decoration-none btn btn-primary btn-sm mt-5" asp-route="ProductList" asp-route-page="1">Back to list</a>
-        //}
-        
+            
     }
    </div>
 
@@ -293,13 +272,12 @@
               
         }
 
-        //let selectedOptionVal = $('#selected-option option:selected').value();
+      
         const selectedOption = $('#selected-option');
      
 
         selectedFilterValue();
-       // selectedOptionCurrentValue();
-          
+   
 
         const getSelectedFilterValues = (selectedValue, urlValue)=>{
         
@@ -323,8 +301,7 @@
         };
 
         const filterOptions = $('#filter-options');
-        const filterDropDown = $('#btn-filter-dropdown');
-          /// let selected = filterOptions.children('li').children('input');
+        const filterDropDown = $('#btn-filter-dropdown');   
 
           console.log(filterOptions);
             const uncheckedUnselectedFilter = () => {
@@ -352,8 +329,6 @@
             };
          
             uncheckedUnselectedFilter();
-   
-           // console.log(selected);
         });
       
     </script>

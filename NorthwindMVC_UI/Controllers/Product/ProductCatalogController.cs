@@ -22,15 +22,10 @@ using Northwind_App.ServicesHandler.Upload_Services.Command;
 using Northwind_App.Features.Category_CommQuery.Queries;
 using Northwind_App.Features.Product_Feature.Commands;
 using Microsoft.IdentityModel.Tokens;
-//using Product_CoreDomain.Products_Infrastructure.Data;
-//using Product_CoreDomain.Products_Infrastructure.DataModels;
+
 
 namespace Product_CoreDomain.Controllers
 {
-    //[Route("[controller]/[action]")]
-    //[Route("")]
-    //[Route("Products")]
-    //[Route("Products/Index")]
     public class ProductCatalogController : Controller
     {
         //private readonly NorthwindContext _context;
@@ -44,14 +39,8 @@ namespace Product_CoreDomain.Controllers
             _paging = paging;
         }
 
-        // GET: ProductCatalog
-        // [HttpGet("[controller]/[action]")]
-        //[HttpGet("[controller]/[action]/list/current-page/{productPage:int?}/{filter?}/{search?}", Name = "ProductList")]
-        [HttpGet("[controller]/{list?}/current-page/{productPage:int?}", Name = "ProductList")]
-       // [HttpGet("[controller]/{catalog}/current-page/{productPage:int?}", Name = "ProductList")]
-        // [HttpGet("[action]/list/product-filter/{page:int?}/{filter?}/{search?}", Name ="ProductSearch")]
 
-        // [HttpGet("[controller]/[action]/list/page/{page:int?}")]
+        [HttpGet("[controller]/{list?}/current-page/{productPage:int?}", Name = "ProductList")]
         [ActionName("Products")]
         public async Task<ActionResult<ProductViewModel>> ProductsIndex(string? list,string? filter, string? search, int? productPage = 1)
         {
@@ -160,17 +149,6 @@ namespace Product_CoreDomain.Controllers
        
         }
 
-        // GET: ProductCatalog/Delete/5
-        //[HttpGet("remove-item/{id:int}")]
-        //[ActionName("RemoveProduct")]
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    var remove = await _mediator.Send(new ProductQueryByID(id.GetValueOrDefault()));
-
-        //    return View(remove);
-        //}
-
-        // POST: ProductCatalog/Delete/5
         [HttpPost("remove-item/{id:int}/{productViewModel?}")]
         [ActionName("RemoveProduct")]
         [ValidateAntiForgeryToken]
