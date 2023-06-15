@@ -19,9 +19,9 @@ public partial class PurchaseRequest
     public string? Status { get; set; }
 
    
-    public virtual Product Product { get; set; } = null!;
+    public virtual Product? Product { get; set; }
 
     public virtual ICollection<StorePurchase> StorePurchases { get; set; } = new List<StorePurchase>();
 
-    public virtual User User { get; set; } = null!;
+    public virtual User? User { get; set; }
 }

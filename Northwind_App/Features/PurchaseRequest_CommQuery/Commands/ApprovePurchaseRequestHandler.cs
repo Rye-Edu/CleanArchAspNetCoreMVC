@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Connections.Features;
 using Northwind_App.Interfaces.IRepositories;
 using Northwind_App.ViewModels.PurchaseVM;
+using Northwind_Core.Domain.Entities;
+using Northwind_Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,19 +28,36 @@ namespace Northwind_App.Features.PurchaseRequest_CommQuery.Commands
     public class ApprovePurchaseRequestHandler : IRequestHandler<ApprovePurchaseRequestCommand, ApprovePurchaseRequestVM>
     {
         private readonly IMapper _mapper;
-        private readonly IPurchaseRequestRepository _purchaseRequestRepository;
+        private readonly IStorePurchaseRepository _storePurchaseRepository;
+      //  private readonly IPurchaseRequestRepository _purchaseRequestRepository;
 
-        public ApprovePurchaseRequestHandler(IMapper mapper, IPurchaseRequestRepository purchaseRequestRepository)
+        public ApprovePurchaseRequestHandler(IMapper mapper, IStorePurchaseRepository storePurchaseRepository)
         {
             _mapper = mapper;
-            _purchaseRequestRepository = purchaseRequestRepository;
+            _storePurchaseRepository = storePurchaseRepository;
+          
         }
         public async Task<ApprovePurchaseRequestVM> Handle(ApprovePurchaseRequestCommand request, CancellationToken cancellationToken)
         {
+           var requestDetail = new ApprovePurchaseRequestVM();
             if (request != null) {
-                var x = await _purchaseRequestRepository.GetByIDAsync(request.PurchaseRequestID);
+               // var requestDetail = await _purchaseRequestRepository.GetByIDAsync(request.PurchaseRequestID);
+                //var productPrice = await
+
+                    request.ApproveRequestVM = new ApprovePurchaseRequestVM { 
+                        
+                        PurchaseRequestId = request!.RequestDetailVM!.RequestId.GetValueOrDefault(),
+                        UserApproverId = 3,
+                        ApprovedQuantity = request.RequestDetailVM.QuantityRequested,
+                        DateApproved = DateTime.Now,
+                        TotalAmount = request.RequestDetailVM.UnitPrice * request.RequestDetailVM.QuantityRequested,
+                    };
+                requestDetail = request.ApproveRequestVM;
+                    await _storePurchaseRepository.AddEntityAsync(_mapper.Map<StorePurchase>(requestDetail));
+                  //  request.ApproveRequestVM = _mapper.Map<StorePurchaseVM>();
+                
             }
-            return Task.FromResult(new ApprovePurchaseRequestVM()).Result;
+            return request!.ApproveRequestVM ?? new();
         }
     }
 

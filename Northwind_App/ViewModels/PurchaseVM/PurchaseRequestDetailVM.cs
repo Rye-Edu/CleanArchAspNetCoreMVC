@@ -13,13 +13,16 @@ namespace Northwind_App.ViewModels.PurchaseVM
 {
     public class PurchaseRequestDetailVM
     {
+      //  [BindProperties(Name ="RequestId",SupportsGet = true)]
         public int? RequestId { get; set; }
 
         public int UserId { get; set; }
 
+        public decimal UnitPrice  { get; set; }
         public int ProductID { get; set; }
 
         [DisplayName("Quantity in Units")]
+   
         public int QuantityRequested { get; set; }
 
         [DisplayName("Date Created")]
@@ -60,6 +63,6 @@ namespace Northwind_App.ViewModels.PurchaseVM
             //}
         }
 
-        public List<PurchaseRequestDetailVM> PurchaseRequestDetailList { get; set; } = new();
+        public List<PurchaseRequestDetailVM>? PurchaseRequestDetailList { get; set; }
     }
 }

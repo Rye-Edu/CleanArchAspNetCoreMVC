@@ -12,7 +12,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Northwind_App.ViewModels.ProductVM;
 //using Northwind_App.Category_CommQuery.Queries;
 using Northwind_App.Product_CommQuery.Commands;
-using Northwind_App.Product_CommQuery.Queries;
+// using Northwind_App.Product_CommQuery.Commands.
+// using Northwind_App.Product_CommQuery.Queries;
 using Northwind_App.Product_Feature.Commands;
 using Northwind_App.Product_Feature.Queries;
 using Northwind_App.Supplier_CommQuery.Queries;
