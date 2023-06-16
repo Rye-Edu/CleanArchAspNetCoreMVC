@@ -5,6 +5,7 @@ namespace Northwind_Infrastructure.Repositories
 {
     public interface IStorePurchaseRepository:IEntity, IAsyncBaseRepository<StorePurchase>
     {
-       // public Task
+        // public Task
+        public Task<IQueryable<StorePurchase>> GetStorePurchases();
     }
 }

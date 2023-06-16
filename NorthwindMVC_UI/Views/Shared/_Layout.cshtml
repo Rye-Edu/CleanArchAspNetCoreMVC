@@ -85,7 +85,7 @@
                                 <div class="accordion-body">
                                     <ul class="nav nav-pills flex-column mb-auto">
                                         <li><a class="@(selectedNav== "purchase" ? "dropdown-item nav-link-sm text-dark bg-secondary text-white" : "dropdown-item nav-link-sm text-decoration-none ")" asp-area="" asp-route-purchase="purchase" asp-route="PurchaseRequestList">Request</a></li>
-                                        <li><a class="dropdown-item nav-link-sm text-dark" asp-area="" asp-controller="Authorization" asp-action="CreateUser">Approved</a></li>
+                                        <li><a class="dropdown-item nav-link-sm text-dark" asp-route-requestAction="approved-purchases" asp-route="ApprovedPurchases">Approved</a></li>
                                         <li><a class="dropdown-item nav-link-sm text-dark" asp-area="" asp-controller="User" asp-action="Users">Declined</a></li>
                                     </ul>
                                 </div>

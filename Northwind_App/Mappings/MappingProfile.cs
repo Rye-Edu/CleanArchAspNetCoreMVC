@@ -17,6 +17,7 @@ namespace Northwind_App.Mappings
             CreateMap<Category, CategorySelectVM>().ReverseMap();
             CreateMap<PurchaseRequest, PurchaseRequestDetailVM>().ReverseMap();
             CreateMap<StorePurchase, ApprovePurchaseRequestVM>().ReverseMap();
+            CreateMap<StorePurchase, StorePurchaseVM>().ReverseMap();
         }
     }
 }

@@ -82,7 +82,13 @@ namespace NorthwindMVC_UI.Controllers.Purchase
             var requestDetail = await _mediator.Send(new ApprovePurchaseRequestCommand(id, requestDetailVM));
             return RedirectToRoute("PurchaseRequestList", new { purchase = "purchase" });
         }
+        [HttpGet("[controller]/{requestAction}/list", Name = "ApprovedPurchases")]
+        public async Task<IActionResult> GetApprovedPurchases() {
 
+          var purchases = await _mediator.Send(new ApprovedRequestQuery());
+            var n = "asdfasdf";
+            return View("ApprovedPurchases", purchases);
+        }
         #endregion
     }
 }
