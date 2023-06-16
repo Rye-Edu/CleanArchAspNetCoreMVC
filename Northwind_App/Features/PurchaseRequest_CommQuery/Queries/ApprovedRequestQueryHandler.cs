@@ -30,7 +30,7 @@ namespace Northwind_App.Features.PurchaseRequest_CommQuery.Queries
             var purchases = await _storePurchaseRepository.GetStorePurchases();
 
             var purchaseList = _mapper.Map<IEnumerable<StorePurchaseVM>>(purchases);
-            var s = "asdf";
+          
 
             return purchaseList;
         }

@@ -55,7 +55,9 @@ namespace NorthwindMVC_UI.Controllers.Purchase
         public async Task<IActionResult> PurchaseRequestList(string purchase = "purchase")
         {
 
-            ViewData["SelectedNav"] = purchase;
+            //ViewData["SelectedNav"] = purchase;
+            ViewData["SelectedNav"] = "purchase";
+            ViewData["SelectedLink"] = "purchase-request";
             var requestList = await _mediator.Send(new PurchaseRequestListQuery());
             PurchaseRequestDetailVM purchaseRequestDetailVM = new PurchaseRequestDetailVM();
             purchaseRequestDetailVM.PurchaseRequestDetailList = requestList.ToList();
@@ -84,8 +86,10 @@ namespace NorthwindMVC_UI.Controllers.Purchase
         }
         [HttpGet("[controller]/{requestAction}/list", Name = "ApprovedPurchases")]
         public async Task<IActionResult> GetApprovedPurchases() {
+            ViewData["SelectedNav"] = "purchase";
+            ViewData["SelectedLink"] = "approved-purchases";
 
-          var purchases = await _mediator.Send(new ApprovedRequestQuery());
+            var purchases = await _mediator.Send(new ApprovedRequestQuery());
             var n = "asdfasdf";
             return View("ApprovedPurchases", purchases);
         }
