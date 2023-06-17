@@ -17,7 +17,7 @@ public partial class StorePurchase
 
     public decimal TotalAmount { get; set; }
 
-    public virtual PurchaseRequest PurchaseRequest { get; set; } = null!;
+    public virtual PurchaseRequest? PurchaseRequest { get; set; }
 
-    public virtual User UserApprover { get; set; } = null!;
+    public virtual User? UserApprover { get; set; }
 }

@@ -23,14 +23,15 @@ namespace Northwind_Infrastructure.InfraServiceRegistration
               //  services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
               //  services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
                 services.AddDbContext<NorthwindContext>(options => options.UseSqlServer(configuration.GetConnectionString("Northwind")));
-                services.AddScoped(typeof(IAsyncBaseRepository<>), typeof(AsyncBaseRepository<>));
-                services.AddScoped(typeof(IPaging<>),typeof( Paging<>));
+                services.AddTransient(typeof(IAsyncBaseRepository<>), typeof(AsyncBaseRepository<>));
+                services.AddTransient(typeof(IPaging<>),typeof( Paging<>));
                 // builder.Services.AddScoped(typeof(IProductRepository<Product>), typeof(ProductRepository));
-                services.AddScoped<IProductRepository, ProductRepository>();
-                services.AddScoped<ICategoryRepository, CategoryRepository>();
-                services.AddScoped<ISupplierRepository, SupplierRepository>();
-                services.AddScoped<IUploaderService, Uploader_Service>();
+                services.AddTransient<IProductRepository, ProductRepository>();
+                services.AddTransient<ICategoryRepository, CategoryRepository>();
+                services.AddTransient<ISupplierRepository, SupplierRepository>();
+                services.AddTransient<IUploaderService, Uploader_Service>();
                 services.AddTransient<IPurchaseRequestRepository, PurchaseRequestRepository>();
+                services.AddTransient<IStorePurchaseRepository, StorePurchaseRepository>();
              //   services.AddScoped<ISupplierRepository, SupplierRepository>();
 
                 return services;

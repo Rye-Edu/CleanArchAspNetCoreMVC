@@ -34,12 +34,15 @@ namespace Northwind_App.Features.PurchaseRequest_CommQuery.Commands
         public async Task<PurchaseRequestDetailVM> Handle(CreatePurchaseRequest request, CancellationToken cancellationToken)
         {
             var purchaseDetail = new PurchaseRequestDetailVM();
+            
+            //test values. Should implement a real user
                 var requestDetail = new PurchaseRequestDetailVM
                 {
 
                     DateRequested = DateTime.Now,
                     UserId = 1,
-                    ProductID = request!.PurchaseRequestDetail!.Product!.ProductId.GetValueOrDefault(),
+                    ProductID = request!.PurchaseRequestDetail!.ProductID,
+                    //ProductID = request!.PurchaseRequestDetail!.Product!.ProductId.GetValueOrDefault(),
                     QuantityRequested = request.PurchaseRequestDetail.QuantityRequested,
                     Status = RequestStatus.Requested.ToString(),
                 };

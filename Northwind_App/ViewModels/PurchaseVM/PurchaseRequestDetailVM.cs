@@ -13,13 +13,16 @@ namespace Northwind_App.ViewModels.PurchaseVM
 {
     public class PurchaseRequestDetailVM
     {
+      //  [BindProperties(Name ="RequestId",SupportsGet = true)]
         public int? RequestId { get; set; }
 
         public int UserId { get; set; }
 
+        public decimal UnitPrice  { get; set; }
         public int ProductID { get; set; }
 
         [DisplayName("Quantity in Units")]
+   
         public int QuantityRequested { get; set; }
 
         [DisplayName("Date Created")]
@@ -44,22 +47,19 @@ namespace Northwind_App.ViewModels.PurchaseVM
         }
         public virtual ICollection<StorePurchase> StorePurchases { get; set; } = new List<StorePurchase>();
 
-        public virtual User User { get; set; }
+        public virtual User? User { get; set; }
 
         [DisplayName("Requester")]
-        [FromQuery]
+        //[FromQuery]
         public string? FullName
         {
             get
             {
                 return $" {User?.Employee?.FirstName} {User?.Employee?.LastName}" ?? string.Empty;
             }
-            //set
-            //{
-            //    FullName = value;
-            //}
+
         }
 
-        public List<PurchaseRequestDetailVM> PurchaseRequestDetailList { get; set; } = new();
+        public List<PurchaseRequestDetailVM>? PurchaseRequestDetailList { get; set; }
     }
 }

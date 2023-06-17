@@ -1,0 +1,125 @@
+﻿@model IEnumerable<Northwind_App.ViewModels.PurchaseVM.StorePurchaseVM>
+
+@{
+    ViewData["Title"] = "ApprovedPurchases";
+}
+
+<h1>ApprovedPurchases</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model!.PurchaseRequest!.DateRequested)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.PurchaseId)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model!.PurchaseRequest!.Product!.ProductName)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model!.PurchaseRequest!.QuantityRequested)
+            </th>
+    
+            <th>
+                @Html.DisplayNameFor(model => model.RequestedBy)
+            </th>
+           @* <th>
+                @Html.DisplayNameFor(model =>  model!.PurchaseRequest!.User!.Employee.LastName )
+            </th>*@
+
+            <th>
+                @Html.DisplayNameFor(model => model.DateApproved)
+            </th>
+       
+            <th>
+                @Html.DisplayNameFor(model => model.Approver)
+            </th>
+        @*    <th>
+                @Html.DisplayNameFor(model =>  model!.UserApprover!.Employee!.LastName )
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.ApprovedQuantity)
+            </th>
+    
+            <th>
+                    @Html.DisplayNameFor(model => model.TotalAmount)
+            </th>
+        
+        </tr>
+           @* <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => item!.RequestDetail!.ProductName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => item.)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ApprovedQuantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateApproved)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TotalAmount)
+                </th>
+                <th></th>
+            </tr>*@
+
+        </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item!.PurchaseRequest!.DateRequested)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchaseId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item!.PurchaseRequest!.Product!.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchaseRequest!.QuantityRequested)
+            </td>
+            <td>
+                   @Html.DisplayFor(modelItem => item.RequestedBy)
+            </td>
+          @*  <td>
+                
+                        @Html.DisplayFor(modelItem => item.PurchaseRequest!.User!.Employee!.LastName)
+                </td>*@
+                <td>
+                @Html.DisplayFor(modelItem => item!.DateApproved)
+            </td>
+            <td>
+                    @Html.DisplayFor(model => item.Approver)
+            </td>
+               @* <td>
+                    @Html.DisplayFor(model =>  item!.UserApprover!.Employee!.LastName)
+                </td>*@
+            <td>
+                @Html.DisplayFor(model => item.ApprovedQuantity)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.TotalAmount)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
