@@ -64,7 +64,8 @@ namespace Northwind_Infrastructure.Repositories
                                                 FirstName = empApprover.FirstName,
                                                 LastName = empApprover.LastName,
                                             }
-                                        }
+                                        },
+                                        TotalAmount = storePurchases.TotalAmount
                                     }).ToListAsync();
                 
             return Task.FromResult(approvedPurchases.AsQueryable()).Result;

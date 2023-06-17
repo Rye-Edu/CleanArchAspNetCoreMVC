@@ -38,6 +38,8 @@ namespace NorthwindMVC_UI.Controllers.Purchase
 
             return View("PurchaseRequest", productDetail);
         }
+
+
         [HttpPost("[controller]/purchase-request/{requestAction}/{id:int}", Name = "PurchaseRequest")]
         [ActionName("RestockProduct")]
         public async Task<IActionResult> CreatePurchaseRequest( int id, PurchaseRequestDetailVM? productDetail)
@@ -47,15 +49,12 @@ namespace NorthwindMVC_UI.Controllers.Purchase
    
             return RedirectToAction("Products","ProductCatalog", new { list="list", productPage= 1} );
         }
-
-
-      
+   
 
         [HttpGet("[controller]/{purchase?}/request/list", Name = "PurchaseRequestList")]
         public async Task<IActionResult> PurchaseRequestList(string purchase = "purchase")
         {
 
-            //ViewData["SelectedNav"] = purchase;
             ViewData["SelectedNav"] = "purchase";
             ViewData["SelectedLink"] = "purchase-request";
             var requestList = await _mediator.Send(new PurchaseRequestListQuery());
@@ -89,8 +88,7 @@ namespace NorthwindMVC_UI.Controllers.Purchase
             ViewData["SelectedNav"] = "purchase";
             ViewData["SelectedLink"] = "approved-purchases";
 
-            var purchases = await _mediator.Send(new ApprovedRequestQuery());
-            var n = "asdfasdf";
+            var purchases = await _mediator.Send(new ApprovedRequestQuery());            
             return View("ApprovedPurchases", purchases);
         }
         #endregion

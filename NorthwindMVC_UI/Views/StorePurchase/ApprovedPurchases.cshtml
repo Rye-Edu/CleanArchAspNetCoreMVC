@@ -29,22 +29,22 @@
             </th>
     
             <th>
-                @Html.DisplayNameFor(model => model!.PurchaseRequest!.User!.Employee!.FirstName   )
+                @Html.DisplayNameFor(model => model.RequestedBy)
             </th>
-            <th>
+           @* <th>
                 @Html.DisplayNameFor(model =>  model!.PurchaseRequest!.User!.Employee.LastName )
-            </th>
+            </th>*@
 
             <th>
                 @Html.DisplayNameFor(model => model.DateApproved)
             </th>
        
             <th>
-                @Html.DisplayNameFor(model => model!.UserApprover!.Employee!.FirstName )
+                @Html.DisplayNameFor(model => model.Approver)
             </th>
-            <th>
+        @*    <th>
                 @Html.DisplayNameFor(model =>  model!.UserApprover!.Employee!.LastName )
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.ApprovedQuantity)
             </th>
@@ -93,21 +93,21 @@
                 @Html.DisplayFor(modelItem => item.PurchaseRequest!.QuantityRequested)
             </td>
             <td>
-                   @Html.DisplayFor(modelItem => item.PurchaseRequest!.User!.Employee!.FirstName)
+                   @Html.DisplayFor(modelItem => item.RequestedBy)
             </td>
-            <td>
+          @*  <td>
                 
                         @Html.DisplayFor(modelItem => item.PurchaseRequest!.User!.Employee!.LastName)
-                </td>
+                </td>*@
                 <td>
                 @Html.DisplayFor(modelItem => item!.DateApproved)
             </td>
             <td>
-                    @Html.DisplayFor(model => item!.UserApprover!.Employee!.FirstName)
+                    @Html.DisplayFor(model => item.Approver)
             </td>
-                <td>
+               @* <td>
                     @Html.DisplayFor(model =>  item!.UserApprover!.Employee!.LastName)
-                </td>
+                </td>*@
             <td>
                 @Html.DisplayFor(model => item.ApprovedQuantity)
             </td>

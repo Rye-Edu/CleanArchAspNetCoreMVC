@@ -47,20 +47,17 @@ namespace Northwind_App.ViewModels.PurchaseVM
         }
         public virtual ICollection<StorePurchase> StorePurchases { get; set; } = new List<StorePurchase>();
 
-        public virtual User User { get; set; }
+        public virtual User? User { get; set; }
 
         [DisplayName("Requester")]
-        [FromQuery]
+        //[FromQuery]
         public string? FullName
         {
             get
             {
                 return $" {User?.Employee?.FirstName} {User?.Employee?.LastName}" ?? string.Empty;
             }
-            //set
-            //{
-            //    FullName = value;
-            //}
+
         }
 
         public List<PurchaseRequestDetailVM>? PurchaseRequestDetailList { get; set; }
