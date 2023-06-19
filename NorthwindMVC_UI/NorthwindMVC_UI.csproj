@@ -16,9 +16,5 @@
     <ProjectReference Include="..\Northwind_App\Northwind_App.csproj" />
     <ProjectReference Include="..\Northwind_Infrastructure\Northwind_Infrastructure.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\Purchase\Requests\" />
-  </ItemGroup>
 	
 </Project>

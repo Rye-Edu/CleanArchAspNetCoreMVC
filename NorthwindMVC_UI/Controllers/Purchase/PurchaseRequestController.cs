@@ -7,6 +7,8 @@ using Northwind_App.ViewModels.PurchaseVM;
 
 namespace NorthwindMVC_UI.Controllers.Purchase
 {
+   
+
     public class PurchaseRequestController : Controller
     {
         private readonly IMediator _mediator;
@@ -34,23 +36,23 @@ namespace NorthwindMVC_UI.Controllers.Purchase
             var productDetail = await _mediator.Send(new ProductDetailQuery(id, new PurchaseRequestDetailVM()));
 
 
-            return View("PurchaseRequest", productDetail);
+            return View("~/Views/Purchase/PurchaseRequest/PurchaseRequest.cshtml", productDetail);
         }
 
 
-        [HttpPost("[controller]/{requestAction}/{id:int}", Name = "PurchaseRequest")]
+        [HttpPost("[controller]/{requestAction}/productid-{id:int}", Name = "PurchaseRequest")]
         [ActionName("RestockProduct")]
         public async Task<IActionResult> CreatePurchaseRequest(int id, PurchaseRequestDetailVM? productDetail)
         {
             productDetail!.ProductID = id;
             var createPurchaseRequest = await _mediator.Send(new CreatePurchaseRequest(productDetail!));
 
-            return RedirectToAction("Products", "ProductCatalog", new { list = "list", productPage = 1 });
+            return RedirectToAction("Products", "ProductCatalog", new { list = "list", itemPage = 1 });
         }
 
 
-        [HttpGet("[controller]/list/{itemPage:int}", Name = "PurchaseRequestList")]
-        public async Task<IActionResult> PurchaseRequestList(string purchase, int itemPage = 1)
+        [HttpGet("[controller]/list/page-{itemPage:int}", Name = "PurchaseRequestList")]
+        public async Task<IActionResult> PurchaseRequestList(int itemPage = 1)
         {
 
             ViewData["SelectedNav"] = "purchase";
@@ -59,12 +61,8 @@ namespace NorthwindMVC_UI.Controllers.Purchase
             var requestList = await _mediator.Send(new PurchaseRequestListQuery(itemPage));
             PurchaseRequestDetailVM purchaseRequestDetailVM = new PurchaseRequestDetailVM();
             ViewData["ButtonPages"] = requestList.Pages;
-            //  _paging = 
-            //var pagedItems = _paging.PaginatedItems(itemPage, requestList.RequestList.ToList());
-            //requestList.PagedItems = pagedItems;
-            //ViewData["ButtonPages"] = _paging.TotalPage();
-            //  purchaseRequestDetailVM.PurchaseRequestDetailList = requestList.ToList();
-            return View(requestList);
+
+            return View("~/Views/Purchase/PurchaseRequest/PurchaseRequestList.cshtml", requestList);
         }
 
 
