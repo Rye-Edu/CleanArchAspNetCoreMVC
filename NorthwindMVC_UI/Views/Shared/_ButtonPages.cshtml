@@ -6,7 +6,7 @@
 @{
 }
 @*@model Product_CoreDomain.Products_Application.ServicesHandler.CommonServices.Filters.Paging<ITEntity>*@
-@model Northwind_App.ViewModels.ProductVM.ProductViewModel
+@*@model Northwind_App.ViewModels.ProductVM.ProductViewModel*@
 
 
 
@@ -14,19 +14,18 @@
     <ul class="pagination" id="pagenumber">
         @*<li class="page-item"><a class="btn btn-outline-light btn-sm text-primary">First Page</a></li>*@
         @{
-            var buttonPages = ViewData["ButtonPages"] as List<int>;
+            var buttonPages = int.Parse(ViewData["ButtonPages"]!.ToString()!);
 
-            var currentPage = ViewData["PageNumber"]!.ToString();
+            var currentPage = int.Parse(ViewData["PageNumber"]!.ToString()!);
 
-            if (buttonPages != null)
-            {
-              
+            if (buttonPages > 0)
+            {             
              
-                foreach (var pages in buttonPages)
+                foreach (var pages in Enumerable.Range(1, buttonPages))
                 {
                
                     <li class="page-item">
-                        <a class="@(pages ==  int.Parse(ViewData["PageNumber"]!.ToString())? "btn btn-secondary btn-sm" : "btn btn-outline-light btn-sm text-primary")" asp-route-productPage="@pages" asp-route-search="@ViewData["Search"]" asp-route-filter="@ViewData["Filter"]">@pages</a>
+                        <a class="@(pages ==  int.Parse(ViewData["PageNumber"]!.ToString()!) ? "btn btn-secondary btn-sm" : "btn btn-outline-light btn-sm text-primary")" asp-route-itemPage="@pages" asp-route-search="@ViewData["Search"]" asp-route-filter="@ViewData["Filter"]">@pages</a>
                     </li>
                     
                     //<li class="page-item"><a class="page-link" asp-route-page="@item">@item</a></li>

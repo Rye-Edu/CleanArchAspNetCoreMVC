@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Northwind_App.Interfaces.Common;
 using Northwind_App.ViewModels.ProductVM;
 using Northwind_Core.Domain.Entities;
 using System;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Northwind_App.ViewModels.PurchaseVM
 {
-    public class PurchaseRequestDetailVM
+    public class PurchaseRequestDetailVM:IEntity
     {
       //  [BindProperties(Name ="RequestId",SupportsGet = true)]
         public int? RequestId { get; set; }
@@ -20,6 +21,8 @@ namespace Northwind_App.ViewModels.PurchaseVM
 
         public decimal UnitPrice  { get; set; }
         public int ProductID { get; set; }
+        public int ItemPage { get; set; }
+        public int Pages { get; set; }
 
         [DisplayName("Quantity in Units")]
    
@@ -60,6 +63,9 @@ namespace Northwind_App.ViewModels.PurchaseVM
 
         }
 
-        public List<PurchaseRequestDetailVM>? PurchaseRequestDetailList { get; set; }
+        public IList<PurchaseRequestDetailVM>? PagedItems { get; set; } = new List<PurchaseRequestDetailVM>();
+        public IEnumerable<PurchaseRequestDetailVM> RequestList { get; set; } = null!;
+
+        //public List<PurchaseRequestDetailVM>? PurchaseRequestDetailList { get; set; }
     }
 }

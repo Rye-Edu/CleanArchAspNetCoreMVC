@@ -13,38 +13,39 @@ namespace Northwind_App.ServicesHandler.CommonServices.Filters
         public int PageItems { get; set; } = 10;
         public int TotalItems { get; private set; }
 
-        public  IList<int>? TotalPage (){
+        //public  IList<int>? TotalPage (){
 
-            int pageNumber = (int)Math.Ceiling((decimal) TotalItems / PageItems);
+        //    int pageNumber = (int)Math.Ceiling((decimal) TotalItems / PageItems);
          
-            if (TotalItems < PageItems)
-            {
-                Pages?.Add(1);
-            }
-            else {
-                for (int i = 1; i <= pageNumber; i++)
-                {
-                    Pages?.Add(i);
-                }
-            }
+        //    if (TotalItems < PageItems)
+        //    {
+        //        Pages?.Add(1);
+        //    }
+        //    else {
+        //        for (int i = 1; i <= pageNumber; i++)
+        //        {
+        //            Pages?.Add(i);
+        //        }
+        //    }
           
-            return Pages?.ToList();
-        }
+        //    return Pages?.ToList();
+        //}
 
+        public int TotalPage()
+        {
+
+            int pageNumber = (int)Math.Ceiling((decimal)TotalItems / PageItems);
+
+            return pageNumber;
+        }
         public IList<TEntity>? PaginatedItems(int page, List<TEntity> list) {
 
             TotalItems = list.Count();
-
-
-            //  TEntity? result = null;
-   
+          
             Paging<TEntity> pageList = new();
 
-            //pageList.PaginatedList = new List<TEntity>();
+            
             pageList.PaginatedList = list;
-            var x = pageList.PaginatedList.ToList().Count.ToString();
-            var a = pageList.PaginatedList.Skip(page);
-            var b = pageList.PaginatedList.Take(page);
             var itemsPerPage = pageList.PaginatedList?.Skip((page - 1) * pageList.PageItems).Take(pageList.PageItems);
             
             return itemsPerPage?.ToList();

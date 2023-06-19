@@ -41,14 +41,14 @@ namespace Product_CoreDomain.Controllers
         }
 
 
-        [HttpGet("[controller]/{list?}/current-page/{productPage:int?}", Name = "ProductList")]
+        [HttpGet("[controller]/{list?}/current-page/{itemPage:int?}", Name = "ProductList")]
         [ActionName("Products")]
-        public async Task<ActionResult<ProductViewModel>> ProductsIndex(string? list,string? filter, string? search, int? productPage = 1)
+        public async Task<ActionResult<ProductViewModel>> ProductsIndex(string? list,string? filter, string? search, int? itemPage = 1)
         {
 
             ViewData["Filter"] = filter;
             ViewData["Search"] = search;
-            ViewData["PageNumber"] = productPage;
+            ViewData["PageNumber"] = itemPage;
             ViewData["SelectedNav"] = list;
             var productList = await _mediator.Send(new ProductListQuery(new ProductViewModel { 
                 
@@ -59,9 +59,9 @@ namespace Product_CoreDomain.Controllers
                 }
             }));
 
-            var pagedItems = _paging.PaginatedItems(productPage.GetValueOrDefault(), productList.ProductList.ToList());
+            var pagedItems = _paging.PaginatedItems(itemPage.GetValueOrDefault(), productList.ProductList.ToList());
                 productList.PagedItems = pagedItems;               
-                ViewData["ButtonPages"] = _paging.TotalPage();         
+                ViewData["ButtonPages"] = int.Parse(_paging.TotalPage().ToString());         
 
             return View("Products",productList);
          
