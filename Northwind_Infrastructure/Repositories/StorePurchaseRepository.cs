@@ -35,7 +35,7 @@ namespace Northwind_Infrastructure.Repositories
                                         PurchaseRequest = new PurchaseRequest
                                         {
                                             DateRequested = purchaseRequest.DateRequested,
-                                            //    ProductId = product.ProductId,
+                                           
                                             Product = new Product
                                             {
                                                 ProductId = product.ProductId,

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Northwind_App.ViewModels.PurchaseVM.PurchaseRequestDetailVM>
+﻿@model Northwind_App.ViewModels.PurchaseVM.PurchaseRequestDetailVM
 
 @{
     ViewData["Title"] = "Purchase Requests";
@@ -46,7 +46,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.RequestList) {
         <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.FullName)
@@ -86,3 +86,5 @@
 }
     </tbody>
 </table>
+
+                    <partial name="_ButtonPages"/>

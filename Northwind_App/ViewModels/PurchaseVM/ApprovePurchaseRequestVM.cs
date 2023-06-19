@@ -1,4 +1,5 @@
-﻿using Northwind_Core.Domain.Entities;
+﻿using Northwind_App.Interfaces.Common;
+using Northwind_Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
