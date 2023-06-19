@@ -46,7 +46,7 @@ namespace Northwind_App.Features.PurchaseRequest_CommQuery.Queries
             var list = _mapper.Map<IEnumerable<PurchaseRequestDetailVM>>(requestList);
 
             var pagedItems = _purchaseRequestDetails.PaginatedItems(request.ItemPage,list.ToList());
-             request.TotalPage = _purchaseRequestDetails.TotalPage();
+           
 
             requestDetailVM.RequestList = pagedItems!.ToList();
             requestDetailVM.Pages = _purchaseRequestDetails.TotalPage();

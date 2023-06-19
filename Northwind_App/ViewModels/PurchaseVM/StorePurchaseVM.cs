@@ -41,5 +41,8 @@ namespace Northwind_App.ViewModels.PurchaseVM
                 return $"{PurchaseRequest!.User!.Employee!.FirstName} {PurchaseRequest!.User!.Employee!.LastName}" ?? string.Empty;
             }
         }
+
+        public int TotalPage { get; set; }
+        public IEnumerable<StorePurchaseVM> ApprovedList { get; set; } = null!;
     }
 }

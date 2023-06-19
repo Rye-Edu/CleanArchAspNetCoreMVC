@@ -87,8 +87,8 @@
                             <div id="purchase-collapse" class="@(selectedNav == "purchase" ? "accordion-collapse collapse show" : "accordion-collapse collapse")" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <ul class="nav nav-pills flex-column mb-auto">
-                                        <li><a class="@(selectedLink == "purchase-request" ? "dropdown-item nav-link-sm text-dark bg-secondary text-white" : "dropdown-item nav-link-sm text-decoration-none ")" asp-area="" asp-route-purchase="purchase-request" asp-route="PurchaseRequestList" asp-route-purchase="purchase" asp-route-itemPage="1">Request</a></li>
-                                        <li><a class="@(selectedLink== "approved-purchases" ? "dropdown-item nav-link-sm text-dark bg-secondary text-white" : "dropdown-item nav-link-sm text-decoration-none ")" asp-route-requestAction="approved-purchases" asp-route="ApprovedPurchases">Approved</a></li>
+                                        <li><a class="@(selectedLink == "purchase-request" ? "dropdown-item nav-link-sm text-dark bg-secondary text-white" : "dropdown-item nav-link-sm text-decoration-none ")" asp-area=""  asp-route="PurchaseRequestList" asp-route-itemPage="1">Request</a></li>
+                                        <li><a class="@(selectedLink== "approved-purchases" ? "dropdown-item nav-link-sm text-dark bg-secondary text-white" : "dropdown-item nav-link-sm text-decoration-none ")" asp-route="ApprovedPurchases" asp-route-requestAction="approved-purchases" asp-route-itemPage="1">Approved</a></li>
                                         <li><a class="dropdown-item nav-link-sm text-dark" asp-area="" asp-controller="User" asp-action="Users">Declined</a></li>
                                     </ul>
                                 </div>

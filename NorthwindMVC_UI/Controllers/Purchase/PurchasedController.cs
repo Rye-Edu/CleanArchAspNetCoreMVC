@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Northwind_App.Features.PurchaseRequest_CommQuery.Commands;
 using Northwind_App.Features.PurchaseRequest_CommQuery.Queries;
 using Northwind_App.ViewModels.PurchaseVM;
+using Northwind_Core.Domain.Entities;
 
 namespace NorthwindMVC_UI.Controllers.Purchase
 {
@@ -22,8 +23,9 @@ namespace NorthwindMVC_UI.Controllers.Purchase
         {
 
             var requestDetail = await _mediator.Send(new SelectedPurchasRequestCommand(id));
-
-            return View("PurchaseRequest", requestDetail);
+      
+            return View("~/Views/Purchase/PurchaseRequest/PurchaseRequest.cshtml", requestDetail);
+           
         }
         [HttpPost("[controller]/{requestAction}/{id:int}/{requestDetailVM?}", Name = "ApproveSelectedPurchaseRequest")]
         [ActionName("RestockProduct")]
@@ -31,16 +33,20 @@ namespace NorthwindMVC_UI.Controllers.Purchase
         {
             //To implement in NorthWind_App
             var requestDetail = await _mediator.Send(new ApprovePurchaseRequestCommand(id, requestDetailVM));
-            return RedirectToRoute("PurchaseRequestList", new { purchase = "purchase" });
+            return RedirectToRoute("PurchaseRequestList", new { itemPage=1});
         }
-        [HttpGet("[controller]/{requestAction}/list", Name = "ApprovedPurchases")]
-        public async Task<IActionResult> GetApprovedPurchases()
+        [HttpGet("[controller]/{requestAction}/list/{itemPage:int}", Name = "ApprovedPurchases")]
+        public async Task<IActionResult> GetApprovedPurchases(int itemPage = 1)
         {
             ViewData["SelectedNav"] = "purchase";
             ViewData["SelectedLink"] = "approved-purchases";
+            ViewData["PageNumber"] = itemPage;
 
-            var purchases = await _mediator.Send(new ApprovedRequestQuery());
-            return View("ApprovedPurchases", purchases);
+
+           
+            var purchases = await _mediator.Send(new ApprovedRequestQuery(itemPage));
+            ViewData["ButtonPages"] = purchases.TotalPage;
+            return View("~/Views/Purchase/ApprovedPurchases/ApprovedPurchases.cshtml", purchases);
         }
     }
 }

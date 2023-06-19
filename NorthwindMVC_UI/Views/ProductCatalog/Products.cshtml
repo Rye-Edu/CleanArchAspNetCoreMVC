@@ -9,8 +9,9 @@
 <h1>Products</h1>
 
 @{
-    Model.ProductFilter.SelectedFilter = (ViewData["Filter"] != null)  ? ViewData["Filter"]!.ToString() : string.Empty;
-  
+    var filters = Model.ProductFilter.SelectedFilter = (ViewData["Filter"] != null)  ? ViewData["Filter"]!.ToString() : string.Empty;
+
+
 }
 <div>
 
@@ -23,7 +24,7 @@
                    
 
                     <div class="input-group input-group-sm nav-item">
-                        <input class="input-group-text btn btn-secondary btn-sm" type="submit" value="Search" asp-route-productPage="1" asp-route-search="@ViewData["Search"]" asp-route-filter="@ViewData["Filter"]" />
+                        <input class="input-group-text btn btn-secondary btn-sm" type="submit" value="Search" asp-route="ProductList" asp-route-itemPage="@int.Parse(ViewData["PageNumber"]!.ToString()!)" asp-route-search="@ViewData["Search"]" asp-route-filter="@ViewData["Filter"]" />
                         <input type="text" id="search-input" class="form-control" name="search" value="@ViewData["Search"]" placeholder="type company name or category name" />
                        
                                                    
@@ -174,7 +175,7 @@
         {
 
 
-            <a class="text-decoration-none btn btn-primary btn-sm mt-5" asp-route="ProductList" asp-route-productPage="1" asp-route-search="" asp-route-filter="">Back to list</a>
+            <a class="text-decoration-none btn btn-primary btn-sm mt-5" asp-route="ProductList" asp-route-itemPage="1" asp-route-search="" asp-route-filter="">Back to list</a>
         }
             
     }

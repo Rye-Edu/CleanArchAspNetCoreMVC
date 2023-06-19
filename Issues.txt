@@ -1,0 +1,12 @@
+TODO
+	CleanArchAspNetCoreMVC
+	
+	
+	-reimplement paging in handlers
+	-fix buttonpages to accommodate for paging
+	
+	
+- ProductCatalog	
+	Issue:
+		Fix searching when button pages is higher than page 1.
+		Behavior should be applied on the search item itself not per pages
