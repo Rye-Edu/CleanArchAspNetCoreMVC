@@ -50,7 +50,7 @@ namespace Product_CoreDomain.Controllers
             ViewData["Search"] = search;
             ViewData["PageNumber"] = itemPage;
             ViewData["SelectedNav"] = list;
-            var productList = await _mediator.Send(new ProductListQuery(new ProductViewModel { 
+            var productList = await _mediator.Send(new ProductListQuery(itemPage.GetValueOrDefault(),new ProductViewModel { 
                 
                ProductFilter = new ProductFilterVM { 
                     
@@ -59,9 +59,10 @@ namespace Product_CoreDomain.Controllers
                 }
             }));
 
-            var pagedItems = _paging.PaginatedItems(itemPage.GetValueOrDefault(), productList.ProductList.ToList());
-                productList.PagedItems = pagedItems;               
-                ViewData["ButtonPages"] = int.Parse(_paging.TotalPage().ToString());         
+         
+            //var pagedItems = _paging.PaginatedItems(itemPage.GetValueOrDefault(), productList.ProductList.ToList());
+            //    productList.PagedItems = pagedItems;               
+                ViewData["ButtonPages"] = productList.TotalPage;         
 
             return View("Products",productList);
          

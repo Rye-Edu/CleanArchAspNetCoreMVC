@@ -133,7 +133,7 @@
             </div>
             <div class="form-group mt-5">
 
-                @{
+               @* @{
                     string reqRouteAction = string.Empty;
                     string reqAction = string.Empty;
                     int? currentID = null;
@@ -149,9 +149,9 @@
                         reqAction = "approve-request";
                         currentID = Model.RequestId;
                     }
-                }
-                @*<input type="submit" value="Create" class="btn btn-primary"/>*@
-                <input type="submit" value="Create" class="btn btn-primary" asp-route="@reqRouteAction" asp-route-id="@currentID" />
+                }*@
+                <input type="submit" value="Create" class="btn btn-primary"/>
+                @*<input type="submit" value="Create" class="btn btn-primary" asp-route="@reqRouteAction" asp-route-id="@Model.RequestId" />*@
 
                 @*<input type="submit" value="Create" class="btn btn-primary"/>*@
                 @*<input type="submit" value="Create" class="btn btn-primary" asp-route="PuchaseRequest" asp-route-requestAction="new-request" asp-route-productID="@Model.ProductId"/>*@
