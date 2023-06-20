@@ -59,6 +59,7 @@ namespace Northwind_App.ViewModels.ProductVM
        
         public ProductFilterVM ProductFilter { get; set; } = new();
         public IList<ProductViewModel>? PagedItems { get; set; } = new List<ProductViewModel>();
+        public int TotalPage { get; set; }
         public IEnumerable<ProductViewModel> ProductList { get; set; } = null!;
 
     }

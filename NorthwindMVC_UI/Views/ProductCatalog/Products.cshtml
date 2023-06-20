@@ -24,7 +24,7 @@
                    
 
                     <div class="input-group input-group-sm nav-item">
-                        <input class="input-group-text btn btn-secondary btn-sm" type="submit" value="Search" asp-route="ProductList" asp-route-itemPage="@int.Parse(ViewData["PageNumber"]!.ToString()!)" asp-route-search="@ViewData["Search"]" asp-route-filter="@ViewData["Filter"]" />
+                        <input class="input-group-text btn btn-secondary btn-sm" type="submit" value="Search" asp-route="ProductList" asp-route-itemPage="1" asp-route-search="@ViewData["Search"]" asp-route-filter="@ViewData["Filter"]" />
                         <input type="text" id="search-input" class="form-control" name="search" value="@ViewData["Search"]" placeholder="type company name or category name" />
                        
                                                    
@@ -97,7 +97,7 @@
                 </tr>
             </thead>
             <tbody align-content-around p-2>
-                @foreach (var item in Model?.PagedItems)
+                @foreach (var item in Model!.ProductList!)
                 {
                     <tr>
                         <td>
@@ -155,7 +155,7 @@
        </div>
        <div>
        @{
-            if (Model.PagedItems.GetEnumerator().MoveNext())
+            if (Model.ProductList.GetEnumerator().MoveNext())
             {
                 <partial name="_ButtonPages"/>
 
