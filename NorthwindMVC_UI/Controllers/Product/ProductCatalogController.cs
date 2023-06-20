@@ -6,14 +6,8 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-//using Microsoft.EntityFrameworkCore;
-//using Microsoft.EntityFrameworkCore.Metadata.Internal;
-//using Microsoft.IdentityModel.Tokens;
 using Northwind_App.ViewModels.ProductVM;
-//using Northwind_App.Category_CommQuery.Queries;
 using Northwind_App.Product_CommQuery.Commands;
-// using Northwind_App.Product_CommQuery.Commands.
-// using Northwind_App.Product_CommQuery.Queries;
 using Northwind_App.Product_Feature.Commands;
 using Northwind_App.Product_Feature.Queries;
 using Northwind_App.Supplier_CommQuery.Queries;
@@ -58,10 +52,7 @@ namespace Product_CoreDomain.Controllers
                     SearchPhrase = search
                 }
             }));
-
-         
-            //var pagedItems = _paging.PaginatedItems(itemPage.GetValueOrDefault(), productList.ProductList.ToList());
-            //    productList.PagedItems = pagedItems;               
+              
                 ViewData["ButtonPages"] = productList.TotalPage;         
 
             return View("Products",productList);
@@ -156,10 +147,22 @@ namespace Product_CoreDomain.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id, ProductViewModel productViewModel)
         {
+            try
+            {
+                await _mediator.Send(new RemoveProduct(productViewModel.ProductId.GetValueOrDefault(), productViewModel));
+
+            }
+            catch (Exception e){
+                
+                if (e.Message != null) {
+                    return View("Error", id);
+                }
+                
+            }
+           
          
-            await _mediator.Send(new RemoveProduct(productViewModel.ProductId.GetValueOrDefault(), productViewModel));
          
-            return RedirectToAction("Products", "ProductCatalog", new { list = "list", productPage = 1 });
+            return RedirectToAction("Products", "ProductCatalog", new { list = "list", itemPage = 1 });
         }
 
       

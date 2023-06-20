@@ -40,9 +40,7 @@ namespace Northwind_App.Product_Feature.Queries
             ProductViewModel productViewModel = new();
             productViewModel.ProductList =  _productPages.PaginatedItems(request.ItemPage, prods.ToList()) ?? new List<ProductViewModel>();
             productViewModel.TotalPage = _productPages.TotalPage();
-            //productList.PagedItems = pagedItems;
-
-
+            
             return Task.FromResult(productViewModel).Result;
         }
 

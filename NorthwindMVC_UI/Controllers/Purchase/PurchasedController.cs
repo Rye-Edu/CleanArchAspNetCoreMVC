@@ -31,7 +31,7 @@ namespace NorthwindMVC_UI.Controllers.Purchase
         [ActionName("RestockProduct")]
         public async Task<IActionResult> ApproveSelectedPurchaseRequest(int id, PurchaseRequestDetailVM requestDetailVM)
         {
-            //To implement in NorthWind_App
+           
             var requestDetail = await _mediator.Send(new ApprovePurchaseRequestCommand(id, requestDetailVM));
             return RedirectToRoute("PurchaseRequestList", new { itemPage=1});
         }
@@ -41,8 +41,6 @@ namespace NorthwindMVC_UI.Controllers.Purchase
             ViewData["SelectedNav"] = "purchase";
             ViewData["SelectedLink"] = "approved-purchases";
             ViewData["PageNumber"] = itemPage;
-
-
            
             var purchases = await _mediator.Send(new ApprovedRequestQuery(itemPage));
             ViewData["ButtonPages"] = purchases.TotalPage;

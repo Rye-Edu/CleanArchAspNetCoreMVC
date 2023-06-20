@@ -4,10 +4,10 @@
     ViewData["Title"] = "ApprovedPurchases";
 }
 
-<h1>ApprovedPurchases</h1>
+<h5>Approved Purchases</h5>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-sm btn-outline-light text-primary" asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -27,101 +27,72 @@
             <th>
                 @Html.DisplayNameFor(model => model!.PurchaseRequest!.QuantityRequested)
             </th>
-    
+
             <th>
                 @Html.DisplayNameFor(model => model.RequestedBy)
             </th>
-           @* <th>
-                @Html.DisplayNameFor(model =>  model!.PurchaseRequest!.User!.Employee.LastName )
-            </th>*@
 
             <th>
                 @Html.DisplayNameFor(model => model.DateApproved)
             </th>
-       
+
             <th>
                 @Html.DisplayNameFor(model => model.Approver)
             </th>
-        @*    <th>
-                @Html.DisplayNameFor(model =>  model!.UserApprover!.Employee!.LastName )
-            </th>*@
+
             <th>
                 @Html.DisplayNameFor(model => model.ApprovedQuantity)
             </th>
-    
-            <th>
-                    @Html.DisplayNameFor(model => model.TotalAmount)
-            </th>
-        
-        </tr>
-           @* <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => item!.RequestDetail!.ProductName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => item.)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ApprovedQuantity)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DateApproved)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TotalAmount)
-                </th>
-                <th></th>
-            </tr>*@
 
-        </thead>
-    <tbody>
-@foreach (var item in Model.ApprovedList) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item!.PurchaseRequest!.DateRequested)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PurchaseId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item!.PurchaseRequest!.Product!.ProductName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PurchaseRequest!.QuantityRequested)
-            </td>
-            <td>
-                   @Html.DisplayFor(modelItem => item.RequestedBy)
-            </td>
-          @*  <td>
-                
-                        @Html.DisplayFor(modelItem => item.PurchaseRequest!.User!.Employee!.LastName)
-                </td>*@
-                <td>
-                @Html.DisplayFor(modelItem => item!.DateApproved)
-            </td>
-            <td>
-                    @Html.DisplayFor(model => item.Approver)
-            </td>
-               @* <td>
-                    @Html.DisplayFor(model =>  item!.UserApprover!.Employee!.LastName)
-                </td>*@
-            <td>
-                @Html.DisplayFor(model => item.ApprovedQuantity)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.TotalAmount)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalAmount)
+            </th>
+
         </tr>
-}
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ApprovedList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item!.PurchaseRequest!.DateRequested)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PurchaseId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item!.PurchaseRequest!.Product!.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PurchaseRequest!.QuantityRequested)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequestedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item!.DateApproved)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Approver)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.ApprovedQuantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.TotalAmount)
+                </td>
+                <td>
+                    <ul class="d-sm-inline-flex align-content-between">
+                 
+                        <li class="btn btn-light btn-sm ml-3"> <a class="text-decoration-none">Details</a></li>
+                        <li class="btn btn-light btn-sm ml-3"> <a class="text-decoration-none">Restock</a></li>
+
+                    </ul>
+
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 
-                <partial name="_ButtonPages"/>
+<partial name="_ButtonPages" />
