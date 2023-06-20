@@ -13,24 +13,6 @@ namespace Northwind_App.ServicesHandler.CommonServices.Filters
         public int PageItems { get; set; } = 10;
         public int TotalItems { get; private set; }
 
-        //public  IList<int>? TotalPage (){
-
-        //    int pageNumber = (int)Math.Ceiling((decimal) TotalItems / PageItems);
-         
-        //    if (TotalItems < PageItems)
-        //    {
-        //        Pages?.Add(1);
-        //    }
-        //    else {
-        //        for (int i = 1; i <= pageNumber; i++)
-        //        {
-        //            Pages?.Add(i);
-        //        }
-        //    }
-          
-        //    return Pages?.ToList();
-        //}
-
         public int TotalPage()
         {
 

@@ -26,34 +26,33 @@
                     <div class="input-group input-group-sm nav-item">
                         <input class="input-group-text btn btn-secondary btn-sm" type="submit" value="Search" asp-route="ProductList" asp-route-itemPage="1" asp-route-search="@ViewData["Search"]" asp-route-filter="@ViewData["Filter"]" />
                         <input type="text" id="search-input" class="form-control" name="search" value="@ViewData["Search"]" placeholder="type company name or category name" />
-                       
-                                                   
+                                                                        
                        
                     </div>
-                    <div class="dropdown">
+                    <div class="dropdown list-group">
                         <a class="btn btn-secondary btn-sm dropdown-toggle" id="btn-filter" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Filter </a>
 
-                        <ul class="dropdown-menu" id="filter-options">
-                            <li class="dropdown-item">
+                        <ul class="dropdown-menu " id="filter-options">
+                            <li class="dropdown-item list-group-item">
                                 <input class="form-check-input" type="radio" checked value="All" name="filter" asp-for="ProductFilter.SelectedFilter" />
                                 <label class="form-check-label ms-1 text-sm-end" name="filter">Default</label>
                             </li>
-                            <li class="dropdown-item">
+                            <li class="dropdown-item list-group-item">
                                 <input class="form-check-input" type="radio" value="Product" name="filter" asp-for="ProductFilter.SelectedFilter" />
                                 <label class="form-check-label ms-1" name="filter">Product</label>
                             </li>
-                            <li class="dropdown-item">
+                            <li class="dropdown-item list-group-item">
                                 <input class="form-check-input" type="radio" value="Supplier" name="filter" asp-for="ProductFilter.SelectedFilter" />
                                 <label class="form-check-label ms-1" name="filter">Supplier</label>
                             </li>
-                            <li class="dropdown-item">
+                            <li class="dropdown-item list-group-item">
                                 <input class="form-check-input" type="radio" value="Category" name="filter" asp-for="ProductFilter.SelectedFilter" />
                                 <label class="form-check-label ms-1" name="filter">Category</label>
 
                             </li>
                         </ul>
                     </div>
-                    <a class="nav-item btn btn-sm btn-outline-secondary text-primary" asp-action="ProductsInfo" id="create">Create</a>
+                    <a class="nav-item btn btn-sm btn-outline-light text-primary" asp-action="ProductsInfo" id="create">Create</a>
                 </nav>
             </div>
         </form>

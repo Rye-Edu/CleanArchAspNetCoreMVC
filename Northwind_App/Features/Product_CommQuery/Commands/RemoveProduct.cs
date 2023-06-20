@@ -33,19 +33,18 @@ namespace Northwind_App.Product_CommQuery.Commands
         }
         public async Task<ProductViewModel?> Handle(RemoveProduct request, CancellationToken cancellationToken)
         {
-            ProductViewModel productViewModel = request.Product;
-            
-            if (request.Product != null) { 
-                var found = await _productRepository.GetSingleProduct(request.ProductID.GetValueOrDefault());
-              
-                var p = _mapper.Map<ProductViewModel>(request.Product);
-                ProductQueryByID productQueryByID = new ProductQueryByID(request.Product.ProductId.GetValueOrDefault());
-                if (found != null)
-                {
-                    await _productRepository.DeleteEntityAsync(found.ProductId);
-                    await _uploaderService.RemoveUploadedFile(found.ImageFile);
-                }
-            }
+            ProductViewModel productViewModel = request.Product ?? new();
+
+        
+                    var found = await _productRepository.GetSingleProduct(request.ProductID.GetValueOrDefault());
+
+                    ProductQueryByID productQueryByID = new ProductQueryByID(request.Product!.ProductId.GetValueOrDefault());
+                    if (found != null)
+                    {
+                        await _productRepository.DeleteEntityAsync(found.ProductId);
+                        await _uploaderService.RemoveUploadedFile(found.ImageFile);
+                    }
+
              
             return Task.FromResult(productViewModel).Result;
         }

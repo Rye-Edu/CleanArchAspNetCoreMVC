@@ -15,13 +15,10 @@ namespace Northwind_App.Features.PurchaseRequest_CommQuery.Queries
 
         public int ItemPage { get; set; }
         public int TotalPage { get; set; }
-        //public List<PurchaseRequestDetailVM> PurchaseRequests { get; set; } = new();
-
-     //   public PurchaseRequestDetailVM RequestDetailVM { get; set; } = new();
+       
         public PurchaseRequestListQuery(int itemPage)
         {
-            ItemPage = itemPage;
-       
+            ItemPage = itemPage;       
 
         }
     }
@@ -40,7 +37,7 @@ namespace Northwind_App.Features.PurchaseRequest_CommQuery.Queries
         public async Task<PurchaseRequestDetailVM> Handle(PurchaseRequestListQuery request, CancellationToken cancellationToken)
         {
 
-            //already getting the needed data for purchase request
+           
             PurchaseRequestDetailVM requestDetailVM = new();
             var requestList = await _purchaseRequestRepository.GetPurchaseRequestList();
             var list = _mapper.Map<IEnumerable<PurchaseRequestDetailVM>>(requestList);

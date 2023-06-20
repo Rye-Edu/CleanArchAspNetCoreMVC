@@ -113,15 +113,15 @@
         </div>
         <div class="row">
             <div class="form-group mt-2">
-                <input type="submit" value="Save" class="btn btn-primary" />
-                <input type="submit" value="Delete" class="btn btn-primary" asp-route-id="@Model?.ProductId" asp-action="RemoveProduct">
-                <a type="button" class="btn btn-primary" asp-controller="ProductCatalog" asp-action="Products" />Cancel<a />
+                <input type="submit" value="Save" class="btn btn-outline-light text-primary" />
+                <input type="submit" value="Delete" class="btn btn-outline-light text-primary" asp-route-id="@Model?.ProductId" asp-action="RemoveProduct">
+                <a type="button" class="btn btn-outline-light text-primary" asp-route="ProductList"  asp-route-list="list" asp-route-itemPage="1" />Cancel<a />
             </div>
         </div>
     </form>
 </div>
 <div class="mt-3">
-    <a class="btn btn-sm btn-primary" asp-route="ProductList" asp-route-list="list" asp-route-page="1">Back to List</a>
+    <a class="btn btn-outline-light text-primary" asp-route="ProductList" asp-route-list="list" asp-route-itemPage="1">Back to List</a>
 </div>
 
 @section Scripts {
