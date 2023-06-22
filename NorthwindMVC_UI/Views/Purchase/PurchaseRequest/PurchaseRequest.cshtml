@@ -115,7 +115,7 @@
             <div class="form-group">
                 <input asp-for="UnitPrice" value="@Model!.Product!.UnitPrice" hidden>
                 <label asp-for="QuantityRequested" class="control-label"></label>
-                <input asp-for="QuantityRequested" class="form-control" />
+                <input asp-for="QuantityRequested" class="form-control" placeholder="Request quantity"/>
                 <span asp-validation-for="QuantityRequested" class="text-danger"></span>
             </div>
             <div class="form-group">

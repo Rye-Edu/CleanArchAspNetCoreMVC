@@ -159,9 +159,7 @@ namespace Product_CoreDomain.Controllers
                 }
                 
             }
-           
-         
-         
+                   
             return RedirectToAction("Products", "ProductCatalog", new { list = "list", itemPage = 1 });
         }
 

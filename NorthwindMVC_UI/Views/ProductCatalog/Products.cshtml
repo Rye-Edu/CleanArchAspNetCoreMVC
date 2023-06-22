@@ -6,18 +6,16 @@
 
 }
 
-<h1>Products</h1>
+<h5>Products</h5>
 
 @{
     var filters = Model.ProductFilter.SelectedFilter = (ViewData["Filter"] != null)  ? ViewData["Filter"]!.ToString() : string.Empty;
 
 
 }
-<div>
 
-</div>
-<div class="container container-fluid">
-       <div class="row mb">
+<div class="container container-fluid ms-1">
+       <div class="row">
         <form class="form-horizontal" method="get" >
             <div class="row">
                 <nav class="navbar navbar-expand-md">
@@ -58,11 +56,11 @@
         </form>
        </div>
      
-       <div class="row">
-        <table class="table mt-4 table-hover table-sm ">
+       <div class="row flex-row">
+        <table class="table mt-4 table-hover table-sm">
             <thead >
                 <tr>
-                    <th class="align-content-md-start">
+                    <th class="align-content-md-start flex">
                         @Html.DisplayNameFor(model => model.ProductName)
                     </th>
                     <th>
