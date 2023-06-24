@@ -23,7 +23,16 @@ namespace Northwind_Infrastructure.InfraServiceRegistration
               //  services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
               //  services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
                 services.AddDbContext<NorthwindContext>(options => options.UseSqlServer(configuration.GetConnectionString("Northwind")));
-                services.AddTransient(typeof(IAsyncBaseRepository<>), typeof(AsyncBaseRepository<>));
+
+
+            services.AddDbContext<NorthwindUserContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("UserContextConnection")));
+
+            //services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //.AddEntityFrameworkStores<NorthwindUserContext>();
+            //var mappingConfig = new MapperConfiguration(mc =>
+
+            services.AddTransient(typeof(IAsyncBaseRepository<>), typeof(AsyncBaseRepository<>));
                 services.AddTransient(typeof(IPaging<>),typeof( Paging<>));
                 // builder.Services.AddScoped(typeof(IProductRepository<Product>), typeof(ProductRepository));
                 services.AddTransient<IProductRepository, ProductRepository>();

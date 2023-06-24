@@ -36,7 +36,7 @@ namespace Northwind_App.Features.Category_CommQuery.Queries
                     categoryValue = categoryItem;
                 }
             }
-            return Task.FromResult(categoryValue);
+            return Task.FromResult(categoryValue!);
         }
     }
 }
